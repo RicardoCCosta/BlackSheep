@@ -1,8 +1,9 @@
 class GameEngine{
 	constructor(){
 		this.score = 0;
-		
+		this.totalSheeps = 0;
 		this.numSheep = 0;
+		this.safeSheeps = 0;
 		this.level = 0;
 		this.dog = null;
 		this.listSheep = [];
@@ -29,7 +30,8 @@ class GameEngine{
 
 		switch(level){
 			case(1):
-				//
+				this.totalSheeps = 3;
+				//chamar um lobo
 			case(2):
 				//
 		}
@@ -86,6 +88,7 @@ class GameEngine{
         	else if(isSafe(this.listSheep[i].x,this.listSheep[i].y)){
         		//delete ovelha e numSheep --
 	        	//score aumenta
+	        	safeSheeps++;
         	}
         	else if(colision(this.dog.x,this.dog.y,this.listSheep[i].x,this.listSheep[i].y)){
 	        	//foge -> ver limites de novo??
@@ -94,8 +97,9 @@ class GameEngine{
 	        	for(let j = 0 ;j < this.listWolf.length; j++){
 		        	if(colision(this.listWolf[j].x,this.listWolf[j].y,this.listSheep[i].x,this.listSheep[i].y)){
 		        		this.listSheep[i].hp--;
-		        		if(this.listSheep[i].hp==0)
+		        		if(this.listSheep[i].hp==0){
 		        			//delete ovelha e numSheep --
+		        		}
 		        	}
 	        	}
 	        }  
@@ -114,9 +118,34 @@ class GameEngine{
 		this.dog.draw(this.ctx);
 		//draw sheep
 		for(let i = 0 ;i < this.listSheep.length; i++){
-	        this.listSheep[i].update();
+	        this.listSheep[i].draw(this.ctx);
     	}
 		//draw wolf
-		//ctx.fillText('Score: ' + score,200,30);
+		for(let i = 0 ;i < this.listWolf.length; i++){
+	        this.listWolf[i].draw(this.ctx);
+    	}
+		ctx.fillText('Score: ' + this.score,950,950);
+		ctx.fillText(this.safeSheeps + '/' + this.totalSheeps,1050,1050);
+	}
+
+	isOut(x,y){
+		if(x<0 && (y>500 || y<300)){
+			return true;
+		}
+		else if(x>800 || y<0 || y>800){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	isSafe(x,y){
+		if(x<0 && y<=500 && y>=300){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 }
