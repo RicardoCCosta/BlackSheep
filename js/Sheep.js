@@ -17,9 +17,9 @@ class Sheep extends Animal{
 	}
 
 	move(){	//mover um bocado aleatoriamente
-		if(frame==100)
-			frame=0;
-		if(frame==0){
+		if(this.frame==100)
+			this.frame=0;
+		if(this.frame==0){
 			this.goX = this.x+Math.random()*100;
 			this.goY = this.y+Math.random()*100;
 		}
@@ -31,8 +31,8 @@ class Sheep extends Animal{
 	}
 
 	update(){
-			move();
-			frame++;
+			this.move();
+			this.frame++;
 	}
 
 	flee(){	//quando ela foge do mapa

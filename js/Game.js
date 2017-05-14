@@ -8,26 +8,30 @@ function main(){
 	//carregar imagens
 	var backgroundImage = new Image();
 	var dog1Image = new Image();
-	//var dog2Image = new Image();
+	var dog2Image = new Image();
 	var dog3Image = new Image();
-	//var dog4Image = new Image();
+	var dog4Image = new Image();
 	var sheep1Image = new Image();
-	//var sheep2Image = new Image();
+	var sheep2Image = new Image();
 	var sheep3Image = new Image();
-	//var sheep4Image = new Image();
-	var sheep1Image = new Image();
-	//var sheep2Image = new Image();
+	var sheep4Image = new Image();
 	//var wolf1Image = new Image();
 	//var wolf2Image = new Image();
+	//var wolf3Image = new Image();
+	//var wolf4Image = new Image();
 	//var powerImage = new Image();
 
 	gameEngine.images.push(backgroundImage);
 	gameEngine.images.push(dog1Image);
-	//gameEngine.images.push(dog2Image);
+	gameEngine.images.push(dog2Image);
 	gameEngine.images.push(sheep1Image);
-	//gameEngine.images.push(sheep2Image);
-	//gameEngine.images.push(wold1Image);
-	//gameEngine.images.push(wold2Image);
+	gameEngine.images.push(sheep2Image);
+	gameEngine.images.push(sheep1Image);
+	gameEngine.images.push(sheep2Image);
+	//gameEngine.images.push(wolf1Image);
+	//gameEngine.images.push(wolf2Image);
+	//gameEngine.images.push(wolf3Image);
+	//gameEngine.images.push(wolf4Image);
 	//gameEngine.images.push(powerImage);
 
 	var nImages = gameEngine.images.length;
@@ -48,13 +52,13 @@ function main(){
 
 	backgroundImage.src = "Images/background.png";
 	dog1Image.src = "Images/dog1.png";
-	//dog2Image.src = "Images/dog2.png";
+	dog2Image.src = "Images/dog2.png";
 	dog3Image.src = "Images/dog3.png";
-	//dog4Image.src = "Images/dog4.png";
+	dog4Image.src = "Images/dog4.png";
 	sheep1Image.src = "Images/sheep1.png";
-	//sheep2Image.src = "Images/sheep2.png";
+	sheep2Image.src = "Images/sheep2.png";
 	sheep3Image.src = "Images/sheep3.png";
-	//sheep4Image.src = "Images/sheep4.png";
+	sheep4Image.src = "Images/sheep4.png";
 	//wolf1Image.src =  "Images/wolf1.png";
 	//wolf2Image.src =  "Images/wolf2.png";
 	
@@ -62,17 +66,21 @@ function main(){
 }
 
 function update(gameEngine){
-	gameEngine.update();
-	gameEngine.draw();
+	if(!gameEngine.pause || !gameEngine.loaded){
+		gameEngine.update();
+		gameEngine.draw();
+	}
 	window.requestAnimationFrame(function () {
         update(gameEngine);
     });
 }
 document.onmousedown = function(mouse){
 	if(mouse.which === 1){
+		if(!gameEngine.pause || !gameEngine.loaded){
 			var x = mouse.clientX - document.getElementById('ctx').getBoundingClientRect().left;
 			var y = mouse.clientY - document.getElementById('ctx').getBoundingClientRect().top;
 			gameEngine.click(x,y);
+		}
 	}else{
 		gameEngine.callPause();
 	}

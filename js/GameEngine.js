@@ -2,7 +2,7 @@
 class GameEngine{
 	constructor(){
 		this.score = 0;
-		
+		this.loaded=false;
 		this.numSheep = 0;
 		this.level = 0;
 		this.dog = null;
@@ -12,6 +12,7 @@ class GameEngine{
 		this.menu = false;
 		this.timeWhenGameStarted;
 		this.ctx;
+		this.framecounter=0;
 		//
 		this.images = [];
 		//
@@ -31,18 +32,22 @@ class GameEngine{
 
 		switch(level){
 			case(1):
-				//
+				this.listSheep.push(new Sheep(this.images[5],this.images[6],this.images[7],this.images[8]))
 			case(2):
 				//
 		}
 		this.startTime = Date.now();
+		this.loaded=true;
 		//console.log("end start GameEngine");
 	}
 
 	click(x,y){
 		console.log("start x y "+ x +" "+ y);
 		console.log("start m "+ this.mx +" "+ this.my);
-		
+		if(this.framecounter<10){
+			this.bark();
+		}
+		this.framecounter=0;
 		if(x>800-this.dog.width/2){
 			this.mx = 800-this.dog.width/2;
 		}else if(x<0+this.dog.width/2){
@@ -70,17 +75,26 @@ class GameEngine{
 
 	endGame(){
 
+		this.nextLevel();
 	}
 
 	nextLevel(){
 		
 	}
 
+	bark(){
+		//animação
+
+		//ver ovelhas perto
+
+		//ver lobos perto
+
+	}
+
 	update(){
+		this.framecounter++;
 		if(this.listSheep.length==0)
 			this.endGame();
-		if(this.pause)
-			return;
 		//dog
 		this.dog.update(this.mx,this.my);
 		//sheep
@@ -112,9 +126,6 @@ class GameEngine{
 	}
 
 	draw(){
-		if(this.pause){
-			return;
-		}
 		//draw background
 		this.ctx.clearRect(0,0,this.width,this.heigth);
 		this.ctx.drawImage(this.images[0],0,0,this.images[0].width,this.images[0].height,0,0,800,800);
@@ -122,9 +133,18 @@ class GameEngine{
 		this.dog.draw(this.ctx);
 		//draw sheep
 		for(let i = 0 ;i < this.listSheep.length; i++){
-	        this.listSheep[i].update();
+	        this.listSheep[i].draw(this.ctx);
     	}
 		//draw wolf
+
+		//draw User Interface
+			//Timer 
+			//Sheep Captured
+			//Sheep Missing
+			//Sheep Lost
+
+			//Bark metter
+
 		//ctx.fillText('Score: ' + score,200,30);
 	}
 }

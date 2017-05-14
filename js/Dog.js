@@ -4,9 +4,9 @@ class Dog extends Animal{
 		//console.log("create dog");
 		super('dog',0,10,400,400,100,100,10);
 		this.image1 = image1;
-		//this.image2 = image2;
+		this.image2 = image2;
 		this.image3 = image3;
-		//this.image4 = image4;
+		this.image4 = image4;
 		//console.log("end create dog");
 	}
 
@@ -21,20 +21,20 @@ class Dog extends Animal{
 		
 		var mod = Math.sqrt(Math.pow(difx,2)+Math.pow(dify,2));
 		//console.log("mod "+ mod + " " + isNaN(mod));
-		var difx2 = difx / mod;
-		var dify2 = dify / mod;
+		this.vx = difx / mod * this.maxSpeed;
+		this.vy = dify / mod * this.maxSpeed;
 		//console.log("dif2 " + difx2  + " " + isNaN(difx2) + " " + dify2 + " " + isNaN(dify2));
 
-		if(isNaN(difx2)){
-			difx2=0;
+		if(isNaN(this.vx)){
+			this.vx=0;
 		}
-		if(isNaN(dify2)){
-			dify2=0;
+		if(isNaN(this.vy)){
+			this.vy=0;
 		}
 		if(mod>this.maxSpeed){
 			//console.log("move "+difx2*this.maxSpeed+" "+ dify2*this.maxSpeed);
-			this.x += difx2*this.maxSpeed;
-			this.y += dify2*this.maxSpeed;
+			this.x += this.vx;
+			this.y += this.vy;
 		}else{
 			//console.log("speed "+difx*this.maxSpeed+" "+ dify*this.maxSpeed);
 			this.x += difx;
