@@ -1,19 +1,31 @@
 class Animal{
-	constructor(type,id,hp,x,y,w,h,speed,image){
+	constructor(type,id,hp,x,y,w,h,speed){
 		this.type = type;
 		this.id = id;
 		this.hp=hp;
+
 		this.x=x;
 		this.y=y;
+		this.vx=0;
+		this.vy=0;
 		this.width = w;
 		this.heigth = h;
-		this.speed=speed;
-		this.image = image;
-		
+		this.maxSpeed=speed;
+		this.image1;
+		this.image2;
 	}
 
 
-	draw(){
-		
+	draw(ctx){
+		ctx.save();
+			var posX = self.posX - self.width/2;
+			var posY = self.posY - self.height/2;
+			if(vx>0){
+				ctx.drawImage(self.image1,0,0,self.image1.width,self.image1.height,posX,posY,self.width,self.height);
+			}
+			else{
+				
+			}
+		ctx.restore();
 	}
 }
