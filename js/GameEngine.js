@@ -4,7 +4,7 @@ class GameEngine{
 		
 		this.numSheep = 0;
 		this.level = 0;
-		this.player = null;
+		this.dog = null;
 		this.listSheep = [];
 		this.listWolf = [];
 		this.pause = false;
@@ -45,12 +45,17 @@ class GameEngine{
 	}
 
 	update(){
-		
+		this.dog.move(x,y);
+
+		for(let i = 0 ;i < this.listSheep.length; i++){
+	        this.Sheep.update();
+    	}
+    	//ctx.fillText('Score: ' + score,200,30);
 	}
 
 	draw(){
 		if(pause){
-			//
+			return;
 		}
 		this.ctx.clearRect(0,0,this.width,this.heigth);
 		this.ctx.drawImage(this.images[0],0,0,this.width,this.height,0,0,800,800);
