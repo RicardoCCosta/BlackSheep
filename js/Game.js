@@ -3,8 +3,8 @@
     window.addEventListener("load", main);
 }());
 
+var gameEngine = new GameEngine();
 function main(){
-	var gameEngine = new GameEngine();
 	//carregar imagens
 	var backgroundImage = new Image();
 	var dog1Image = new Image();
@@ -74,9 +74,43 @@ document.onmousedown = function(mouse){
 			var y = mouse.clientY - document.getElementById('ctx').getBoundingClientRect().top;
 			gameEngine.click(x,y);
 	}else{
-		gameEngine.pause();
+		gameEngine.callPause();
 	}
 }
 document.oncontextmenu = function(mouse){
 	mouse.preventDefault();
+}
+
+
+function test(){
+		var x=0,y=0,mx=1,my=1,maxSpeed=1;
+		console.log("m "+mx+" "+my);
+		console.log("this "+x+" "+y);
+		
+		var difx = mx - x;
+		var dify = my + y;
+		console.log("dif " + difx + " " + isNaN(difx) + " " + dify + " " + isNaN(dify));
+		
+		var mod = Math.sqrt(Math.pow(difx,2) + Math.pow(dify,2));
+		console.log("mod "+ mod + " " + isNaN(mod));
+		var difx2 = difx / mod;
+		var dify2 = dify / mod;
+		console.log("dif2 " + difx2  + " " + isNaN(difx2) + " " + dify2 + " " + isNaN(dify2));
+
+		if(isNaN(difx2)){
+			difx2=0;
+		}
+		if(isNaN(dify2)){
+			dify2=0;
+		}
+		if(mod>maxSpeed){
+			console.log("mod "+difx2*maxSpeed+" "+ dify2*maxSpeed);
+			x += difx2*maxSpeed;
+			y += dify2*maxSpeed;
+		}else{
+			console.log("speed "+difx*maxSpeed+" "+ dify*maxSpeed);
+			x += difx;
+			y += dify;
+		}
+		
 }

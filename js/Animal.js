@@ -1,3 +1,4 @@
+"use strict";
 class Animal{
 	constructor(type,id,hp,x,y,w,h,speed){
 		this.type = type;
@@ -19,18 +20,18 @@ class Animal{
 
 
 	draw(ctx){
-		console.log("doge");
+		//console.log("doge");
 		ctx.save();
 			var posX = this.x - this.width/2;
 			var posY = this.y - this.height/2;
+			console.log("x y " +this.x+" " + this.y);
 			
-			ctx.stroke();
-			if(this.vx>0){
+			if(this.vx>=0){
 				ctx.drawImage(this.image1,0,0,this.image1.width,this.image1.height,posX,posY,this.width,this.height);
 			}
 			else{
 				//usar imagem invertida
-				ctx.drawImage(this.image1,0,0,this.image1.width,this.image1.height,posX,posY,this.width,this.height);	
+				ctx.drawImage(this.image3,0,0,this.image1.width,this.image1.height,posX,posY,this.width,this.height);	
 			}
 		ctx.restore();
 	}

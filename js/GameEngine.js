@@ -1,3 +1,4 @@
+"use strict";
 class GameEngine{
 	constructor(){
 		this.score = 0;
@@ -19,13 +20,14 @@ class GameEngine{
 	}
 
 	start(level){
+		//console.log("start GameEngine");
 		this.ctx = document.getElementById("ctx").getContext("2d"); 
 		this.width = 800;
 		this.heigth = 800;
 		
 		this.level=level;
 		this.timeWhenGameStarted = Date.now();
-		this.dog = new Dog(this.images[1],this.images[2]);
+		this.dog = new Dog(this.images[1],this.images[2],this.images[3],this.images[4]);
 
 		switch(level){
 			case(1):
@@ -34,31 +36,34 @@ class GameEngine{
 				//
 		}
 		this.startTime = Date.now();
-
+		//console.log("end start GameEngine");
 	}
 
 	click(x,y){
-		if(x>800){
-			this.mx = 800;
-		}
-		else if(x<0){
-			this.mx = 0;
-		}
-		else{
+		console.log("start x y "+ x +" "+ y);
+		console.log("start m "+ this.mx +" "+ this.my);
+		
+		if(x>800-this.dog.width/2){
+			this.mx = 800-this.dog.width/2;
+		}else if(x<0+this.dog.width/2){
+			this.mx = 0+this.dog.width/2;
+		}else{
 			this.mx=x;
 		}
-		if(x>800){
-			this.my = 800;
+
+		if(y>800-this.dog.height/2){
+			this.my = 800-this.dog.height/2;
+		}else if(y<0+this.dog.height/2){
+			this.my = 0+this.dog.width/2;
+		}else{
+			this.my=y;
 		}
-		else if(x<0){
-			this.my = 0;
-		}
-		else{
-			this.my = y;
-		}
+
+		console.log("end m "+ this.mx +" "+ this.my);
+
 	}
 
-	pause(){
+	callPause(){
 		this.pause = !this.pause;
 	}
 	
@@ -72,6 +77,10 @@ class GameEngine{
 	}
 
 	update(){
+		if(this.pause){
+			return;
+		}
+		console.log("update GameEngine");
 		//dog
 		this.dog.update(this.mx,this.my);
 		//sheep
@@ -84,7 +93,7 @@ class GameEngine{
 
 	draw(){
 		if(this.pause){
-			//mostrar menu...
+			return;
 		}
 		//draw background
 		this.ctx.clearRect(0,0,this.width,this.heigth);
