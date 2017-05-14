@@ -13,6 +13,8 @@ class Animal{
 		this.maxSpeed=speed;
 		this.image1 = new Image();
 		this.image2 = new Image();
+		this.image3 = new Image();
+		this.image4 = new Image();
 	}
 
 
