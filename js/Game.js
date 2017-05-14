@@ -15,19 +15,19 @@ function main(){
 	//var wolf2Image = new Image();
 	//var powerImage = new Image();
 
-	gameEngine.Images.push(backgroundImage);
-	gameEngine.Images.push(dog1Image);
-	//gameEngine.Images.push(dog2Image);
-	gameEngine.Images.push(sheep1Image);
-	//gameEngine.Images.push(sheep2Image);
-	//gameEngine.Images.push(wold1Image);
-	//gameEngine.Images.push(wold2Image);
-	//gameEngine.Images.push(powerImage);
+	gameEngine.images.push(backgroundImage);
+	gameEngine.images.push(dog1Image);
+	//gameEngine.images.push(dog2Image);
+	gameEngine.images.push(sheep1Image);
+	//gameEngine.images.push(sheep2Image);
+	//gameEngine.images.push(wold1Image);
+	//gameEngine.images.push(wold2Image);
+	//gameEngine.images.push(powerImage);
 
-	var nImages = gameEngine.Images.length;
+	var nImages = gameEngine.images.length;
 	var loadedImages = 0;
 	for(let i = 0 ;i< nImages ; i++){
-		gameEngine.Images[i].addEventListener("load", function () {
+		gameEngine.images[i].addEventListener("load", function () {
 			loadedImages++;
 			if(loadedImages == nImages){
 				//inicializar jogo
@@ -47,6 +47,7 @@ function main(){
 	//sheep2Image.src = "Images/sheep2.png";
 	//wolf1Image.src =  "Images/wolf1.png";
 	//wolf2Image.src =  "Images/wolf2.png";
+	
 	//powerImage.src = "Image/power.png";
 }
 
@@ -57,4 +58,15 @@ function update(gameEngine){
         update(gameEngine);
     });
 }
-
+document.onmousedown = function(mouse){
+	if(mouse.which === 1){
+			var x = mouse.clientX - document.getElementById('ctx').getBoundingClientRect().left;
+			var y = mouse.clientY - document.getElementById('ctx').getBoundingClientRect().top;
+			gameEngine.click(x,y);
+	}else{
+		gameEngine.pause();
+	}
+}
+document.oncontextmenu = function(mouse){
+	mouse.preventDefault();
+}

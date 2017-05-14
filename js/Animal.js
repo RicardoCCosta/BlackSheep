@@ -9,22 +9,26 @@ class Animal{
 		this.vx=0;
 		this.vy=0;
 		this.width = w;
-		this.heigth = h;
+		this.height = h;
 		this.maxSpeed=speed;
-		this.image1;
-		this.image2;
+		this.image1 = new Image();
+		this.image2 = new Image();
 	}
 
 
 	draw(ctx){
+		console.log("doge");
 		ctx.save();
-			var posX = self.posX - self.width/2;
-			var posY = self.posY - self.height/2;
-			if(vx>0){
-				ctx.drawImage(self.image1,0,0,self.image1.width,self.image1.height,posX,posY,self.width,self.height);
+			var posX = this.x - this.width/2;
+			var posY = this.y - this.height/2;
+			
+			ctx.stroke();
+			if(this.vx>0){
+				ctx.drawImage(this.image1,0,0,this.image1.width,this.image1.height,posX,posY,this.width,this.height);
 			}
 			else{
-				
+				//usar imagem invertida
+				ctx.drawImage(this.image1,0,0,this.image1.width,this.image1.height,posX,posY,this.width,this.height);	
 			}
 		ctx.restore();
 	}
