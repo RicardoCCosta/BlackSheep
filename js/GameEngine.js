@@ -13,10 +13,6 @@ class GameEngine{
 		this.ctx;
 		//
 		this.images = [];
-		this.sheep1Image;
-		this.sheep2Image;
-		this.wolf1Image;
-		this.wolf2Image;
 		//
 
 	}

@@ -13,6 +13,8 @@ class Animal{
 		this.maxSpeed=speed;
 		this.image1;
 		this.image2;
+		this.image3;
+		this.image4;
 	}
 
 
@@ -24,7 +26,7 @@ class Animal{
 				ctx.drawImage(self.image1,0,0,self.image1.width,self.image1.height,posX,posY,self.width,self.height);
 			}
 			else{
-				
+				ctx.drawImage(self.image3,0,0,self.image3.width,self.image3.height,posX,posY,self.width,self.height);
 			}
 		ctx.restore();
 	}

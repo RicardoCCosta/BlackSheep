@@ -9,6 +9,12 @@ function main(){
 	var backgroundImage = new Image();
 	var dog1Image = new Image();
 	//var dog2Image = new Image();
+	var dog3Image = new Image();
+	//var dog4Image = new Image();
+	var sheep1Image = new Image();
+	//var sheep2Image = new Image();
+	var sheep3Image = new Image();
+	//var sheep4Image = new Image();
 	var sheep1Image = new Image();
 	//var sheep2Image = new Image();
 	//var wolf1Image = new Image();
@@ -43,8 +49,12 @@ function main(){
 	backgroundImage.src = "Images/background.png";
 	dog1Image.src = "Images/dog1.png";
 	//dog2Image.src = "Images/dog2.png";
+	dog3Image.src = "Images/dog3.png";
+	//dog4Image.src = "Images/dog4.png";
 	sheep1Image.src = "Images/sheep1.png";
 	//sheep2Image.src = "Images/sheep2.png";
+	sheep3Image.src = "Images/sheep3.png";
+	//sheep4Image.src = "Images/sheep4.png";
 	//wolf1Image.src =  "Images/wolf1.png";
 	//wolf2Image.src =  "Images/wolf2.png";
 	//powerImage.src = "Image/power.png";
