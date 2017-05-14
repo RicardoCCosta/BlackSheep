@@ -1,0 +1,5 @@
+contém:
+sprites
+hp com vida de inimigos
+colisão com objetos dentro do mapa:
+(ver: https://www.youtube.com/watch?v=K-qi3jzyngs)

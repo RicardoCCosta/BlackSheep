@@ -1,0 +1,37 @@
+https://www.youtube.com/watch?v=gy_0Dm-eeaI&t=3s
+
+canvas: define limites do campo
+
+variáveis:
+altura, comprimento, inicio do tempo, contador de frames, score
+player com dados
+dicionario que guarda os inimigos
+dicionario que guarda bonus
+dicionario que guarda bullets
+
+métodos:
+getDistanceBetweenEntity - distancia entre 2 entidades
+testCollisionEntity - guarda em 2 variaveis o x e y menos a distancia ao centro
+   chama colisionrectrect com essas var com parametro
+colisionRectRect - return true ou false se colide
+Enemy - guarda dados e poe no dicionario
+randomlyGenerateEnemy - gera inimigo
+Upgrade - bonus
+randomlyGenerateUpgrade - gera bonus roxo(atkSpd) e laranja(score)
+Bullet - guarda dados de bala
+randomlyGenerateBullet - gera bala, com parametro de aim como opcional
+updateEntity: chama updatePosition: aumenta o speed e nos limites inverte e draw: desenha rect
+onclick - gera bullets a cada segundo
+oncontextmenu - a cada 2 seg gera 3 balas (rato direito)
+onmouse - cria o aimAngle
+onkeydown/up - poe false/true teclas carregadas
+updatePlayerPosition - atualiza pos e verifica limites
+update - gera inimigo a cada 4 seg, bonus a cada 3
+	attackCounter += atkSpd
+	percorre todas as balas,atualiza pos e aumenta timer, se passar 3 seg remove
+	para cada bala ve inimigos e testa se colide, se sim remove-os
+	percorre inimigos, atualiza pos e se algum colide com player perde 1 hp
+	se hp 0 ve diferença de tempo e startNewGame()
+	atualiza playerPos, draw e poe hp e score
+startNewGame - repoe hp, tempo inicial, score, limpa dicios e gera 3 inimigos
+setInterval: chama update a cada 40 milissegundos
