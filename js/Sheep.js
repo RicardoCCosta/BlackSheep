@@ -1,15 +1,15 @@
 class Sheep extends Animal{
-	constructor(){
-		var x; //gerar random
-		var y;
-		var speed;
-		var w;
-		var h;
-		constructor(20,x,y,speed);
+	constructor(image1,image2,image3,image4){
+		super('sheep',0,10,400,400,10,10,10);
+		this.image1 = image1;
+		this.image2 = image2;
+		this.image3 = image3;
+		this.image4 = image4;
 		this.caught = false; 	// se já está dentro da 
 		this.idle = 0;		//tempo da animação de comer // se 0 não está a fazer nada
-
-
+		this.frame = 0;
+		this.goX = 0;
+		this.goY = 0;
 	}
 
 	ilde(){ //fazer animação de comer erva
@@ -17,7 +17,10 @@ class Sheep extends Animal{
 	}
 
 	move(){	//mover um bocado aleatoriamente
-
+		if(frame==0){
+			this.goX = Math.random()*Width;
+			this.goY = Math.random()*Width;
+		}
 	}
 	run(){ 	//activado quando o ção ladra 
 			//a ovelha é suposto correr X tempo numa direção
@@ -36,6 +39,8 @@ class Sheep extends Animal{
 			//possiblidade de fugir do mapa
 			//se não estiver a fazer nada rolar probablidade de se mover/animação
 			//draw();
+			move();
+			frame++;
 	}
 
 	flee(){	//quando ela foge do mapa
