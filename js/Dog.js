@@ -1,5 +1,4 @@
 class Dog extends Animal{
-<<<<<<< HEAD
 	constructor(image1,image2,image3,image4){
 		super('dog',0,10,400,400,100,100,10);
 		this.image1 = image1;

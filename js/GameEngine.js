@@ -6,7 +6,7 @@ class GameEngine{
 		this.level = 0;
 		this.dog = null;
 		this.listSheep = [];
-		this.listWolf = [];
+		this.wolf = [];
 		this.pause = false;
 		this.menu = false;
 		this.timeWhenGameStarted;
@@ -72,14 +72,35 @@ class GameEngine{
 	}
 
 	update(){
+		if(this.listSheep.length==0)
+			endGame();
 		//dog
 		this.dog.update(this.mx,this.my);
 		//sheep
+		//verificar distancia com lobos, cao, limites de fuga e limite de segurança
 		for(let i = 0 ;i < this.listSheep.length; i++){
-	        this.Sheep.update();
+	        this.listSheep[i].update();
+	        if(isOut(this.listSheep[i].x,this.listSheep[i].y)){
+	        	//delete ovelha e numSheep --
+        	}
+        	else if(isSafe(this.listSheep[i].x,this.listSheep[i].y)){
+        		//delete ovelha e numSheep --
+	        	//score aumenta
+        	}
+        	else if(colision(this.dog.x,this.dog.y,this.listSheep[i].x,this.listSheep[i].y)){
+	        	//foge -> ver limites de novo??
+	        }
+	        else{
+	        	for(let j = 0 ;j < this.listWolf.length; j++){
+		        	if(colision(this.listWolf[j].x,this.listWolf[j].y,this.listSheep[i].x,this.listSheep[i].y)){
+		        		this.listSheep[i].hp--;
+		        		if(this.listSheep[i].hp==0)
+		        			//delete ovelha e numSheep --
+		        	}
+	        	}
+	        }  
     	}
 		//wolf
-    	//ctx.fillText('Score: ' + score,200,30);
 	}
 
 	draw(){
@@ -92,8 +113,10 @@ class GameEngine{
 		//draw dog
 		this.dog.draw(this.ctx);
 		//draw sheep
-
+		for(let i = 0 ;i < this.listSheep.length; i++){
+	        this.listSheep[i].update();
+    	}
 		//draw wolf
-
+		//ctx.fillText('Score: ' + score,200,30);
 	}
 }

@@ -1,6 +1,6 @@
 class Sheep extends Animal{
 	constructor(image1,image2,image3,image4){
-		super('sheep',0,10,400,400,10,10,10);
+		super('sheep',0,10,400,400,100,100,10);
 		this.image1 = image1;
 		this.image2 = image2;
 		this.image3 = image3;
@@ -17,10 +17,13 @@ class Sheep extends Animal{
 	}
 
 	move(){	//mover um bocado aleatoriamente
+		if(frame==100)
+			frame=0;
 		if(frame==0){
-			this.goX = Math.random()*Width;
-			this.goY = Math.random()*Width;
+			this.goX = this.x+Math.random()*100;
+			this.goY = this.y+Math.random()*100;
 		}
+		//mover de x to goX com speed
 	}
 	run(){ 	//activado quando o ção ladra 
 			//a ovelha é suposto correr X tempo numa direção
@@ -28,17 +31,6 @@ class Sheep extends Animal{
 	}
 
 	update(){
-			//verificar distancia ao lobos
-			//	se estiver a ser comida não mexer
-			//		verificar se morre
-			//			onDeath(GameEngine);
-			//verificar distancia ao cão
-			//	se estiver perto o suficiente mover-se no sentido oposto
-			//verificar limites
-			//verificar a vedação
-			//possiblidade de fugir do mapa
-			//se não estiver a fazer nada rolar probablidade de se mover/animação
-			//draw();
 			move();
 			frame++;
 	}
