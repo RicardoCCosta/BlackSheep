@@ -2,12 +2,15 @@
 class GameEngine{
 	constructor(){
 		this.score = 0;
+
 		this.loaded=false;
+		this.totalSheeps = 0;
 		this.numSheep = 0;
+		this.safeSheeps = 0;
 		this.level = 0;
 		this.dog = null;
 		this.listSheep = [];
-		this.wolf = [];
+		this.listWolf = [];
 		this.pause = false;
 		this.menu = false;
 		this.timeWhenGameStarted;
@@ -33,6 +36,9 @@ class GameEngine{
 		switch(level){
 			case(1):
 				this.listSheep.push(new Sheep(this.images[5],this.images[6],this.images[7],this.images[8]))
+				this.totalSheeps = 3;
+				//chamar um lobo
+
 			case(2):
 				//
 		}
@@ -101,19 +107,20 @@ class GameEngine{
 		//verificar distancia com lobos, cao, limites de fuga e limite de segurança
 		for(let i = 0 ;i < this.listSheep.length; i++){
 	        this.listSheep[i].update();
-	        if(isOut(this.listSheep[i].x,this.listSheep[i].y)){
+	        if(this.isOut(this.listSheep[i].x,this.listSheep[i].y)){
 	        	//delete ovelha e numSheep --
         	}
-        	else if(isSafe(this.listSheep[i].x,this.listSheep[i].y)){
+        	else if(this.isSafe(this.listSheep[i].x,this.listSheep[i].y)){
         		//delete ovelha e numSheep --
 	        	//score aumenta
+	        	safeSheeps++;
         	}
-        	else if(colision(this.dog.x,this.dog.y,this.listSheep[i].x,this.listSheep[i].y)){
+        	else if(this.colision(this.dog.x,this.dog.y,this.listSheep[i].x,this.listSheep[i].y)){
 	        	//foge -> ver limites de novo??
 	        }
 	        else{
 	        	for(let j = 0 ;j < this.listWolf.length; j++){
-		        	if(colision(this.listWolf[j].x,this.listWolf[j].y,this.listSheep[i].x,this.listSheep[i].y)){
+		        	if(this.colision(this.listWolf[j].x,this.listWolf[j].y,this.listSheep[i].x,this.listSheep[i].y)){
 		        		this.listSheep[i].hp--;
 		        		if(this.listSheep[i].hp==0){
 		        			//delete ovelha e numSheep --
@@ -136,6 +143,9 @@ class GameEngine{
 	        this.listSheep[i].draw(this.ctx);
     	}
 		//draw wolf
+		for(let i = 0 ;i < this.listWolf.length; i++){
+	        this.listWolf[i].draw(this.ctx);
+    	}
 
 		//draw User Interface
 			//Timer 
@@ -146,5 +156,32 @@ class GameEngine{
 			//Bark metter
 
 		//ctx.fillText('Score: ' + score,200,30);
+		this.ctx.fillText('Score: ' + this.score,950,950);
+		this.ctx.fillText(this.safeSheeps + '/' + this.totalSheeps,1050,1050);
+	}
+
+	isOut(x,y){
+		if(x<0 && (y>500 || y<300)){
+			return true;
+		}
+		else if(x>800 || y<0 || y>800){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	isSafe(x,y){
+		if(x<0 && y<=500 && y>=300){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	colision(x1,y1,x2,y2){
+
 	}
 }
