@@ -27,6 +27,9 @@ function main(){
 	//var wolf5Image = new Image();
 	//var wolf6Image = new Image();
 	//var powerImage = new Image();
+	var mainImage = new Image();
+	var menu = new Image();
+	var options = new Image();
 
 	gameEngine.images.push(backgroundImage);
 	gameEngine.images.push(dog1Image);
@@ -49,6 +52,9 @@ function main(){
 	//gameEngine.images.push(wolf5Image);
 	//gameEngine.images.push(wolf6Image);
 	//gameEngine.images.push(powerImage);
+	gameEngine.menuImages.push(mainImage);
+	gameEngine.menuImages.push(menu);
+	gameEngine.menuImages.push(options);
 
 	var nImages = gameEngine.images.length;
 	var loadedImages = 0;
@@ -58,8 +64,8 @@ function main(){
 			if(loadedImages == nImages){
 				//continues to game
 				gameEngine.setCtx();
-				gameEngine.start(1);	
-				gameEngine.stage="game";
+				//gameEngine.start(1);	
+				gameEngine.stage="intro";
 				window.requestAnimationFrame(function () {
 				    update(gameEngine);
 				});
@@ -86,8 +92,10 @@ function main(){
 	//wolf4Image.src =  "Images/wolf4.png";
 	//wolf5Image.src =  "Images/wolf5.png";
 	//wolf6Image.src =  "Images/wolf6.png";
-	
 	//powerImage.src = "Image/power.png";
+	mainImage.src = "Images/main.png";
+	menu.src = "Images/menu-01.png";
+	options.src = "Images/options.png";
 }
 
 function update(gameEngine){
@@ -95,7 +103,17 @@ function update(gameEngine){
 		case("load"):
 			break;
 		case("intro"):
-			
+			gameEngine.drawMenu();
+			break;
+		case("menuMain"):
+			gameEngine.drawMenu();
+			break;
+		case("menuOptions"):
+			gameEngine.drawMenu();
+			break;
+		case("menuLevel"):
+			//gameEngine.clickMenu();
+			gameEngine.drawMenu();
 			break;
 		case("game"):
 			if(!gameEngine.pause || !gameEngine.loaded){
@@ -110,54 +128,32 @@ function update(gameEngine){
 }
 
 document.onmousedown = function(mouse){
-	//swich
-		//case levelmenu
-			//click level 1
-				//start(1);
-	if(mouse.which === 1){
-		if(!gameEngine.pause || !gameEngine.loaded){
-			var x = mouse.clientX - document.getElementById('ctx').getBoundingClientRect().left;
-			var y = mouse.clientY - document.getElementById('ctx').getBoundingClientRect().top;
-			gameEngine.click(x,y);
-		}
-	}else{
-		gameEngine.callPause();
+	var x = mouse.clientX - document.getElementById('ctx').getBoundingClientRect().left;
+	var y = mouse.clientY - document.getElementById('ctx').getBoundingClientRect().top;
+	switch(gameEngine.stage){
+		case("load"):
+			break;
+		case("intro"):
+			break;
+		case("menuMain"):
+			gameEngine.clickMenu(x,y);
+			break;
+		case("menuOptions"):
+			gameEngine.clickMenu(x,y);
+			break;
+		case("menuLevel"):
+			gameEngine.clickMenu(x,y);
+			break;
+		case("game"):
+			if(mouse.which === 1){
+				if(!gameEngine.pause || !gameEngine.loaded){
+					gameEngine.click(x,y);
+				}
+			}else{
+				gameEngine.callPause();
+			}	
 	}
 }
 document.oncontextmenu = function(mouse){
 	mouse.preventDefault();
-}
-
-
-function test(){
-		var x=0,y=0,mx=1,my=1,maxSpeed=1;
-		console.log("m "+mx+" "+my);
-		console.log("this "+x+" "+y);
-		
-		var difx = mx - x;
-		var dify = my + y;
-		console.log("dif " + difx + " " + isNaN(difx) + " " + dify + " " + isNaN(dify));
-		
-		var mod = Math.sqrt(Math.pow(difx,2) + Math.pow(dify,2));
-		console.log("mod "+ mod + " " + isNaN(mod));
-		var difx2 = difx / mod;
-		var dify2 = dify / mod;
-		console.log("dif2 " + difx2  + " " + isNaN(difx2) + " " + dify2 + " " + isNaN(dify2));
-
-		if(isNaN(difx2)){
-			difx2=0;
-		}
-		if(isNaN(dify2)){
-			dify2=0;
-		}
-		if(mod>maxSpeed){
-			console.log("mod "+difx2*maxSpeed+" "+ dify2*maxSpeed);
-			x += difx2*maxSpeed;
-			y += dify2*maxSpeed;
-		}else{
-			console.log("speed "+difx*maxSpeed+" "+ dify*maxSpeed);
-			x += difx;
-			y += dify;
-		}
-		
 }

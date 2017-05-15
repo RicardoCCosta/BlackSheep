@@ -19,6 +19,7 @@ class GameEngine{
 		this.framecounter=0;
 		//
 		this.images = [];
+		this.menuImages = [];
 		//
 		this.mx = 400;
 		this.my = 400;
@@ -150,7 +151,7 @@ class GameEngine{
 		       	}
 	        }
 	        
-        	if(flagIdle && dist<600){
+        	if(flagIdle && dist<300){
         		flagIdle=false;
         		this.listSheep[i].reset();
         		this.listSheep[i].flee(this.dog.x,this.dog.y);
@@ -161,7 +162,7 @@ class GameEngine{
     	}
 		//wolf
 		for(let i = 0 ;i < this.listWolf.length; i++){
-			if(calcDist(this.dog.x,this.dog.y,this.listWolf[i].x,this.listWolf[i].y)<100){
+			if(calcDist(this.dog.x,this.dog.y,this.listWolf[i].x,this.listWolf[i].y)<200){
 				this.listWolf[i].flee(this.dog.x,this.dog.y);
 				this.listWolf[i].goto();
 			}
@@ -222,7 +223,6 @@ class GameEngine{
 		}
 	}
 
-
 	calcDist(x1,y1,x2,y2){
 		var difx = x1 - x2;
 		var dify = y1 - y2;
@@ -245,7 +245,6 @@ class GameEngine{
 		}
 	}
 
-
 	wall(x){
 		if(x<0 && (y<=500 || y>=300)){
 			return true;
@@ -253,7 +252,48 @@ class GameEngine{
 		return false;
 	}
 
-	drawMenuStart(){
-		
+	drawMenu(){
+		switch(this.stage){
+			case("intro"):
+				console.log('desenha menu intro');
+				//desenha o main, ve o contador de frames do intro e se passar valor altera opcao de intro para menuMain
+				this.ctx.clearRect(0,0,this.width,this.heigth);
+				this.ctx.drawImage(this.menuImages[0],0,0,this.menuImages[0].width,this.menuImages[0].height,0,0,800,800);
+				this.stage = "menuMain";
+				break;
+			case("menuMain"):
+				console.log('desenha menu main');
+				this.ctx.clearRect(0,0,this.width,this.heigth);
+				this.ctx.drawImage(this.menuImages[1],0,0,this.menuImages[1].width,this.menuImages[1].height,0,0,800,800);
+				break;
+			case("menuOptions"):
+				this.ctx.clearRect(0,0,this.width,this.heigth);
+				this.ctx.drawImage(this.menuImages[2],0,0,this.menuImages[2].width,this.menuImages[2].height,0,0,800,800);
+				break;
+			case("menuLevel"):
+				//chama o ctx para desenhar a imagem do menu level
+				break;	
+		}	
+	}
+
+	clickMenu(x,y){
+		//fazer switch com todos os tipos de menu
+			//ver posiçao do rato, se estiver dentro de os parametros de um botao fazer açao
+			//por exemplo no level fazer start com o respetivo
+			console.log('(x,y):'+x+','+y);
+		switch(this.stage){
+			case("menuMain"):
+				//desenha o main, ve o contador de frames do intro e se passar valor altera opcao de intro para menuMain
+				if(x>=336 && x<=456 && y>=288 && y<=328){
+					this.stage = "game";
+					this.start(1);
+				}
+				break;
+			case("menuOptions"):
+				break;
+			case("menuLevel"):
+				//ver em qual level se clicou e chamar start(level)
+				break;
+		}
 	}
 }
