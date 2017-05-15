@@ -1,6 +1,4 @@
-.main img {
-    max-width:900px;
-    max-height:800px;
-    width: auto;
-    height: auto;
+canvas{
+ 	font-family: 'Comic Sans';
+ 	font-size: 100px;
 }

@@ -31,6 +31,7 @@ class GameEngine{
 
 	setCtx(){
 		this.ctx = document.getElementById("ctx").getContext("2d"); 
+		this.ctx.font = '30px Arial';
 	}
 	start(level){
 		//console.log("start GameEngine");
@@ -129,24 +130,21 @@ class GameEngine{
 	        	this.score+=100;
 	        	this.safeSheeps++;
 	        	continue;
-        	}else if(this.wall(this.listSheep[i].x)){
-
-        	}
-	        else if(this.isOut(this.listSheep[i].x,this.listSheep[i].y)){
+        	}else if(this.isOut(this.listSheep[i].x,this.listSheep[i].y)){
 	        	//delete ovelha
 
 	        	continue;
         	}
         	
-	        
+	        this.wall(this.listSheep[i]);
 	        for(let j = 0 ;j < this.listWolf.length; j++){
 	        	let wolfDist = calcDist(this.listWolf[j].x,this.listWolf[j].y,this.listSheep[i].x,this.listSheep[i].y);
 		        if(wolfDist<=wolfSheepDistance){
 		        	flagIdle=false;
 		        	this.listSheep[i].reset();
 		        	this.listSheep[i].hp--;
-		        	if(this.listSheep[i].hp==0){
-		        		//delete ovelha e numSheep --
+		        	if(this.listSheep[i].hp<0){
+		        		gameEngine.listSheep.splice(i,1);
 		        	}
 		       	}
 	        }
@@ -154,8 +152,8 @@ class GameEngine{
         	if(flagIdle && dist<300){
         		flagIdle=false;
         		this.listSheep[i].reset();
-        		this.listSheep[i].flee(this.dog.x,this.dog.y);
         		this.listSheep[i].goto();
+        		this.listSheep[i].flee(this.dog.x,this.dog.y);
         	}
 
         	this.listSheep[i].update();
@@ -163,8 +161,8 @@ class GameEngine{
 		//wolf
 		for(let i = 0 ;i < this.listWolf.length; i++){
 			if(calcDist(this.dog.x,this.dog.y,this.listWolf[i].x,this.listWolf[i].y)<200){
-				this.listWolf[i].flee(this.dog.x,this.dog.y);
 				this.listWolf[i].goto();
+				this.listWolf[i].flee(this.dog.x,this.dog.y);
 			}
         	nextSheep(this.listWolf[i]);
         	//ignora distancia ao cao para ja, criar um metodo que continue a ir para a ovelha mas desviado???
@@ -189,6 +187,7 @@ class GameEngine{
 		this.dog.draw(this.ctx);
 		//draw User Interface
 			//Timer 
+			this.ctx.fi
 			//Sheep Captured
 			//Sheep Missing
 			//Sheep Lost
@@ -196,16 +195,13 @@ class GameEngine{
 			//Bark metter
 
 		//ctx.fillText('Score: ' + score,200,30);
-		this.ctx.fillText('Score: ' + this.score,950,950);
-		this.ctx.fillText(this.safeSheeps + '/' + this.totalSheeps,1050,1050);
+		this.ctx.fillText('Score: ' + this.score,0,30);
+		this.ctx.fillText('caugth ' +this.safeSheeps + ' / missing ' +this.listSheep.length+' / total '+ this.totalSheeps,400,30);
 	}
 
 	isOut(x,y){
 		//SOM
-		if(x<0 && (y>500 || y<300)){
-			return true;
-		}
-		else if(x>800 || y<0 || y>800){
+		if(x>800+50 && (y<0-50 || y>800+50)){
 			return true;
 		}
 		else{
@@ -215,11 +211,17 @@ class GameEngine{
 
 	isSafe(x,y){
 		//SOM
-		if(x<0 && y<=500 && y>=300){
+		if(x<0-50 && y<=500 && y>=300){
 			return true;
 		}
 		else{
 			return false;
+		}
+	}
+
+	wall(sheep){
+		if(sheep.x<0+sheep.width/2 && (sheep.y>=500 || sheep.y<=300)){
+			sheep.x+=10;
 		}
 	}
 
@@ -243,13 +245,6 @@ class GameEngine{
 		if(first>wolfSheepDistance){
 			wolf.update(this.listSheep[next].x,this.listSheep[next].y);
 		}
-	}
-
-	wall(x){
-		if(x<0 && (y<=500 || y>=300)){
-			return true;
-		}
-		return false;
 	}
 
 	drawMenu(){
@@ -311,4 +306,6 @@ class GameEngine{
 				break;
 		}
 	}
+
+	
 }

@@ -28,6 +28,7 @@ class Animal{
 		ctx.save();
 			let posX = this.x - this.width/2;
 			let posY = this.y - this.height/2;
+			console.log(this.type +" "+	this.vx+" "+this.vy);
 			if(this.vx==0 && this.vy==0){
 				ctx.drawImage(this.image1,0,0,this.image1.width,this.image1.height,posX,posY,this.width,this.height);
 			}else if(this.vx>=0){
@@ -55,8 +56,10 @@ class Animal{
 		var dify = y - this.y;
 		var mod = Math.sqrt(Math.pow(difx,2)+Math.pow(dify,2));
 
-		this.goX = this.x - difx / mod ;
-		this.goY = this.y - dify / mod ;
+		this.vx = - difx / mod * this.maxSpeed;
+		this.vy = - dify / mod * this.maxSpeed;
+		this.goX = this.x + this.vx ;
+		this.goY = this.y + this.vy ;
 		if(isNaN(this.goX)){
 			this.goX=x;
 		}
@@ -68,20 +71,23 @@ class Animal{
 	goto(){
 		var difx = this.goX - this.x;
 		var dify = this.goY - this.y;
-		//console.log("dif " + difx + " " + isNaN(difx) + " " + dify + " " + isNaN(dify));
+		console.log("dif " + difx + " " + isNaN(difx) + " " + dify + " " + isNaN(dify));
 		
 		var mod = Math.sqrt(Math.pow(difx,2)+Math.pow(dify,2));
-		//console.log("mod "+ mod + " " + isNaN(mod));
+		console.log("mod "+ mod + " " + isNaN(mod));
 		this.vx = difx / mod * this.maxSpeed;
 		this.vy = dify / mod * this.maxSpeed;
-		//console.log("dif2 " + difx2  + " " + isNaN(difx2) + " " + dify2 + " " + isNaN(dify2));
+		console.log("v " + this.vx  + " " + isNaN(this.vx) + " " + this.vy + " " + isNaN(this.vy));
 
 		if(isNaN(this.vx)){
+			console.log("baka1");
 			this.vx=0;
 		}
 		if(isNaN(this.vy)){
+			console.log("baka2");
 			this.vy=0;
 		}
+
 		if(mod>this.maxSpeed){
 			//console.log("move "+difx2*this.maxSpeed+" "+ dify2*this.maxSpeed);
 			this.x += this.vx;

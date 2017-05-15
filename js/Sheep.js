@@ -22,9 +22,11 @@ class Sheep extends Animal{
 
 	move(){	//mover um bocado aleatoriamente
 		//go to x y
+		console.log(this.frame);
 		this.goto();
 		if((this.frame>100)&&(this.getX==this.x && this.getY==this.y)){
 			if(Math.random()*200+100<this.frame){
+				console.log("entrou");
 				this.goX = this.x+this.x+Math.random()*100;
 				this.goY = this.y+this.y+Math.random()*100;
 				this.frame=0;
