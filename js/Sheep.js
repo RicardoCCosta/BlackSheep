@@ -1,30 +1,36 @@
+"use strict";
 class Sheep extends Animal{
-	constructor(image1,image2,image3,image4,x,y){
-		super('sheep',0,10,400,400,100,100,10);
-		this.image1 = image1;
-		this.image2 = image2;
-		this.image3 = image3;
-		this.image4 = image4;
+	constructor(image1,image2,image3,image4,image5,image6,x,y){
+		console.log(x+" "+y);
+		super('sheep',0,10,400,400,100,100,2,image1,image2,image3,image4,image5,image6);
+		this.x=x;
+		this.y=y;
 		this.caught = false; 	// se já está dentro da vedação
 		this.idle = true;		
 		this.frame = 0;
-		this.goX = x;
-		this.goY = y;
+		
 	}
 
 	ilde(){ //fazer animação de comer erva
 
 	}
 
+	reset(){
+		this.goX = this.x;
+		this.goY = this.y;
+	}
+
 	move(){	//mover um bocado aleatoriamente
-		if(this.frame>100||this.idle){
+		//go to x y
+		this.goto();
+		if((this.frame>100)&&(this.getX==this.x && this.getY==this.y)){
 			if(Math.random()*200+100<this.frame){
 				this.goX = this.x+this.x+Math.random()*100;
 				this.goY = this.y+this.y+Math.random()*100;
 				this.frame=0;
-				this.idle=false;
 			}
 		}
+		this.frame++;
 		//mover de x to goX com speed
 
 	}
@@ -35,12 +41,9 @@ class Sheep extends Animal{
 
 	update(){
 		this.move();
-		this.frame++;
 	}
 
-	flee(x,y){	//quando ela foge do cão por estar demasiado perto
-
-	}
+	
 
 	onDeath(){	
 		//retirar da lista

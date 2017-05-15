@@ -1,6 +1,7 @@
 "use strict";
 class GameEngine{
 	constructor(){
+		this.unlockedLevels=1;
 		this.stage = "load";
 		this.score = 0;
 		this.wolfSheepDistance = 0;
@@ -23,6 +24,8 @@ class GameEngine{
 		this.my = 400;
 		this.width = 800;
 		this.heigth = 800;
+		this.soundVol = 100;
+		this.musicVol = 100;
 	}
 
 	setCtx(){
@@ -30,14 +33,14 @@ class GameEngine{
 	}
 	start(level){
 		//console.log("start GameEngine");
-		
+		//MUSIC
 		this.level=level;
 		this.timeWhenGameStarted = Date.now();
-		this.dog = new Dog(this.images[1],this.images[2],this.images[3],this.images[4]);
+		this.dog = new Dog(this.images[1],this.images[2],this.images[3],this.images[4],this.images[5],this.images[6]);
 
 		switch(level){
 			case(1):
-				this.listSheep.push(new Sheep(this.images[5],this.images[6],this.images[7],this.images[8]))
+				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],400,400))
 				this.totalSheeps = 3;
 				//chamar um lobo
 				break;
@@ -46,13 +49,14 @@ class GameEngine{
 		}
 		this.startTime = Date.now();
 		this.loaded=true;
-		
+
 		//console.log("end start GameEngine");
 	}
 
 	click(x,y){
-		console.log("start x y "+ x +" "+ y);
-		console.log("start m "+ this.mx +" "+ this.my);
+		//SOM
+		//console.log("start x y "+ x +" "+ y);
+		//console.log("start m "+ this.mx +" "+ this.my);
 		if(this.framecounter<10){
 			this.bark();
 		}
@@ -73,25 +77,29 @@ class GameEngine{
 			this.my=y;
 		}
 
-		console.log("end m "+ this.mx +" "+ this.my);
+		//console.log("end m "+ this.mx +" "+ this.my);
 
 	}
 
 	callPause(){
+		//SOM
 		this.pause = !this.pause;
 	}
 	
 
 	endGame(){
+		//SOM
+		//guardar level score e time num ficheiro
 		this.nextLevel();
 	}
 
 	nextLevel(){
-		
+		//dar opção de voltar para o menu ou seguir 
 	}
 
 	bark(){
 		//animação
+		//SOM
 
 		//ver ovelhas perto
 		for(let i = 0 ;i < this.listSheep.length; i++){
@@ -112,39 +120,51 @@ class GameEngine{
 		//sheep
 		//verificar distancia com lobos, cao, limites de fuga e limite de segurança
 		for(let i = 0 ;i < this.listSheep.length; i++){
-	        this.listSheep[i].update();
+	        
 	        let dist = this.calcDist(this.dog.x,this.dog.y,this.listSheep[i].x,this.listSheep[i].y);
-	        let flagIdle = false;
+	        let flagIdle = true;
         	if(this.isSafe(this.listSheep[i].x,this.listSheep[i].y)){
         		//delete ovelha
-	        	score+=100;
-	        	safeSheeps++;
+	        	this.score+=100;
+	        	this.safeSheeps++;
+	        	continue;
         	}else if(this.wall(this.listSheep[i].x)){
 
         	}
 	        else if(this.isOut(this.listSheep[i].x,this.listSheep[i].y)){
 	        	//delete ovelha
 
+	        	continue;
         	}
         	
-	        let flag=0;
+	        
 	        for(let j = 0 ;j < this.listWolf.length; j++){
 	        	let wolfDist = calcDist(this.listWolf[j].x,this.listWolf[j].y,this.listSheep[i].x,this.listSheep[i].y);
 		        if(wolfDist<=wolfSheepDistance){
-		        	flag=1;
+		        	flagIdle=false;
+		        	this.listSheep[i].reset();
 		        	this.listSheep[i].hp--;
 		        	if(this.listSheep[i].hp==0){
 		        		//delete ovelha e numSheep --
 		        	}
 		       	}
 	        }
-	         
-        	if(flag==0 && dist<200){
+	        
+        	if(flagIdle && dist<600){
+        		flagIdle=false;
+        		this.listSheep[i].reset();
         		this.listSheep[i].flee(this.dog.x,this.dog.y);
+        		this.listSheep[i].goto();
         	}
+
+        	this.listSheep[i].update();
     	}
 		//wolf
 		for(let i = 0 ;i < this.listWolf.length; i++){
+			if(calcDist(this.dog.x,this.dog.y,this.listWolf[i].x,this.listWolf[i].y)<100){
+				this.listWolf[i].flee(this.dog.x,this.dog.y);
+				this.listWolf[i].goto();
+			}
         	nextSheep(this.listWolf[i]);
         	//ignora distancia ao cao para ja, criar um metodo que continue a ir para a ovelha mas desviado???
     	}
@@ -154,10 +174,9 @@ class GameEngine{
 		//draw background
 		this.ctx.clearRect(0,0,this.width,this.heigth);
 		this.ctx.drawImage(this.images[0],0,0,this.images[0].width,this.images[0].height,0,0,800,800);
-		//draw dog
-		this.dog.draw(this.ctx);
 		//draw sheep
 		for(let i = 0 ;i < this.listSheep.length; i++){
+
 	        this.listSheep[i].draw(this.ctx);
     	}
 		//draw wolf
@@ -165,6 +184,8 @@ class GameEngine{
 	        this.listWolf[i].draw(this.ctx);
     	}
 
+		//draw dog
+		this.dog.draw(this.ctx);
 		//draw User Interface
 			//Timer 
 			//Sheep Captured
@@ -179,6 +200,7 @@ class GameEngine{
 	}
 
 	isOut(x,y){
+		//SOM
 		if(x<0 && (y>500 || y<300)){
 			return true;
 		}
@@ -191,6 +213,7 @@ class GameEngine{
 	}
 
 	isSafe(x,y){
+		//SOM
 		if(x<0 && y<=500 && y>=300){
 			return true;
 		}
