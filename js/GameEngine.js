@@ -1,6 +1,7 @@
 "use strict";
 class GameEngine{
 	constructor(){
+		this.stage = "load";
 		this.score = 0;
 		this.wolfSheepDistance = 0;
 		this.dogSheepDistance = 0;
@@ -21,13 +22,13 @@ class GameEngine{
 		//
 		this.mx = 400;
 		this.my = 400;
+		this.ctx = document.getElementById("ctx").getContext("2d"); 
+		this.width = 800;
+		this.heigth = 800;
 	}
 
 	start(level){
 		//console.log("start GameEngine");
-		this.ctx = document.getElementById("ctx").getContext("2d"); 
-		this.width = 800;
-		this.heigth = 800;
 		
 		this.level=level;
 		this.timeWhenGameStarted = Date.now();
@@ -80,7 +81,6 @@ class GameEngine{
 	
 
 	endGame(){
-
 		this.nextLevel();
 	}
 
@@ -226,5 +226,9 @@ class GameEngine{
 			return true;
 		}
 		return false;
+	}
+
+	drawMenuStart(){
+		
 	}
 }

@@ -4,6 +4,7 @@
 }());
 
 var gameEngine = new GameEngine();
+
 function main(){
 	//carregar imagens
 	var backgroundImage = new Image();
@@ -24,10 +25,12 @@ function main(){
 	gameEngine.images.push(backgroundImage);
 	gameEngine.images.push(dog1Image);
 	gameEngine.images.push(dog2Image);
+	gameEngine.images.push(dog3Image);
+	gameEngine.images.push(dog4Image);
 	gameEngine.images.push(sheep1Image);
 	gameEngine.images.push(sheep2Image);
-	gameEngine.images.push(sheep1Image);
-	gameEngine.images.push(sheep2Image);
+	gameEngine.images.push(sheep3Image);
+	gameEngine.images.push(sheep4Image);
 	//gameEngine.images.push(wolf1Image);
 	//gameEngine.images.push(wolf2Image);
 	//gameEngine.images.push(wolf3Image);
@@ -41,8 +44,9 @@ function main(){
 			loadedImages++;
 			if(loadedImages == nImages){
 				//inicializar jogo
-				gameEngine.start(1);
+				//gameEngine.start(1);
 				//continues to game
+				gameEngine.stage="intro";
 				window.requestAnimationFrame(function () {
 				    update(gameEngine);
 				});
@@ -66,15 +70,26 @@ function main(){
 }
 
 function update(gameEngine){
-	if(!gameEngine.pause || !gameEngine.loaded){
-		gameEngine.update();
-		gameEngine.draw();
-	}
+	//switch(gameEngine.stage){
+		//case ("game"):
+			if(!gameEngine.pause || !gameEngine.loaded){
+				gameEngine.update();
+				gameEngine.draw();
+			}
+		//case ("intro"):
+			
+
 	window.requestAnimationFrame(function () {
+
         update(gameEngine);
     });
 }
+
 document.onmousedown = function(mouse){
+	//swich
+		//case levelmenu
+			//click level 1
+				//start(1);
 	if(mouse.which === 1){
 		if(!gameEngine.pause || !gameEngine.loaded){
 			var x = mouse.clientX - document.getElementById('ctx').getBoundingClientRect().left;
