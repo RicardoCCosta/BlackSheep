@@ -5,11 +5,11 @@ class Sheep extends Animal{
 		this.image2 = image2;
 		this.image3 = image3;
 		this.image4 = image4;
-		this.caught = false; 	// se já está dentro da 
-		this.idle = 1;		//tempo da animação de comer // se 0 não está a fazer nada
+		this.caught = false; 	// se já está dentro da vedação
+		this.idle = true;		
 		this.frame = 0;
 		this.goX = x;
-		this.goY = x;
+		this.goY = y;
 	}
 
 	ilde(){ //fazer animação de comer erva
@@ -17,11 +17,12 @@ class Sheep extends Animal{
 	}
 
 	move(){	//mover um bocado aleatoriamente
-		
-		if(this.frame>100){
-			if(Math.random()*100+100>this.frame){
-				this.goX = this.x+Math.random()*100;
-				this.goY = this.y+Math.random()*100;
+		if(this.frame>100||this.idle){
+			if(Math.random()*200+100<this.frame){
+				this.goX = this.x+this.x+Math.random()*100;
+				this.goY = this.y+this.y+Math.random()*100;
+				this.frame=0;
+				this.idle=false;
 			}
 		}
 		//mover de x to goX com speed
@@ -37,7 +38,7 @@ class Sheep extends Animal{
 		this.frame++;
 	}
 
-	flee(){	//quando ela foge do mapa
+	flee(x,y){	//quando ela foge do cão por estar demasiado perto
 
 	}
 

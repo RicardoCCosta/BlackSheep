@@ -5,7 +5,6 @@ class GameEngine{
 
 		this.loaded=false;
 		this.totalSheeps = 0;
-		this.numSheep = 0;
 		this.safeSheeps = 0;
 		this.level = 0;
 		this.dog = null;
@@ -92,9 +91,13 @@ class GameEngine{
 		//animação
 
 		//ver ovelhas perto
+		for(let i = 0 ;i < this.listSheep.length; i++){
 
+		}
 		//ver lobos perto
+		for(let i = 0 ;i < this.listWolf.length; i++){
 
+		}
 	}
 
 	update(){
@@ -107,27 +110,35 @@ class GameEngine{
 		//verificar distancia com lobos, cao, limites de fuga e limite de segurança
 		for(let i = 0 ;i < this.listSheep.length; i++){
 	        this.listSheep[i].update();
-	        if(this.isOut(this.listSheep[i].x,this.listSheep[i].y)){
-	        	//delete ovelha e numSheep --
-        	}
-        	else if(this.isSafe(this.listSheep[i].x,this.listSheep[i].y)){
-        		//delete ovelha e numSheep --
-	        	//score aumenta
+	        let dist = this.calcDist(this.dog.x,this.dog.y,this.listSheep[i].x,this.listSheep[i].y);
+	        let flagIdle = false;
+        	if(this.isSafe(this.listSheep[i].x,this.listSheep[i].y)){
+        		//delete ovelha
+	        	score+=100;
 	        	safeSheeps++;
+        	}else if(this.wall(this.listSheep[i].x)){
+
         	}
-        	else if(this.colision(this.dog.x,this.dog.y,this.listSheep[i].x,this.listSheep[i].y)){
-	        	//foge -> ver limites de novo??
-	        }
-	        else{
-	        	for(let j = 0 ;j < this.listWolf.length; j++){
-		        	if(this.colision(this.listWolf[j].x,this.listWolf[j].y,this.listSheep[i].x,this.listSheep[i].y)){
-		        		this.listSheep[i].hp--;
-		        		if(this.listSheep[i].hp==0){
-		        			//delete ovelha e numSheep --
-		        		}
+	        else if(this.isOut(this.listSheep[i].x,this.listSheep[i].y)){
+	        	//delete ovelha
+
+        	}
+        	
+	        let flag=0;
+	        for(let j = 0 ;j < this.listWolf.length; j++){
+	        	let wolfDist = calcDist(this.listWolf[j].x,this.listWolf[j].y,this.listSheep[i].x,this.listSheep[i].y);
+		        if(this.colision(this.listWolf[j].x,this.listWolf[j].y,this.listSheep[i].x,this.listSheep[i].y)){
+		        	flag=1;
+		        	this.listSheep[i].hp--;
+		        	if(this.listSheep[i].hp==0){
+		        		//delete ovelha e numSheep --
 		        	}
-	        	}
-	        }  
+		       	}
+	        }
+	         
+        	if(flag==0 || dist<200){
+        		this.listSheep[i].flee(this.dog.x,this.dog.y);
+        	}
     	}
 		//wolf
 	}
@@ -181,7 +192,13 @@ class GameEngine{
 		}
 	}
 
-	colision(x1,y1,x2,y2){
+	calcDist(x1,y1,x2,y2){
+		var difx = x1 - x2;
+		var dify = y1 - y2;
+		return Math.sqrt(Math.pow(difx,2)+Math.pow(dify,2));
+	}
 
+	wall(x){
+		
 	}
 }

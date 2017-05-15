@@ -22,8 +22,8 @@ class Animal{
 	draw(ctx){
 		//console.log("doge");
 		ctx.save();
-			var posX = this.x - this.width/2;
-			var posY = this.y - this.height/2;
+			let posX = this.x - this.width/2;
+			let posY = this.y - this.height/2;
 			console.log("x y " +this.x+" " + this.y);
 			
 			if(this.vx>=0){
