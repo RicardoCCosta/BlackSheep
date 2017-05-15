@@ -41,7 +41,7 @@ function main(){
 			loadedImages++;
 			if(loadedImages == nImages){
 				//inicializar jogo
-				gameEngine.start(1);
+				gameEngine.stage = "intro";
 				//continues to game
 				window.requestAnimationFrame(function () {
 				    update(gameEngine);
@@ -66,9 +66,14 @@ function main(){
 }
 
 function update(gameEngine){
-	if(!gameEngine.pause || !gameEngine.loaded){
-		gameEngine.update();
-		gameEngine.draw();
+	switch(gameEngine.stage){
+		case("intro"):
+			//
+		case("game"):
+			if(!gameEngine.pause || !gameEngine.loaded){
+				gameEngine.update();
+				gameEngine.draw();
+			}	
 	}
 	window.requestAnimationFrame(function () {
         update(gameEngine);

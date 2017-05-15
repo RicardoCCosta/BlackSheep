@@ -1,6 +1,7 @@
 "use strict";
 class GameEngine{
 	constructor(){
+		this.stage = "intro";
 		this.score = 0;
 		this.wolfSheepDistance = 0;
 		this.dogSheepDistance = 0;
