@@ -2,7 +2,8 @@
 class GameEngine{
 	constructor(){
 		this.score = 0;
-
+		this.wolfSheepDistance = 0;
+		this.dogSheepDistance = 0;
 		this.loaded=false;
 		this.totalSheeps = 0;
 		this.numSheep = 0;
@@ -130,6 +131,10 @@ class GameEngine{
 	        }  
     	}
 		//wolf
+		for(let i = 0 ;i < this.listWolf.length; i++){
+        	nextSheep(this.listWolf[i]);
+        	//ignora distancia ao cao para ja, criar um metodo que continue a ir para a ovelha mas desviado???
+    	}
 	}
 
 	draw(){
@@ -178,6 +183,24 @@ class GameEngine{
 		}
 		else{
 			return false;
+		}
+	}
+
+	nextSheep(wolf){
+		var first = Math.sqrt(Math.pow(this.listSheep[0].x - wolf.x,2)+Math.pow(this.listSheep[0].y - wolf.y,2));
+		var nsheep = 0;
+		
+		for(let i=1; i<this.listSheep.length; i++){
+			var difx = this.listSheep[i].x - wolf.x;
+			var dify = this.listSheep[i].y - wolf.y;
+			var dist = Math.sqrt(Math.pow(difx,2)+Math.pow(dify,2));
+			if(dist<first){
+				first=dist;
+				nsheep = i;
+			}
+		}
+		if(first>wolfSheepDistance){
+			wolf.update(this.listSheep[next].x,this.listSheep[next].y);
 		}
 	}
 
