@@ -6,7 +6,6 @@ class GameEngine{
 		this.score = 0;
 		this.wolfSheepDistance = 0;
 		this.dogSheepDistance = 0;
-		this.loaded=false;
 		this.totalSheeps = 0;
 		this.safeSheeps = 0;
 		this.level = 0;
@@ -35,7 +34,6 @@ class GameEngine{
 		this.ctx.font = '30px Arial';
 	}
 	start(level){
-		//console.log("start GameEngine");
 		//MUSIC
 		this.listMusics[2].play();
 
@@ -46,7 +44,9 @@ class GameEngine{
 
 		switch(level){
 			case(1):
-				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],400,400))
+				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],200,200));
+				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],200,600));
+				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],600,400));
 				this.totalSheeps = 3;
 				//chamar um lobo
 				break;
@@ -54,15 +54,11 @@ class GameEngine{
 				//
 		}
 		this.startTime = Date.now();
-		this.loaded=true;
 
-		//console.log("end start GameEngine");
 	}
 
 	click(x,y){
 		//SOM
-		//console.log("start x y "+ x +" "+ y);
-		//console.log("start m "+ this.mx +" "+ this.my);
 		if(this.framecounter<10){
 			this.bark();
 		}
@@ -83,7 +79,6 @@ class GameEngine{
 			this.my=y;
 		}
 
-		//console.log("end m "+ this.mx +" "+ this.my);
 
 	}
 
@@ -94,6 +89,8 @@ class GameEngine{
 	
 
 	endGame(){
+		this.pause = true;
+		this.unlockedLevels = this.level+1;
 		//SOM
 		//guardar level score e time num ficheiro
 		this.nextLevel();
@@ -131,12 +128,13 @@ class GameEngine{
 	        let flagIdle = true;
         	if(this.isSafe(this.listSheep[i].x,this.listSheep[i].y)){
         		//delete ovelha
+        		gameEngine.listSheep.splice(i,1);
 	        	this.score+=100;
 	        	this.safeSheeps++;
 	        	continue;
         	}else if(this.isOut(this.listSheep[i].x,this.listSheep[i].y)){
 	        	//delete ovelha
-
+	        	gameEngine.listSheep.splice(i,1);
 	        	continue;
         	}
         	

@@ -181,13 +181,12 @@ function update(gameEngine){
 			gameEngine.drawMenu();
 			break;
 		case("game"):
-			if(!gameEngine.pause || !gameEngine.loaded){
+			if(!gameEngine.pause){
 				gameEngine.update();
 				gameEngine.draw();
 			}	
 	}
 	window.requestAnimationFrame(function () {
-
         update(gameEngine);
     });
 }
@@ -209,7 +208,7 @@ document.onmousedown = function(mouse){
 			break;
 		case("game"):
 			if(mouse.which === 1){
-				if(!gameEngine.pause || !gameEngine.loaded){
+				if(!gameEngine.pause){
 					gameEngine.click(x,y);
 				}
 			}else{
@@ -217,6 +216,7 @@ document.onmousedown = function(mouse){
 			}	
 	}
 }
+
 document.oncontextmenu = function(mouse){
 	mouse.preventDefault();
 }

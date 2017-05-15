@@ -12,12 +12,9 @@ class Wolf extends Animal{
 	update(x,y){
 		var difx = x - this.x;
 		var dify = y - this.y;
-		
 		var mod = Math.sqrt(Math.pow(difx,2)+Math.pow(dify,2));
-		
 		this.vx = difx / mod * this.maxSpeed;
 		this.vy = dify / mod * this.maxSpeed;
-
 		if(isNaN(this.vx)){
 			this.vx=0;
 		}
