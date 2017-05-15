@@ -44,7 +44,9 @@ function main(){
 			loadedImages++;
 			if(loadedImages == nImages){
 				//continues to game
-				gameEngine.stage="intro";
+				gameEngine.setCtx();
+				gameEngine.start(1);	
+				gameEngine.stage="game";
 				window.requestAnimationFrame(function () {
 				    update(gameEngine);
 				});
@@ -68,6 +70,7 @@ function main(){
 }
 
 function update(gameEngine){
+	
 	switch(gameEngine.stage){
 		case("load"):
 			break;

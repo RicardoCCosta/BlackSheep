@@ -15,18 +15,19 @@ class GameEngine{
 		this.pause = false;
 		this.menu = false;
 		this.timeWhenGameStarted;
-		this.ctx;
 		this.framecounter=0;
 		//
 		this.images = [];
 		//
 		this.mx = 400;
 		this.my = 400;
-		this.ctx = document.getElementById("ctx").getContext("2d"); 
 		this.width = 800;
 		this.heigth = 800;
 	}
 
+	setCtx(){
+		this.ctx = document.getElementById("ctx").getContext("2d"); 
+	}
 	start(level){
 		//console.log("start GameEngine");
 		
@@ -45,6 +46,7 @@ class GameEngine{
 		}
 		this.startTime = Date.now();
 		this.loaded=true;
+		
 		//console.log("end start GameEngine");
 	}
 
@@ -231,3 +233,4 @@ class GameEngine{
 	drawMenuStart(){
 		
 	}
+}
