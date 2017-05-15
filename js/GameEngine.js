@@ -45,8 +45,8 @@ class GameEngine{
 		switch(level){
 			case(1):
 				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],200,200));
-				//this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],200,600));
-				//this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],600,400));
+				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],200,600));
+				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],600,400));
 				this.totalSheeps = 3;
 				//chamar um lobo
 				break;
@@ -54,7 +54,6 @@ class GameEngine{
 				//
 		}
 		this.startTime = Date.now();
-
 	}
 
 	click(x,y){
@@ -78,8 +77,6 @@ class GameEngine{
 		}else{
 			this.my=y;
 		}
-
-
 	}
 
 	callPause(){
@@ -134,6 +131,7 @@ class GameEngine{
 	        	continue;
         	}else if(this.isOut(this.listSheep[i].x,this.listSheep[i].y)){
 	        	//delete ovelha
+
 	        	gameEngine.listSheep.splice(i,1);
 	        	continue;
         	}
@@ -203,10 +201,12 @@ class GameEngine{
 
 	isOut(x,y){
 		//SOM
-		if(x>800+50 && (y<0-50 || y>800+50)){
+		if(x>800+50){
 			return true;
 		}
-		else{
+		else if(y<0-50 || y>800+50){
+			return true;
+		}else {
 			return false;
 		}
 	}
