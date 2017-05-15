@@ -45,8 +45,8 @@ class GameEngine{
 		switch(level){
 			case(1):
 				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],200,200));
-				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],200,600));
-				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],600,400));
+				//this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],200,600));
+				//this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],600,400));
 				this.totalSheeps = 3;
 				//chamar um lobo
 				break;
@@ -224,6 +224,7 @@ class GameEngine{
 	wall(sheep){
 		if(sheep.x<0+sheep.width/2 && (sheep.y>=500 || sheep.y<=300)){
 			sheep.x+=10;
+			sheep.reset();
 		}
 	}
 
