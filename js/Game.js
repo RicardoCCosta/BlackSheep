@@ -34,6 +34,47 @@ function main(){
 	var scores = new Image();
 	var levels = new Image();
 
+	//MUSICAS
+	var audioIntro=new Audio();
+	//-ovelha morre
+	//-ovelha entra na cerca
+	//-ovelha sai do campo
+	//-fim do jogo
+	//-cºao ladrar
+
+	//var audioSheepD=new Audio('');
+	//var audioSheepIn=new Audio('');
+	//var audioSheepOut=new Audio('');
+	//var gameOver=new Audio('');
+	//var audioDog=new Audio('');
+	var audioChoose=new Audio();
+	var audioGame=new Audio();
+
+	gameEngine.listMusics.push(audioIntro);
+
+	gameEngine.listMusics.push(audioChoose);
+	gameEngine.listMusics.push(audioGame);
+
+
+	var nMusics=gameEngine.listMusics.length;
+	var loadMusic=0;
+	for(let j = 0 ;j< nMusics ; j++){
+		gameEngine.listMusics[j].addEventListener("load", function () {
+			loadMusic++;
+			if(loadMusic == nMusics){
+				//continues to game
+				gameEngine.setCtx();
+				//gameEngine.start(1);	
+				gameEngine.stage="intro";
+				window.requestAnimationFrame(function () {
+				    update(gameEngine);
+				});
+			}
+		});
+	}
+
+
+
 	gameEngine.images.push(backgroundImage);
 	gameEngine.images.push(dog1Image);
 	gameEngine.images.push(dog2Image);
@@ -105,6 +146,12 @@ function main(){
 	credits.src = "Images/credits.png";
 	scores.src = "Images/scores.png";
 	levels.src = "Images/levels-01.png";
+
+	audioIntro.src="musics/intro_song.mp3";
+
+	audioChoose.src="musics/choose.wav";
+	audioGame.src="musics/gameMusic.mp3";
+	
 }
 
 function update(gameEngine){
@@ -112,7 +159,11 @@ function update(gameEngine){
 		case("load"):
 			break;
 		case("intro"):
+
+			
 			gameEngine.drawMenu();
+
+			
 			break;
 		case("menuMain"):
 			gameEngine.drawMenu();

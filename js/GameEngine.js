@@ -25,8 +25,15 @@ class GameEngine{
 		this.my = 400;
 		this.width = 800;
 		this.heigth = 800;
+<<<<<<< HEAD
 		this.musicVol = 390;
 		this.soundVol = 390;
+=======
+		this.soundVol = 100;
+		this.musicVol = 100;
+
+		this.listMusics=[];
+>>>>>>> 98750fd78ff7810bb94ed2761f0af85c098866a2
 	}
 
 	setCtx(){
@@ -36,6 +43,9 @@ class GameEngine{
 	start(level){
 		//console.log("start GameEngine");
 		//MUSIC
+
+		setInterval(this.listMusics[2].play(),100);
+
 		this.level=level;
 		this.timeWhenGameStarted = Date.now();
 		this.dog = new Dog(this.images[1],this.images[2],this.images[3],this.images[4],this.images[5],this.images[6]);
@@ -250,9 +260,14 @@ class GameEngine{
 	drawMenu(){
 		switch(this.stage){
 			case("intro"):
+				this.listMusics[0].play();
+				
 				this.ctx.clearRect(0,0,this.width,this.heigth);
 				this.ctx.drawImage(this.menuImages[0],0,0,this.menuImages[0].width,this.menuImages[0].height,0,0,800,800);
+				
 				break;
+
+
 			case("menuMain"):
 				this.ctx.clearRect(0,0,this.width,this.heigth);
 				this.ctx.drawImage(this.menuImages[1],0,0,this.menuImages[1].width,this.menuImages[1].height,0,0,800,800);
@@ -278,24 +293,37 @@ class GameEngine{
 		}	
 	}
 
+
+
 	clickMenu(x,y){
 		switch(this.stage){
 			case("menuMain"):
+
 				if(x>=344 && x<=456 && y>=288 && y<=348){
+
 					this.stage = "game";
+					this.listMusics[0].pause();
+					this.listMusics[1].play();
+				
+
 					this.start(1);
+					this.listMusics[2].play();
 				}
 				if(x>=302 && x<=493 && y>=380 && y<=437){
 					this.stage = "menuOptions";
+					this.listMusics[1].play();
 				}
 				if(x>=304 && x<=456 && y>=470 && y<=527){
 					this.stage = "menuCredits";
+					this.listMusics[1].play();
 				}
 				if(x>=315 && x<=485 && y>=560 && y<=618){
 					this.stage = "menuScores";
+					this.listMusics[1].play();
 				}
 				break;
 			case("menuOptions"):
+<<<<<<< HEAD
 				if(x>=244 && x<=634 && y>=481 && y<=496){
 					changeMusic(x);
 					this.musicVol = x;
@@ -304,12 +332,17 @@ class GameEngine{
 					changeSound(x);
 					this.soundVol = x;
 				}
+=======
+				this.listMusics[1].play();
+>>>>>>> 98750fd78ff7810bb94ed2761f0af85c098866a2
 				break;
 			case("menuLevel"):
+				this.listMusics[1].play();
 				//ve nivel a clicar e faz o start
 				break;
 		}
 	}
+<<<<<<< HEAD
 	changeSound(x){
 		var sound = Math.abs(this.soundVol - x)/100;
 		for(let i=0; i<this.listMusics.length; i++){
@@ -322,5 +355,10 @@ class GameEngine{
 			this.listMusics[i].volume = music;
 		}
 	}
+=======
+
+
+
+>>>>>>> 98750fd78ff7810bb94ed2761f0af85c098866a2
 	
 }
