@@ -25,8 +25,8 @@ class GameEngine{
 		this.my = 400;
 		this.width = 800;
 		this.heigth = 800;
-		this.soundVol = 100;
-		this.musicVol = 100;
+		this.musicVol = 390;
+		this.soundVol = 390;
 	}
 
 	setCtx(){
@@ -254,27 +254,24 @@ class GameEngine{
 				this.ctx.drawImage(this.menuImages[0],0,0,this.menuImages[0].width,this.menuImages[0].height,0,0,800,800);
 				break;
 			case("menuMain"):
-				console.log('desenha menu main');
 				this.ctx.clearRect(0,0,this.width,this.heigth);
 				this.ctx.drawImage(this.menuImages[1],0,0,this.menuImages[1].width,this.menuImages[1].height,0,0,800,800);
 				break;
 			case("menuOptions"):
-				console.log('desenha menu options');
 				this.ctx.clearRect(0,0,this.width,this.heigth);
 				this.ctx.drawImage(this.menuImages[2],0,0,this.menuImages[2].width,this.menuImages[2].height,0,0,800,800);
+				this.ctx.drawImage(this.menu[7],0,0,this.menu[7].width,this.menu[7].height,musicVol,496,40,40);
+				this.ctx.drawImage(this.menu[7],0,0,this.menu[7].width,this.menu[7].height,soundVol,670,40,40);
 				break;
 			case("menuCredits"):
-				console.log('desenha menu credits');
 				this.ctx.clearRect(0,0,this.width,this.heigth);
 				this.ctx.drawImage(this.menuImages[3],0,0,this.menuImages[3].width,this.menuImages[3].height,0,0,800,800);
 				break;
 			case("menuScores"):
-				console.log('desenha menu score');
 				this.ctx.clearRect(0,0,this.width,this.heigth);
 				this.ctx.drawImage(this.menuImages[4],0,0,this.menuImages[4].width,this.menuImages[4].height,0,0,800,800);
 				break;
 			case("menuLevel"):
-				console.log('desenha menu level');
 				this.ctx.clearRect(0,0,this.width,this.heigth);
 				this.ctx.drawImage(this.menuImages[5],0,0,this.menuImages[5].width,this.menuImages[5].height,0,0,800,800);
 				break;		
@@ -299,13 +296,31 @@ class GameEngine{
 				}
 				break;
 			case("menuOptions"):
-				
+				if(x>=244 && x<=634 && y>=481 && y<=496){
+					changeMusic(x);
+					this.musicVol = x;
+				}
+				if(x>=244 && x<=634 && y>=655 && y<=670){
+					changeSound(x);
+					this.soundVol = x;
+				}
 				break;
 			case("menuLevel"):
 				//ve nivel a clicar e faz o start
 				break;
 		}
 	}
-
+	changeSound(x){
+		var sound = Math.abs(this.soundVol - x)/100;
+		for(let i=0; i<this.listMusics.length; i++){
+			this.listMusics[i].volume = sound;
+		}
+	}
+	changeMusic(x){
+		var music = Math.abs(this.musicVol - x)/100;
+		for(let i=0; i<this.listMusics.length; i++){
+			this.listMusics[i].volume = music;
+		}
+	}
 	
 }
