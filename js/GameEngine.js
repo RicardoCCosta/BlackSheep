@@ -39,7 +39,7 @@ class GameEngine{
 				this.listSheep.push(new Sheep(this.images[5],this.images[6],this.images[7],this.images[8]))
 				this.totalSheeps = 3;
 				//chamar um lobo
-
+				break;
 			case(2):
 				//
 		}
@@ -231,4 +231,3 @@ class GameEngine{
 	drawMenuStart(){
 		
 	}
-}

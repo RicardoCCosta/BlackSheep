@@ -43,8 +43,6 @@ function main(){
 		gameEngine.images[i].addEventListener("load", function () {
 			loadedImages++;
 			if(loadedImages == nImages){
-				//inicializar jogo
-				//gameEngine.start(1);
 				//continues to game
 				gameEngine.stage="intro";
 				window.requestAnimationFrame(function () {
@@ -70,15 +68,18 @@ function main(){
 }
 
 function update(gameEngine){
-	//switch(gameEngine.stage){
-		//case ("game"):
+	switch(gameEngine.stage){
+		case("load"):
+			break;
+		case("intro"):
+			
+			break;
+		case("game"):
 			if(!gameEngine.pause || !gameEngine.loaded){
 				gameEngine.update();
 				gameEngine.draw();
-			}
-		//case ("intro"):
-			
-
+			}	
+	}
 	window.requestAnimationFrame(function () {
 
         update(gameEngine);
