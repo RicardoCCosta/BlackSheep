@@ -255,11 +255,8 @@ class GameEngine{
 	drawMenu(){
 		switch(this.stage){
 			case("intro"):
-				console.log('desenha menu intro');
-				//desenha o main, ve o contador de frames do intro e se passar valor altera opcao de intro para menuMain
 				this.ctx.clearRect(0,0,this.width,this.heigth);
 				this.ctx.drawImage(this.menuImages[0],0,0,this.menuImages[0].width,this.menuImages[0].height,0,0,800,800);
-				this.stage = "menuMain";
 				break;
 			case("menuMain"):
 				console.log('desenha menu main');
@@ -267,32 +264,50 @@ class GameEngine{
 				this.ctx.drawImage(this.menuImages[1],0,0,this.menuImages[1].width,this.menuImages[1].height,0,0,800,800);
 				break;
 			case("menuOptions"):
+				console.log('desenha menu options');
 				this.ctx.clearRect(0,0,this.width,this.heigth);
 				this.ctx.drawImage(this.menuImages[2],0,0,this.menuImages[2].width,this.menuImages[2].height,0,0,800,800);
 				break;
+			case("menuCredits"):
+				console.log('desenha menu credits');
+				this.ctx.clearRect(0,0,this.width,this.heigth);
+				this.ctx.drawImage(this.menuImages[3],0,0,this.menuImages[3].width,this.menuImages[3].height,0,0,800,800);
+				break;
+			case("menuScores"):
+				console.log('desenha menu score');
+				this.ctx.clearRect(0,0,this.width,this.heigth);
+				this.ctx.drawImage(this.menuImages[4],0,0,this.menuImages[4].width,this.menuImages[4].height,0,0,800,800);
+				break;
 			case("menuLevel"):
-				//chama o ctx para desenhar a imagem do menu level
-				break;	
+				console.log('desenha menu level');
+				this.ctx.clearRect(0,0,this.width,this.heigth);
+				this.ctx.drawImage(this.menuImages[5],0,0,this.menuImages[5].width,this.menuImages[5].height,0,0,800,800);
+				break;		
 		}	
 	}
 
 	clickMenu(x,y){
-		//fazer switch com todos os tipos de menu
-			//ver posiçao do rato, se estiver dentro de os parametros de um botao fazer açao
-			//por exemplo no level fazer start com o respetivo
-			console.log('(x,y):'+x+','+y);
 		switch(this.stage){
 			case("menuMain"):
-				//desenha o main, ve o contador de frames do intro e se passar valor altera opcao de intro para menuMain
-				if(x>=336 && x<=456 && y>=288 && y<=328){
+				if(x>=344 && x<=456 && y>=288 && y<=348){
 					this.stage = "game";
 					this.start(1);
 				}
+				if(x>=302 && x<=493 && y>=380 && y<=437){
+					this.stage = "menuOptions";
+				}
+				if(x>=304 && x<=456 && y>=470 && y<=527){
+					this.stage = "menuCredits";
+				}
+				if(x>=315 && x<=485 && y>=560 && y<=618){
+					this.stage = "menuScores";
+				}
 				break;
 			case("menuOptions"):
+				
 				break;
 			case("menuLevel"):
-				//ver em qual level se clicou e chamar start(level)
+				//ve nivel a clicar e faz o start
 				break;
 		}
 	}

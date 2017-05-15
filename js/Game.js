@@ -30,6 +30,9 @@ function main(){
 	var mainImage = new Image();
 	var menu = new Image();
 	var options = new Image();
+	var credits = new Image();
+	var scores = new Image();
+	var levels = new Image();
 
 	gameEngine.images.push(backgroundImage);
 	gameEngine.images.push(dog1Image);
@@ -55,6 +58,9 @@ function main(){
 	gameEngine.menuImages.push(mainImage);
 	gameEngine.menuImages.push(menu);
 	gameEngine.menuImages.push(options);
+	gameEngine.menuImages.push(credits);
+	gameEngine.menuImages.push(scores);
+	gameEngine.menuImages.push(levels);
 
 	var nImages = gameEngine.images.length;
 	var loadedImages = 0;
@@ -96,6 +102,9 @@ function main(){
 	mainImage.src = "Images/main.png";
 	menu.src = "Images/menu-01.png";
 	options.src = "Images/options.png";
+	credits.src = "Images/credits.png";
+	scores.src = "Images/scores.png";
+	levels.src = "Images/levels-01.png";
 }
 
 function update(gameEngine){
@@ -111,8 +120,13 @@ function update(gameEngine){
 		case("menuOptions"):
 			gameEngine.drawMenu();
 			break;
+		case("menuCredits"):
+			gameEngine.drawMenu();
+			break;
+		case("menuScores"):
+			gameEngine.drawMenu();
+			break;
 		case("menuLevel"):
-			//gameEngine.clickMenu();
 			gameEngine.drawMenu();
 			break;
 		case("game"):
@@ -134,11 +148,9 @@ document.onmousedown = function(mouse){
 		case("load"):
 			break;
 		case("intro"):
+			gameEngine.stage = "menuMain";
 			break;
 		case("menuMain"):
-			gameEngine.clickMenu(x,y);
-			break;
-		case("menuOptions"):
 			gameEngine.clickMenu(x,y);
 			break;
 		case("menuLevel"):
