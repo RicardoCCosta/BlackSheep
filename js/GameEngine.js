@@ -128,7 +128,7 @@ class GameEngine{
 	        let flag=0;
 	        for(let j = 0 ;j < this.listWolf.length; j++){
 	        	let wolfDist = calcDist(this.listWolf[j].x,this.listWolf[j].y,this.listSheep[i].x,this.listSheep[i].y);
-		        if(this.colision(this.listWolf[j].x,this.listWolf[j].y,this.listSheep[i].x,this.listSheep[i].y)){
+		        if(wolfDist<=wolfSheepDistance){
 		        	flag=1;
 		        	this.listSheep[i].hp--;
 		        	if(this.listSheep[i].hp==0){
@@ -137,7 +137,7 @@ class GameEngine{
 		       	}
 	        }
 	         
-        	if(flag==0 || dist<200){
+        	if(flag==0 && dist<200){
         		this.listSheep[i].flee(this.dog.x,this.dog.y);
         	}
     	}
@@ -205,13 +205,11 @@ class GameEngine{
 	}
 
 	nextSheep(wolf){
-		var first = Math.sqrt(Math.pow(this.listSheep[0].x - wolf.x,2)+Math.pow(this.listSheep[0].y - wolf.y,2));
+		var first = calcDist(this.listSheep[0].x,this.listSheep[0].y,wolf.x,wolf.y);
 		var nsheep = 0;
 		
 		for(let i=1; i<this.listSheep.length; i++){
-			var difx = this.listSheep[i].x - wolf.x;
-			var dify = this.listSheep[i].y - wolf.y;
-			var dist = Math.sqrt(Math.pow(difx,2)+Math.pow(dify,2));
+			var dist = calcDist(this.listSheep[i].x,this.listSheep[i].y,wolf.x,wolf.y);
 			if(dist<first){
 				first=dist;
 				nsheep = i;
@@ -224,6 +222,9 @@ class GameEngine{
 
 
 	wall(x){
-		
+		if(x<0 && (y<=500 || y>=300)){
+			return true;
+		}
+		return false;
 	}
 }
