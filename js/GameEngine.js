@@ -24,8 +24,8 @@ class GameEngine{
 		this.my = 400;
 		this.width = 800;
 		this.heigth = 800;
-		this.musicVol = 441;
-		this.soundVol = 441;
+		this.musicVol = 390;
+		this.soundVol = 390;
 		this.listMusics=[];
 	}
 
@@ -88,14 +88,18 @@ class GameEngine{
 
 	endGame(){
 		this.pause = true;
-		this.unlockedLevels = this.level+1;
+		if(this.unlockedLevels<this.level+1){
+			this.unlockedLevels = this.level+1;
+		}
+		if(this.safeSheeps<(totalSheeps/2)){
+			//game over menu
+			//this.stage="gameOver1";
+		}else{
+			//other game over menu
+			//this.stage="gameOver2";
+		}
 		//SOM
 		//guardar level score e time num ficheiro
-		this.nextLevel();
-	}
-
-	nextLevel(){
-		//dar opção de voltar para o menu ou seguir 
 	}
 
 	bark(){
@@ -119,7 +123,6 @@ class GameEngine{
 		//dog
 		this.dog.update(this.mx,this.my);
 		//sheep
-		//verificar distancia com lobos, cao, limites de fuga e limite de segurança
 		for(let i = 0 ;i < this.listSheep.length; i++){
 	        
 	        let dist = this.calcDist(this.dog.x,this.dog.y,this.listSheep[i].x,this.listSheep[i].y);
@@ -151,7 +154,7 @@ class GameEngine{
 	        }
 
 	        //COLISÃO ENTRE OVELHAS
-	        
+
         	if(flagIdle && dist<200){
         		flagIdle=false;
         		this.listSheep[i].reset();
@@ -199,6 +202,7 @@ class GameEngine{
 		//ctx.fillText('Score: ' + score,200,30);
 		this.ctx.fillText('Score: ' + this.score,0,30);
 		this.ctx.fillText('caugth ' +this.safeSheeps + ' / missing ' +this.listSheep.length+' / total '+ this.totalSheeps,400,30);
+		this.ctx.fillText('Score: ' + (Date.now() - this.timeWhenGameStarted)/60,0,60);
 	}
 
 	isOut(x,y){
@@ -266,8 +270,8 @@ class GameEngine{
 			case("menuOptions"):
 				this.ctx.clearRect(0,0,this.width,this.heigth);
 				this.ctx.drawImage(this.menuImages[2],0,0,this.menuImages[2].width,this.menuImages[2].height,0,0,800,800);
-				this.ctx.drawImage(this.images[7],0,0,this.images[7].width,this.images[7].height,this.musicVol-20,369-20,40,40);
-				this.ctx.drawImage(this.images[7],0,0,this.images[7].width,this.images[7].height,this.soundVol-20,543-20,40,40);
+				this.ctx.drawImage(this.menu[7],0,0,this.menu[7].width,this.menu[7].height,musicVol,496,40,40);
+				this.ctx.drawImage(this.menu[7],0,0,this.menu[7].width,this.menu[7].height,soundVol,670,40,40);
 				break;
 			case("menuCredits"):
 				this.ctx.clearRect(0,0,this.width,this.heigth);
@@ -309,12 +313,12 @@ class GameEngine{
 				}
 				break;
 			case("menuOptions"):
-				if(x>=246 && x<=636 && y>=362 && y<=376){
-					this.changeMusic(x);
+				if(x>=244 && x<=634 && y>=481 && y<=496){
+					changeMusic(x);
 					this.musicVol = x;
 				}
-				if(x>=246 && x<=636 && y>=536 && y<=550){
-					this.changeSound(x);
+				if(x>=244 && x<=634 && y>=655 && y<=670){
+					changeSound(x);
 					this.soundVol = x;
 				}
 		
@@ -326,17 +330,13 @@ class GameEngine{
 		}
 	}
 	changeSound(x){
-		
-		//var sound = Math.abs((this.soundVol-246) - (x-246))/100;
-		var sound = (x-246)/(636-246);
-		console.log('som a mudar'+(sound));
+		var sound = Math.abs(this.soundVol - x)/100;
 		for(let i=0; i<this.listMusics.length; i++){
 			this.listMusics[i].volume = sound;
 		}
 	}
 	changeMusic(x){
-		var music = (x-246)/(636-246);
-		console.log('som a mudar'+music);
+		var music = Math.abs(this.musicVol - x)/100;
 		for(let i=0; i<this.listMusics.length; i++){
 			this.listMusics[i].volume = music;
 		}
