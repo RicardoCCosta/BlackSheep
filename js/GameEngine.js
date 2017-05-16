@@ -5,14 +5,12 @@ class GameEngine{
 		this.stage = "load";
 		this.score = 0;
 		this.wolfSheepDistance = 0;
-		this.dogSheepDistance = 0;
 		this.totalSheeps = 0;
 		this.safeSheeps = 0;
 		this.level = 0;
 		this.dog = null;
 		this.listSheep = [];
 		this.listWolf = [];
-		this.pause = false;
 		this.menu = false;
 		this.framecounter=0;
 		//
@@ -35,17 +33,23 @@ class GameEngine{
 	}
 	start(level){
 		//MUSIC
+		this.listSheep = [];
+		this.listWolf = [];
 		this.listMusics[1].loop=true;
 		this.listMusics[5].loop=true;
 		this.listMusics[1].play();
 		this.listMusics[5].play();
-
 		this.level=level;
+		this.mx=400;
+		this.my=400;
+		
+		this.dog = null;
 		this.dog = new Dog(this.images[1],this.images[2],this.images[3],this.images[4],this.images[5],this.images[6]);
 		this.generateSheep(level);
 		this.generateWolf(level);
 				
 		this.timeBonus=1000;
+		this.stage="game";
 	}
 
 	click(x,y){
@@ -72,26 +76,17 @@ class GameEngine{
 		}
 	}
 
-	callPause(){
-		//SOM
-		this.pause = !this.pause;
-	}
-	
-
 	endGame(){
 		this.pause = true;
-		if(this.unlockedLevels<this.level+1){
-			this.unlockedLevels = this.level+1;
-		}
-		if(this.safeSheeps<(this.totalSheeps/2)){
-			//game over menu
-			//this.stage="gameOver1";
+		if(this.safeSheeps>(this.totalSheeps/2)){
+			if(this.unlockedLevels<this.level+1){
+				this.unlockedLevels = this.level+1;
+			}
+			this.stage="gameOver1";
 		}else{
-			//other game over menu
-			//this.stage="gameOver2";
+			this.stage="gameOver2";
 		}
 		//SOM
-		this.stage='menuMain';
 		//guardar level score e time num ficheiro
 	}
 
@@ -407,15 +402,28 @@ class GameEngine{
 				this.ctx.drawImage(this.menuImages[5],0,0,this.menuImages[5].width,this.menuImages[5].height,0,0,800,800);
 				break;
 			case("help1"): //CATARINAAAAAAAAAAAA
+				console.log("coise");
 				this.ctx.drawImage(this.menuImages[6],0,0,this.menuImages[6].width,this.menuImages[6].height,0,0,800,800);
 				break;
 			case("help2"): //CATARINAAAAAAAAAAAA
 				this.ctx.drawImage(this.menuImages[7],0,0,this.menuImages[7].width,this.menuImages[7].height,0,0,800,800);
 				break;
 			case("help3"): //CATARINAAAAAAAAAAAA
-				this.ctx.drawImage(this.menuImages[8],0,0,this.menuImages[7].width,this.menuImages[7].height,0,0,800,800);
+				this.ctx.drawImage(this.menuImages[8],0,0,this.menuImages[8].width,this.menuImages[8].height,0,0,800,800);
 				break;
-				
+			case("gameOver1"):
+				this.draw();
+				this.ctx.drawImage(this.menuImages[9],0,0,this.menuImages[9].width,this.menuImages[9].height,0,0,800,800);
+				break;
+			case("gameOver2"):
+				this.draw();
+				this.ctx.drawImage(this.menuImages[10],0,0,this.menuImages[10].width,this.menuImages[10].height,0,0,800,800);
+				break;
+			case("pause"):
+				this.draw();
+				this.ctx.drawImage(this.menuImages[11],0,0,this.menuImages[11].width,this.menuImages[11].height,0,0,800,800);
+				break;
+					
 		}	
 	}
 
@@ -442,7 +450,7 @@ class GameEngine{
 					this.stage = "menuScores";
 					this.listMusics[3].play();
 				}
-				if(x>=0 && x<=0 && y>=0 && y<=0){ //ANDREIAAAAAAA
+				if(x>=579 && x<=702 && y>=566 && y<=624){ //ANDREIAAAAAAA
 					this.stage = "help1";
 				}
 				if(x>=0 && x<=0 && y>=0 && y<=0){ //ANDREIAAAAAAA
@@ -467,37 +475,33 @@ class GameEngine{
 				break;
 			case("menuLevel"):
 				this.listMusics[3].play();
+				console.log(this.stage);
 				if(x>=266 && x<=295 && y>=331 && y<=394){
-					this.stage = "game";
 					this.start(1);
 				}
 				else if(x>=382 && x<=416 && y>=331 && y<=394){
+					console.log(this.unlockedLevels+" "+2);
 					if(this.unlockedLevels>1){
-						this.stage = "game";
 						this.start(2);
 					}
 				}
 				else if(x>=499 && x<=531 && y>=331 && y<=394){
 					if(this.unlockedLevels>2){
-						this.stage = "game";
 						this.start(3);
 					}
 				}
 				else if(x>=266 && x<=295 && y>=447 && y<=516){
 					if(this.unlockedLevels>3){
-						this.stage = "game";
 						this.start(4);
 					}
 				}
 				else if(x>=382 && x<=416 && y>=447 && y<=516){
 					if(this.unlockedLevels>4){
-						this.stage = "game";
 						this.start(5);
 					}
 				}
 				else if(x>=499 && x<=531 && y>=447 && y<=516){
 					if(this.unlockedLevels>5){
-						this.stage = "game";
 						this.start(6);
 					}
 				}
@@ -510,6 +514,30 @@ class GameEngine{
 				break;
 			case("menuScores"):
 				if(x>292&&x<508&&y>593&&y<627){
+					this.stage="menuMain";
+				}
+				break;
+			case("gameOver1"):
+				if(x>209&&x<589&&y>340&&y<404){
+					this.start(this.level+1);
+				}
+				if(x>208&&x<593&&y>512&&y<578){
+					this.stage="menuMain";
+				}
+				break;
+			case("gameOver2"):
+				if(x>209&&x<589&&y>340&&y<404){
+					this.start(this.level);
+				}
+				if(x>208&&x<593&&y>512&&y<578){
+					this.stage="menuMain";
+				}
+				break;
+			case("pause"):
+				if(x>209&&x<589&&y>340&&y<404){
+					this.stage="game";
+				}
+				if(x>208&&x<593&&y>512&&y<578){
 					this.stage="menuMain";
 				}
 				break;

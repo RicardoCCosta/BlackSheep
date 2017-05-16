@@ -196,39 +196,16 @@ function update(gameEngine){
 		case("load"):
 			gameEngine.ctx.fillText("LOADING",400,400);
 			break;
-		case("intro"):
-			gameEngine.drawMenu();
-			break;
-		case("menuMain"):
-			gameEngine.drawMenu();
-			break;
-		case("menuOptions"):
-			gameEngine.drawMenu();
-			break;
-		case("menuCredits"):
-			gameEngine.drawMenu();
-			break;
-		case("menuScores"):
-			gameEngine.drawMenu();
-			break;
-		case("menuLevel"):
-			gameEngine.drawMenu();
-			break;
 		case("game"):
-			if(!gameEngine.pause){
-				gameEngine.update();
-			}else{
-				//desenhar pause menu
-			}
+			gameEngine.update();
 			gameEngine.draw();
 			break;
-		case("gameOver1"):
+		case("pause"):
 			gameEngine.draw();
-			//desenhar menu de ganhar
+			gameEngine.drawMenu();
 			break;
-		case("gameOver2"):
-			gameEngine.draw();
-			//desenhar menu de perder
+		default:
+			gameEngine.drawMenu();
 			break;
 	}
 	window.requestAnimationFrame(function () {
@@ -238,6 +215,7 @@ function update(gameEngine){
 }
 
 document.onmousedown = function(mouse){
+	console.log(gameEngine.stage+" "+mouse.which);
 	var x = mouse.clientX - document.getElementById('ctx').getBoundingClientRect().left;
 	var y = mouse.clientY - document.getElementById('ctx').getBoundingClientRect().top;
 	console.log(x+" "+y);
@@ -257,13 +235,19 @@ document.onmousedown = function(mouse){
 			gameEngine.stage = "menuMain";
 			break;
 		case("game"):
-			if(mouse.which === 1){
-				if(!gameEngine.pause){
-					gameEngine.click(x,y);
-				}
+			if(mouse.which == 1){
+				gameEngine.click(x,y);
 			}else{
-				gameEngine.callPause();
+				gameEngine.stage="pause";
 			}	
+			break;
+		case("pause"):
+			if(mouse.which == 3){
+				console.log("un pause");
+				gameEngine.stage="game";
+			}else{
+				gameEngine.clickMenu(x,y);
+			}
 			break;
 		default:
 			gameEngine.clickMenu(x,y);
