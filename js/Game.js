@@ -148,7 +148,7 @@ function main(){
 	gameEngine.menuImages.push(againImage);
 	gameEngine.menuImages.push(pauseImage);
 
-	gameEngine.menuImages.push(musicMute);
+	gameEngine.menuImages.push(musicMute);//12
 	gameEngine.menuImages.push(musicOn);
 	gameEngine.menuImages.push(soundMute);
 	gameEngine.menuImages.push(soundOn);

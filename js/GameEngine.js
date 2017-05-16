@@ -25,6 +25,8 @@ class GameEngine{
 		this.soundVol = 441;
 		this.listMusics=[];
 		this.timeBonus=1000;
+		this.musicOn = true;
+		this.soundOn = true;
 	}
 
 	setCtx(){
@@ -35,6 +37,8 @@ class GameEngine{
 		//MUSIC
 		this.listSheep = [];
 		this.listWolf = [];
+		this.soundOn = true;
+		this.musicOn = true;
 		this.listMusics[1].loop=true;
 		this.listMusics[5].loop=true;
 		this.listMusics[1].play();
@@ -55,7 +59,11 @@ class GameEngine{
 	click(x,y){
 
 		//SOM
-		this.listMusics[4].play();	
+		if(this.soundOn)
+			this.listMusics[4].play();
+		//mute sounds
+		this.muteSounds(x,y);
+
 		if(this.framecounter>20){
 			this.bark();
 			this.framecounter=0;
@@ -77,6 +85,24 @@ class GameEngine{
 		}
 	}
 
+	muteSounds(x,y){
+		if(x<735 && x>707 && y<82 && y>57){
+			this.soundOn = !this.soundOn;
+		}
+		if(x<684 && x>657 && y<82 && y>57){
+			if(this.musicOn){
+				this.listMusics[1].pause();
+				this.listMusics[5].pause();
+				this.musicOn = false;
+			}
+			else{
+				this.listMusics[1].play();
+				this.listMusics[5].play();
+				this.musicOn = true;
+			}
+		}
+	}
+
 	endGame(){
 		if(this.safeSheeps>(this.totalSheeps/2)){
 			if(this.unlockedLevels<this.level+1){
@@ -85,13 +111,17 @@ class GameEngine{
 			//SOM WIN
 			this.listMusics[1].pause();
 			this.listMusics[5].pause();
-			this.listMusics[0].play();
+			if(this.soundOn){
+				this.listMusics[0].play();
+			}
 			this.stage="gameOver1";
 		}else{
 			//SOM LOOSE
 			this.listMusics[1].pause();
 			this.listMusics[5].pause();
-			this.listMusics[0].play();
+			if(this.soundOn){
+				this.listMusics[0].play();
+			}
 			this.stage="gameOver2";
 		}
 		//SOM
@@ -142,7 +172,9 @@ class GameEngine{
 		        	this.listSheep[i].reset();
 		        	this.listSheep[i].hp--;
 		        	if(this.listSheep[i].hp<0){
-		        		this.listMusics[10].play();
+		        		if(this.soundOn){
+							this.listMusics[10].play();
+						}
 		        		this.listSheep.splice(i,1);
 		        		eatFlag=true;
 		        		break;
@@ -191,6 +223,16 @@ class GameEngine{
 		this.ctx.drawImage(this.images[19],0,0,5,300);
 		this.ctx.drawImage(this.images[19],0,500,5,300);
 
+		//draw buttons
+		if(this.musicOn)
+			this.ctx.drawImage(this.menuImages[13],650,50,40,40);
+		else
+			this.ctx.drawImage(this.menuImages[12],650,50,40,40);
+		if(this.soundOn)
+			this.ctx.drawImage(this.menuImages[15],700,50,40,40);
+		else
+			this.ctx.drawImage(this.menuImages[14],700,50,40,40);
+
 		//draw sheep
 		for(let i = 0 ;i < this.listSheep.length; i++){
 
@@ -221,12 +263,17 @@ class GameEngine{
 	isOut(x,y){
 		//SOM
 		if(x>800+25){
-			this.listMusics[9].play();
-			this.listMusics[9].pause();
+			if(this.soundOn){
+				this.listMusics[9].play();
+				this.listMusics[9].pause();
+			}
 			return true;
 		}
 		else if(y<0-25 || y>800+25){
-			this.listMusics[9].play();
+			if(this.soundOn){
+				this.listMusics[9].play();
+				this.listMusics[9].pause();
+			}
 			return true;
 		}else {
 			return false;
@@ -235,7 +282,9 @@ class GameEngine{
 
 	isSafe(x,y){
 		if(x<0-25 && y<=500 && y>=300){
-			this.listMusics[8].play();
+			if(this.soundOn){
+				this.listMusics[8].play();
+			}
 			return true;
 			
 		}
