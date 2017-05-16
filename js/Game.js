@@ -33,18 +33,12 @@ function main(){
 	var credits = new Image();
 	var scores = new Image();
 	var levels = new Image();
+	var tut1=new Image();
+	var tut2=new Image();
+	var tut3=new Image();
 
 	//MUSICAS
 
-	//-ovelha morre
-	
-	//-ovelha sai do campo
-
-
-	//var audioSheepD=new Audio('');
-	
-	//var audioSheepOut=new Audio('');
-	
 	var audioIntro=new Audio();
 	var audioChoose=new Audio();
 	var audioGame=new Audio();
@@ -55,8 +49,7 @@ function main(){
 	var audioDog=new Audio();
 	var audioSheepIn=new Audio();
 	var audioSheepOut=new Audio();
-
-
+	var audioSheepD=new Audio();
 
 	gameEngine.listMusics.push(audioIntro);
 	gameEngine.listMusics.push(audioGame);
@@ -68,6 +61,7 @@ function main(){
 	gameEngine.listMusics.push(audioDog);
 	gameEngine.listMusics.push(audioSheepIn);
 	gameEngine.listMusics.push(audioSheepOut);
+	gameEngine.listMusics.push(audioSheepD);
 
 
 	var nMusics=gameEngine.listMusics.length;
@@ -98,6 +92,7 @@ function main(){
 	audioDog.src="musics/dogSound.wav"; //       7    sound
 	audioSheepIn.src="musics/sheepIn.wav";   //  8    sound
 	audioSheepOut.src="musics/sheepOut2.wav"; //9    sound
+	audioSheepD.src="musics/sheepD.wav";   //10   sound
 	
 
 
@@ -129,6 +124,10 @@ function main(){
 	gameEngine.menuImages.push(credits);
 	gameEngine.menuImages.push(scores);
 	gameEngine.menuImages.push(levels);
+
+	gameEngine.images.push(tut1);
+	gameEngine.images.push(tut2);
+	gameEngine.images.push(tut3);
 
 	var nImages = gameEngine.images.length;
 	var loadedImages = 0;
@@ -173,6 +172,10 @@ function main(){
 	credits.src = "Images/credits.png";
 	scores.src = "Images/scores.png";
 	levels.src = "Images/levels.png";
+	tut1.src = "Images/tutorial1.png";
+	tut2.src = "Images/tutorial2.png";
+	tut3.src = "Images/tutorial3.png";
+
 }
 
 function update(gameEngine){

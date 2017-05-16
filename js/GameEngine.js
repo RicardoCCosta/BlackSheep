@@ -139,6 +139,7 @@ class GameEngine{
 		        	this.listSheep[i].reset();
 		        	this.listSheep[i].hp--;
 		        	if(this.listSheep[i].hp<0){
+		        		this.listMusics[10].play();
 		        		this.listSheep.splice(i,1);
 		        		eatFlag=true;
 		        		break;
@@ -212,7 +213,7 @@ class GameEngine{
 		//SOM
 		if(x>800+25){
 			this.listMusics[9].play();
-			//this.listMusics[9].pause();
+			this.listMusics[9].pause();
 			return true;
 		}
 		else if(y<0-25 || y>800+25){
@@ -226,7 +227,6 @@ class GameEngine{
 	isSafe(x,y){
 		if(x<0-25 && y<=500 && y>=300){
 			this.listMusics[8].play();
-
 			return true;
 			
 		}
