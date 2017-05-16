@@ -20,12 +20,12 @@ function main(){
 	var sheep4Image = new Image();
 	var sheep5Image = new Image();
 	var sheep6Image = new Image();
-	//var wolf1Image = new Image();
-	//var wolf2Image = new Image();
-	//var wolf3Image = new Image();
-	//var wolf4Image = new Image();
-	//var wolf5Image = new Image();
-	//var wolf6Image = new Image();
+	var wolf1Image = new Image();
+	var wolf2Image = new Image();
+	var wolf3Image = new Image();
+	var wolf4Image = new Image();
+	var wolf5Image = new Image();
+	var wolf6Image = new Image();
 	//var powerImage = new Image();
 	var mainImage = new Image();
 	var menu = new Image();
@@ -113,12 +113,12 @@ function main(){
 	gameEngine.images.push(sheep5Image);
 	gameEngine.images.push(sheep6Image);
 	
-	//gameEngine.images.push(wolf1Image);
-	//gameEngine.images.push(wolf2Image);
-	//gameEngine.images.push(wolf3Image);
-	//gameEngine.images.push(wolf4Image);
-	//gameEngine.images.push(wolf5Image);
-	//gameEngine.images.push(wolf6Image);
+	gameEngine.images.push(wolf1Image);
+	gameEngine.images.push(wolf2Image);
+	gameEngine.images.push(wolf3Image);
+	gameEngine.images.push(wolf4Image);
+	gameEngine.images.push(wolf5Image);
+	gameEngine.images.push(wolf6Image);
 	//gameEngine.images.push(powerImage);
 	gameEngine.menuImages.push(mainImage);
 	gameEngine.menuImages.push(menu);
@@ -157,12 +157,12 @@ function main(){
 	sheep4Image.src = "Images/sheep4.png";
 	sheep5Image.src = "Images/sheep5.png";
 	sheep6Image.src = "Images/sheep6.png";
-	//wolf1Image.src =  "Images/wolf1.png";
-	//wolf2Image.src =  "Images/wolf2.png";
-	//wolf3Image.src =  "Images/wolf3.png";
-	//wolf4Image.src =  "Images/wolf4.png";
-	//wolf5Image.src =  "Images/wolf5.png";
-	//wolf6Image.src =  "Images/wolf6.png";
+	wolf1Image.src =  "Images/wolf1.png";
+	wolf2Image.src =  "Images/wolf2.png";
+	wolf3Image.src =  "Images/wolf3.png";
+	wolf4Image.src =  "Images/wolf4.png";
+	wolf5Image.src =  "Images/wolf5.png";
+	wolf6Image.src =  "Images/wolf6.png";
 	//powerImage.src = "Image/power.png";
 	mainImage.src = "Images/main.png";
 	menu.src = "Images/menu.png";
@@ -170,13 +170,12 @@ function main(){
 	credits.src = "Images/credits.png";
 	scores.src = "Images/scores.png";
 	levels.src = "Images/levels.png";
-
-
 }
 
 function update(gameEngine){
 	switch(gameEngine.stage){
 		case("load"):
+			gameEngine.ctx.fillText("LOADING",400,400);
 			break;
 		case("intro"):
 			gameEngine.drawMenu();
@@ -199,12 +198,19 @@ function update(gameEngine){
 		case("game"):
 			if(!gameEngine.pause){
 				gameEngine.update();
-				gameEngine.draw();
-				break;
-			}	
-
+			}else{
+				//desenhar pause menu
+			}
+			gameEngine.draw();
+			break;
 		case("gameOver1"):
-
+			gameEngine.draw();
+			//desenhar menu de ganhar
+			break;
+		case("gameOver2"):
+			gameEngine.draw();
+			//desenhar menu de perder
+			break;
 	}
 	window.requestAnimationFrame(function () {
 

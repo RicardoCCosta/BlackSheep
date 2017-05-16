@@ -35,7 +35,9 @@ class GameEngine{
 	}
 	start(level){
 		//MUSIC
-		this.listMusics[2].play();
+		this.listMusics[1].loop=true;
+		this.listMusics[5].loop=true;
+		this.listMusics[1].play();
 		this.listMusics[5].play();
 
 		this.level=level;
@@ -48,7 +50,7 @@ class GameEngine{
 
 	click(x,y){
 		//SOM
-		this.listMusics[3].play();	
+		this.listMusics[4].play();	
 		if(this.framecounter<10){
 			this.bark();
 		}
@@ -118,27 +120,32 @@ class GameEngine{
 	        let dist = this.calcDist(this.dog.x,this.dog.y,this.listSheep[i].x,this.listSheep[i].y);
 	        let flagIdle = true;
         	if(this.isSafe(this.listSheep[i].x,this.listSheep[i].y)){
-        		gameEngine.listSheep.splice(i,1);
+        		//delete ovelha
+        		this.listSheep.splice(i,1);
 	        	this.score+=100;
 	        	this.safeSheeps++;
 	        	continue;
         	}else if(this.isOut(this.listSheep[i].x,this.listSheep[i].y)){
-	        	gameEngine.listSheep.splice(i,1);
+	        	this.listSheep.splice(i,1);
 	        	continue;
         	}
 	        this.wall(this.listSheep[i]);
+	        let eatFlag=false;
 	        for(let j = 0 ;j < this.listWolf.length; j++){
-	        	let wolfDist = calcDist(this.listWolf[j].x,this.listWolf[j].y,this.listSheep[i].x,this.listSheep[i].y);
-		        if(wolfDist<=wolfSheepDistance){
+	        	let wolfDist = this.calcDist(this.listWolf[j].x,this.listWolf[j].y,this.listSheep[i].x,this.listSheep[i].y);
+		        if(wolfDist<=this.wolfSheepDistance){
 		        	flagIdle=false;
 		        	this.listSheep[i].reset();
 		        	this.listSheep[i].hp--;
 		        	if(this.listSheep[i].hp<0){
-		        		gameEngine.listSheep.splice(i,1);
+		        		this.listSheep.splice(i,1);
+		        		eatFlag=true;
+		        		break;
 		        	}
 		       	}
 	        }
-
+	        if(eatFlag)
+	        	continue;
 	        //COLISÃO ENTRE OVELHAS
         	for(let j=0;j<this.listSheep.length;j++){
         		if(j==i)
@@ -159,11 +166,11 @@ class GameEngine{
     	}
 		//wolf
 		for(let i = 0 ;i < this.listWolf.length; i++){
-			if(calcDist(this.dog.x,this.dog.y,this.listWolf[i].x,this.listWolf[i].y)<200){
+			if(this.calcDist(this.dog.x,this.dog.y,this.listWolf[i].x,this.listWolf[i].y)<200){
 				this.listWolf[i].goto();
 				this.listWolf[i].flee(this.dog.x,this.dog.y);
 			}
-        	nextSheep(this.listWolf[i]);
+        	this.nextSheep(this.listWolf[i]);
         	//ignora distancia ao cao para ja, criar um metodo que continue a ir para a ovelha mas desviado???
     	}
 	}
@@ -210,8 +217,9 @@ class GameEngine{
 	}
 
 	isSafe(x,y){
-		this.listMusics[8].play();   //a ovelha entrou na cerca 
+		   //a ovelha entrou na cerca 
 		if(x<0-25 && y<=500 && y>=300){
+			this.listMusics[8].play();
 			return true;
 		}
 		else{
@@ -233,18 +241,20 @@ class GameEngine{
 	}
 
 	nextSheep(wolf){
-		var first = calcDist(this.listSheep[0].x,this.listSheep[0].y,wolf.x,wolf.y);
+		if(this.listSheep.length==0)
+			return false;
+		var first = this.calcDist(this.listSheep[0].x,this.listSheep[0].y,wolf.x,wolf.y);
 		var nsheep = 0;
 		
 		for(let i=1; i<this.listSheep.length; i++){
-			var dist = calcDist(this.listSheep[i].x,this.listSheep[i].y,wolf.x,wolf.y);
+			var dist = this.calcDist(this.listSheep[i].x,this.listSheep[i].y,wolf.x,wolf.y);
 			if(dist<first){
 				first=dist;
 				nsheep = i;
 			}
 		}
-		if(first>wolfSheepDistance){
-			wolf.update(this.listSheep[next].x,this.listSheep[next].y);
+		if(first>this.wolfSheepDistance){
+			wolf.update(this.listSheep[nsheep].x,this.listSheep[nsheep].y);
 		}
 	}
 
@@ -301,39 +311,91 @@ class GameEngine{
 
 	generateWolf(level){
 		switch(level){
+			case(1):
+				this.listWolf.push(new Wolf(this.images[13],this.images[14],this.images[15],this.images[16],this.images[17],this.images[18],400,750));
+				break;
 			case(2):
-				this.listWolf.push(new Wolf(this.images[13],this.images[14],this.images[15],this.images[16],this.images[17],this.images[18],700,700));
+				this.spwanField(2);
+				this.spwanField(4);
+				break;
+			case(3):
+				this.spwanField(3);
+				this.spwanField(5);
+				break;
+			case(4):
+				this.spwanField(2);
+				this.spwanField(3);
+				this.spwanField(4);
+				break;
+			case(5):
+				this.spwanField(1);
+				this.spwanField(3);
+				this.spwanField(5);
+				break;
+			case(6):
+				this.spwanField(1);
+				this.spwanField(5);
+				this.listWolf.push(new Wolf(this.images[13],this.images[14],this.images[15],this.images[16],this.images[17],this.images[18],400,750));
 				break;
 		}
 	}
 
+	spwanField(n){
+		var x;
+		var y;
+		switch(n){
+			case(1):
+				//y 0 a -800   x 0  a 800
+				x = Math.random()*800;
+				y = Math.random()*800 * (-1);
+				break;
+			case(2):
+				//y 0 a -800   x 800  a 1600
+				x = Math.random()*800 + 800;
+				y = Math.random()*800 * (-1);
+				break; 
+			case(3):
+				//y 0 a 800   x 800  a 1600
+				x = Math.random()*800 + 800;
+				y = Math.random()*800
+				break; 
+			case(4):
+				//y 800 a 1600   x 800  a 1600
+				x = Math.random()*800 + 800;
+				y = Math.random()*800 + 800;
+				break; 
+			case(5):
+				//y 800 a 1600   x 0  a 800
+				x = Math.random()*800;
+				y = Math.random()*800 + 800;
+				break; 
+		}
+		this.listWolf.push(new Wolf(this.images[13],this.images[14],this.images[15],this.images[16],this.images[17],this.images[18],x,y));
+	}
+
 	drawMenu(){
+		this.ctx.clearRect(0,0,this.width,this.heigth);
 		switch(this.stage){
 			case("intro"):
+				this.listMusics[0].loop=true;
 				this.listMusics[0].play();
-				this.ctx.clearRect(0,0,this.width,this.heigth);
 				this.ctx.drawImage(this.menuImages[0],0,0,this.menuImages[0].width,this.menuImages[0].height,0,0,800,800);
 				break;
 			case("menuMain"):
-				this.ctx.clearRect(0,0,this.width,this.heigth);
 				this.ctx.drawImage(this.menuImages[1],0,0,this.menuImages[1].width,this.menuImages[1].height,0,0,800,800);
 				break;
 			case("menuOptions"):
-				this.ctx.clearRect(0,0,this.width,this.heigth);
 				this.ctx.drawImage(this.menuImages[2],0,0,this.menuImages[2].width,this.menuImages[2].height,0,0,800,800);
 				this.ctx.drawImage(this.images[7],0,0,this.images[7].width,this.images[7].height,this.musicVol-20,369-20,40,40);
 				this.ctx.drawImage(this.images[7],0,0,this.images[7].width,this.images[7].height,this.soundVol-20,543-20,40,40);
 				break;
 			case("menuCredits"):
-				this.ctx.clearRect(0,0,this.width,this.heigth);
 				this.ctx.drawImage(this.menuImages[3],0,0,this.menuImages[3].width,this.menuImages[3].height,0,0,800,800);
 				break;
 			case("menuScores"):
-				this.ctx.clearRect(0,0,this.width,this.heigth);
 				this.ctx.drawImage(this.menuImages[4],0,0,this.menuImages[4].width,this.menuImages[4].height,0,0,800,800);
 				break;
 			case("menuLevel"):
-				this.ctx.clearRect(0,0,this.width,this.heigth);
 				this.ctx.drawImage(this.menuImages[5],0,0,this.menuImages[5].width,this.menuImages[5].height,0,0,800,800);
 				break;		
 		}	
@@ -345,22 +407,22 @@ class GameEngine{
 				if(x>=344 && x<=456 && y>=288 && y<=348){
 					this.stage = "game";
 					this.listMusics[0].pause();		
-					this.listMusics[1].play();
+					this.listMusics[3].play();
 					this.start(1);
 				}
 				if(x>=302 && x<=493 && y>=380 && y<=437){
 					this.stage = "menuOptions";
-					this.listMusics[1].play();
+					this.listMusics[3].play();
 				}
 				if(x>=304 && x<=456 && y>=470 && y<=527){
 					this.listMusics[0].pause();		
-					this.listMusics[1].play();
+					this.listMusics[3].play();
 					this.stage = "menuCredits";
-					this.listMusics[4].play();	
+					this.listMusics[2].play();	
 				}
 				if(x>=315 && x<=485 && y>=560 && y<=618){
 					this.stage = "menuScores";
-					this.listMusics[1].play();
+					this.listMusics[3].play();
 				}
 				break;
 			case("menuOptions"):
@@ -376,7 +438,7 @@ class GameEngine{
 				break;
 			case("menuLevel"):
 				//ve nivel a clicar e faz o start
-				this.listMusics[1].play();
+				this.listMusics[3].play();
 				break;
 		}
 	}
