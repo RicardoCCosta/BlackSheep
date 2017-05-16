@@ -188,6 +188,9 @@ class GameEngine{
 		//draw background
 		this.ctx.clearRect(0,0,this.width,this.heigth);
 		this.ctx.drawImage(this.images[0],0,0,this.images[0].width,this.images[0].height,0,0,800,800);
+		this.ctx.drawImage(this.images[19],0,0,5,300);
+		this.ctx.drawImage(this.images[19],0,500,5,300);
+
 		//draw sheep
 		for(let i = 0 ;i < this.listSheep.length; i++){
 
@@ -325,9 +328,6 @@ class GameEngine{
 
 	generateWolf(level){
 		switch(level){
-			case(1):
-				this.listWolf.push(new Wolf(this.images[13],this.images[14],this.images[15],this.images[16],this.images[17],this.images[18],400,750));
-				break;
 			case(2):
 				this.spwanField(2);
 				this.spwanField(4);

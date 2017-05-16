@@ -40,6 +40,7 @@ function main(){
 	var overImage=new Image();
 	var againImage=new Image();
 	var pauseImage=new Image();
+	var cercaImage=new Image();
 
 	//MUSICAS
 
@@ -54,6 +55,7 @@ function main(){
 	var audioSheepIn=new Audio();
 	var audioSheepOut=new Audio();
 	var audioSheepD=new Audio();
+	var audioPause=new Audio();
 
 	gameEngine.listMusics.push(audioIntro);
 	gameEngine.listMusics.push(audioGame);
@@ -66,6 +68,7 @@ function main(){
 	gameEngine.listMusics.push(audioSheepIn);
 	gameEngine.listMusics.push(audioSheepOut);
 	gameEngine.listMusics.push(audioSheepD);
+	gameEngine.listMusics.push(audioPause);
 
 
 	var nMusics=gameEngine.listMusics.length;
@@ -97,6 +100,7 @@ function main(){
 	audioSheepIn.src="musics/sheepIn.wav";   //  8    sound
 	audioSheepOut.src="musics/sheepOut2.wav"; //9    sound
 	audioSheepD.src="musics/sheepD.wav";   //10   		sound
+	audioPause.src="musics/pause.mp3";			//11
 	
 
 
@@ -121,6 +125,7 @@ function main(){
 	gameEngine.images.push(wolf4Image);
 	gameEngine.images.push(wolf5Image);
 	gameEngine.images.push(wolf6Image);
+	gameEngine.images.push(cercaImage);
 	//gameEngine.images.push(powerImage);
 	gameEngine.menuImages.push(mainImage);
 	gameEngine.menuImages.push(menu);
@@ -188,6 +193,7 @@ function main(){
 	overImage.src="Images/over.png";
 	againImage.src="Images/again.png";
 	pauseImage.src="Images/pause.png";
+	cercaImage.src="Images/cerca.png";
 
 }
 
