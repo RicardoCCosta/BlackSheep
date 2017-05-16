@@ -224,6 +224,9 @@ document.onmousedown = function(mouse){
 		case("menuMain"):
 			gameEngine.clickMenu(x,y);
 			break;
+		case("menuOptions"):
+			gameEngine.clickMenu(x,y);
+			break;
 		case("menuLevel"):
 			gameEngine.clickMenu(x,y);
 			break;
