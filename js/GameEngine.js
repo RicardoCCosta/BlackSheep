@@ -207,9 +207,12 @@ class GameEngine{
 	isOut(x,y){
 		//SOM
 		if(x>800+25){
+			this.listMusics[9].play();
+			this.listMusics[9].pause();
 			return true;
 		}
 		else if(y<0-25 || y>800+25){
+			this.listMusics[9].play();
 			return true;
 		}else {
 			return false;
@@ -220,7 +223,9 @@ class GameEngine{
 		   //a ovelha entrou na cerca 
 		if(x<0-25 && y<=500 && y>=300){
 			this.listMusics[8].play();
+
 			return true;
+			
 		}
 		else{
 			return false;

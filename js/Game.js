@@ -37,7 +37,7 @@ function main(){
 	//MUSICAS
 
 	//-ovelha morre
-	//-ovelha entra na cerca
+	
 	//-ovelha sai do campo
 
 
@@ -54,6 +54,7 @@ function main(){
 	var gameOver=new Audio();
 	var audioDog=new Audio();
 	var audioSheepIn=new Audio();
+	var audioSheepOut=new Audio();
 
 
 
@@ -66,6 +67,7 @@ function main(){
 	gameEngine.listMusics.push(gameOver);
 	gameEngine.listMusics.push(audioDog);
 	gameEngine.listMusics.push(audioSheepIn);
+	gameEngine.listMusics.push(audioSheepOut);
 
 
 	var nMusics=gameEngine.listMusics.length;
@@ -95,6 +97,7 @@ function main(){
 	gameOver.src="musics/gameOver1.wav";//       6    sound
 	audioDog.src="musics/dogSound.wav"; //       7    sound
 	audioSheepIn.src="musics/sheepIn.wav";   //  8    sound
+	audioSheepOut.src="musics/sheepOut2.wav"; //9    sound
 	
 
 
