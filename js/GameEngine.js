@@ -41,18 +41,9 @@ class GameEngine{
 		this.level=level;
 		this.timeWhenGameStarted = Date.now();
 		this.dog = new Dog(this.images[1],this.images[2],this.images[3],this.images[4],this.images[5],this.images[6]);
-
-		switch(level){
-			case(1):
-				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],200,200));
-				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],200,600));
-				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],600,400));
-				this.totalSheeps = 3;
-				//chamar um lobo
-				break;
-			case(2):
-				//
-		}
+		this.generateSheep(level);
+		this.generateWolf(level);
+				
 		this.startTime = Date.now();
 	}
 
@@ -253,6 +244,65 @@ class GameEngine{
 		}
 		if(first>wolfSheepDistance){
 			wolf.update(this.listSheep[next].x,this.listSheep[next].y);
+		}
+	}
+
+	generateSheep(level){
+		switch(level){
+			case(1):
+				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],400,400));
+				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],200,200));
+				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],300,300));
+				this.totalSheeps = 3;
+				break;
+			case(2):
+				for(let i=0; i<3; i++){
+					var x = Math.random()*600;
+					var y = Math.random()*600;
+					this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],x,y));
+				}
+				this.totalSheeps = 3;
+				break;
+			case(3):
+				for(let i=0; i<4; i++){
+					var x = Math.random()*800;
+					var y = Math.random()*800;
+					this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],x,y));
+				}
+				this.totalSheeps = 4;
+				break;
+			case(4):
+				for(let i=0; i<4; i++){
+					var x = 200+Math.random()*500;
+					var y = Math.random()*500;
+					this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],x,y));
+				}
+				this.totalSheeps = 4;
+				break;
+			case(5):
+				for(let i=0; i<5; i++){
+					var x = 200+Math.random()*600;
+					var y = Math.random()*600;
+					this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],x,y));
+				}
+				this.totalSheeps = 5;
+				break;
+			case(6):
+				for(let i=0; i<5; i++){
+					var x = 300+Math.random()*500;
+					var y = Math.random()*500;
+					this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],x,y));
+				}
+				this.totalSheeps = 5;
+				break;
+		}
+	}
+
+	generateWolf(level){
+		switch(level){
+			case(2):
+				this.listWolf.push(new Wolf(this.images[13],this.images[14],this.images[15],this.images[16],this.images[17],this.images[18],700,700));
+				break;
 		}
 	}
 

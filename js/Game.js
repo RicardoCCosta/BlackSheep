@@ -179,11 +179,7 @@ function update(gameEngine){
 		case("load"):
 			break;
 		case("intro"):
-
-			
 			gameEngine.drawMenu();
-
-			
 			break;
 		case("menuMain"):
 			gameEngine.drawMenu();
