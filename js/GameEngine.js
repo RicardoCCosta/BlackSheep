@@ -53,12 +53,13 @@ class GameEngine{
 	}
 
 	click(x,y){
+
 		//SOM
 		this.listMusics[4].play();	
-		if(this.framecounter<10){
+		if(this.framecounter>20){
 			this.bark();
+			this.framecounter=0;
 		}
-		this.framecounter=0;
 		if(x>800-this.dog.width/2){
 			this.mx = 800-this.dog.width/2;
 		}else if(x<0+this.dog.width/2){
@@ -77,7 +78,6 @@ class GameEngine{
 	}
 
 	endGame(){
-		this.pause = true;
 		if(this.safeSheeps>(this.totalSheeps/2)){
 			if(this.unlockedLevels<this.level+1){
 				this.unlockedLevels = this.level+1;
