@@ -58,10 +58,10 @@ function main(){
 
 
 	gameEngine.listMusics.push(audioIntro);
-	gameEngine.listMusics.push(audioChoose);
 	gameEngine.listMusics.push(audioGame);
-	gameEngine.listMusics.push(audioWalk);
 	gameEngine.listMusics.push(creditsMusic);
+	gameEngine.listMusics.push(audioChoose);
+	gameEngine.listMusics.push(audioWalk);
 	gameEngine.listMusics.push(soundSheep);
 	gameEngine.listMusics.push(gameOver);
 	gameEngine.listMusics.push(audioDog);
@@ -86,15 +86,15 @@ function main(){
 		});
 	}
 
-	audioIntro.src="musics/intro_song.mp3";//    0
-	audioChoose.src="musics/choose.wav"; //      1
-	audioGame.src="musics/gameMusic.mp3";   //   2
-	audioWalk.src="musics/walk.wav";//  3
-	creditsMusic.src="musics/credits.mp3";    // 4
-	soundSheep.src="musics/meee.mp3";       //   5
-	gameOver.src="musics/gameOver1.wav";//       6
-	audioDog.src="musics/dogSound.wav"; //       7
-	//audioSheepIn.src="musics/sheepIn.wav";   //  8
+	audioIntro.src="musics/intro_song.mp3";//    0    music
+	audioGame.src="musics/gameMusic.mp3";   //   1    music
+	creditsMusic.src="musics/credits.mp3";    // 2    music
+	audioChoose.src="musics/choose.wav"; //      3    sound
+	audioWalk.src="musics/walk.wav";//  4             sound
+	soundSheep.src="musics/meee.mp3";       //   5    sound
+	gameOver.src="musics/gameOver1.wav";//       6    sound
+	audioDog.src="musics/dogSound.wav"; //       7    sound
+	audioSheepIn.src="musics/sheepIn.wav";   //  8    sound
 	
 
 
