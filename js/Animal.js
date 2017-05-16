@@ -62,7 +62,7 @@ class Animal{
 			this.goY=y;
 		}
 	}
-
+	reset(){}
 	goto(){
 		var difx = this.goX - this.x;
 		var dify = this.goY - this.y;

@@ -231,6 +231,15 @@ document.onmousedown = function(mouse){
 		case("intro"):
 			gameEngine.stage = "menuMain";
 			break;
+		case("help1"):
+			gameEngine.stage = "help2";
+			break;
+		case("help2"):
+			gameEngine.stage = "help3";
+			break;
+		case("help3"):
+			gameEngine.stage = "menuMain";
+			break;
 		case("game"):
 			if(mouse.which === 1){
 				if(!gameEngine.pause){

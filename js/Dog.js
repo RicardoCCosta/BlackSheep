@@ -5,6 +5,7 @@ class Dog extends Animal{
 	}
 
 	update(x,y){
+		this.frameCounter++;
 		var difx = x - this.x;
 		var dify = y - this.y;
 		var mod = Math.sqrt(Math.pow(difx,2)+Math.pow(dify,2));

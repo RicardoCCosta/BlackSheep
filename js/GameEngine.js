@@ -396,12 +396,6 @@ class GameEngine{
 				this.ctx.drawImage(this.menuImages[2],0,0,this.menuImages[2].width,this.menuImages[2].height,0,0,800,800);
 				this.ctx.drawImage(this.images[7],0,0,this.images[7].width,this.images[7].height,this.musicVol-20,349-20,40,40);
 				this.ctx.drawImage(this.images[7],0,0,this.images[7].width,this.images[7].height,this.soundVol-20,463-20,40,40);
-				//
-				this.ctx.rect(246,536,636-246,550-550);
-				this.ctx.stroke();
-				this.ctx.rect(246,362,636-246,376-362);
-				this.ctx.stroke();
-				//
 				break;
 			case("menuCredits"):
 				this.ctx.drawImage(this.menuImages[3],0,0,this.menuImages[3].width,this.menuImages[3].height,0,0,800,800);
@@ -411,7 +405,17 @@ class GameEngine{
 				break;
 			case("menuLevel"):
 				this.ctx.drawImage(this.menuImages[5],0,0,this.menuImages[5].width,this.menuImages[5].height,0,0,800,800);
-				break;		
+				break;
+			case("help1"): //CATARINAAAAAAAAAAAA
+				this.ctx.drawImage(this.menuImages[6],0,0,this.menuImages[6].width,this.menuImages[6].height,0,0,800,800);
+				break;
+			case("help2"): //CATARINAAAAAAAAAAAA
+				this.ctx.drawImage(this.menuImages[7],0,0,this.menuImages[7].width,this.menuImages[7].height,0,0,800,800);
+				break;
+			case("help3"): //CATARINAAAAAAAAAAAA
+				this.ctx.drawImage(this.menuImages[8],0,0,this.menuImages[7].width,this.menuImages[7].height,0,0,800,800);
+				break;
+				
 		}	
 	}
 
@@ -439,15 +443,21 @@ class GameEngine{
 					this.stage = "menuScores";
 					this.listMusics[3].play();
 				}
+				if(x>=0 && x<=0 && y>=0 && y<=0){ //ANDREIAAAAAAA
+					this.stage = "help1";
+				}
+				if(x>=0 && x<=0 && y>=0 && y<=0){ //ANDREIAAAAAAA
+					this.stage = "quit";
+				}
+				
 				break;
 			case("menuOptions"):
-				
-				if(x>=246 && x<=636 && y>=362 && y<=376){
+				if(x>=273 && x<=640 && y>=331 && y<=362){
 					this.changeMusic(x);
 					this.musicVol = x;
 				}
 				
-				if(x>=246 && x<=636 && y>=536 && y<=550){
+				if(x>=273 && x<=640 && y>=450 && y<=475){
 					this.changeSound(x);
 					this.soundVol = x;
 				}
@@ -474,13 +484,13 @@ class GameEngine{
 		}
 	}
 	changeSound(x){
-		var sound = (x-246)/(636-246);
+		var sound = (x-294)/(508-294);
 		for(let i=0; i<this.listMusics.length; i++){
 			this.listMusics[i].volume = sound;
 		}
 	}
 	changeMusic(x){
-		var music = (x-246)/(636-246);
+		var music = (x-294)/(508-294);
 		for(let i=0; i<this.listMusics.length; i++){
 			this.listMusics[i].volume = music;
 		}
