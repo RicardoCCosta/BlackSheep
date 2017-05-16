@@ -74,6 +74,8 @@ class GameEngine{
 
 	callPause(){
 		//SOM
+		//this.listMusics[1].pause();
+		//this.listMusics[11].play();
 		this.pause = !this.pause;
 	}
 	
@@ -185,6 +187,9 @@ class GameEngine{
 		//draw background
 		this.ctx.clearRect(0,0,this.width,this.heigth);
 		this.ctx.drawImage(this.images[0],0,0,this.images[0].width,this.images[0].height,0,0,800,800);
+		this.ctx.drawImage(this.images[19],0,0,5,300);
+		this.ctx.drawImage(this.images[19],0,500,5,300);
+
 		//draw sheep
 		for(let i = 0 ;i < this.listSheep.length; i++){
 
