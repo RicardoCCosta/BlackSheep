@@ -170,8 +170,6 @@ function main(){
 	credits.src = "Images/credits.png";
 	scores.src = "Images/scores.png";
 	levels.src = "Images/levels-01.png";
-
-
 }
 
 function update(gameEngine){

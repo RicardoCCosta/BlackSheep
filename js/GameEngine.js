@@ -122,30 +122,34 @@ class GameEngine{
 	        let flagIdle = true;
         	if(this.isSafe(this.listSheep[i].x,this.listSheep[i].y)){
         		//delete ovelha
-        		gameEngine.listSheep.splice(i,1);
+        		this.listSheep.splice(i,1);
 	        	this.score+=100;
 	        	this.safeSheeps++;
 	        	continue;
         	}else if(this.isOut(this.listSheep[i].x,this.listSheep[i].y)){
 	        	//delete ovelha
 
-	        	gameEngine.listSheep.splice(i,1);
+	        	this.listSheep.splice(i,1);
 	        	continue;
         	}
         	
 	        this.wall(this.listSheep[i]);
+	        let eatFlag=false;
 	        for(let j = 0 ;j < this.listWolf.length; j++){
-	        	let wolfDist = calcDist(this.listWolf[j].x,this.listWolf[j].y,this.listSheep[i].x,this.listSheep[i].y);
-		        if(wolfDist<=wolfSheepDistance){
+	        	let wolfDist = this.calcDist(this.listWolf[j].x,this.listWolf[j].y,this.listSheep[i].x,this.listSheep[i].y);
+		        if(wolfDist<=this.wolfSheepDistance){
 		        	flagIdle=false;
 		        	this.listSheep[i].reset();
 		        	this.listSheep[i].hp--;
 		        	if(this.listSheep[i].hp<0){
-		        		gameEngine.listSheep.splice(i,1);
+		        		this.listSheep.splice(i,1);
+		        		eatFlag=true;
+		        		break;
 		        	}
 		       	}
 	        }
-
+	        if(eatFlag)
+	        	continue;
 	        //COLISÃO ENTRE OVELHAS
 
         	if(flagIdle && dist<200){
@@ -158,11 +162,11 @@ class GameEngine{
     	}
 		//wolf
 		for(let i = 0 ;i < this.listWolf.length; i++){
-			if(calcDist(this.dog.x,this.dog.y,this.listWolf[i].x,this.listWolf[i].y)<200){
+			if(this.calcDist(this.dog.x,this.dog.y,this.listWolf[i].x,this.listWolf[i].y)<200){
 				this.listWolf[i].goto();
 				this.listWolf[i].flee(this.dog.x,this.dog.y);
 			}
-        	nextSheep(this.listWolf[i]);
+        	this.nextSheep(this.listWolf[i]);
         	//ignora distancia ao cao para ja, criar um metodo que continue a ir para a ovelha mas desviado???
     	}
 	}
@@ -235,18 +239,20 @@ class GameEngine{
 	}
 
 	nextSheep(wolf){
-		var first = calcDist(this.listSheep[0].x,this.listSheep[0].y,wolf.x,wolf.y);
+		if(this.listSheep.length==0)
+			return false;
+		var first = this.calcDist(this.listSheep[0].x,this.listSheep[0].y,wolf.x,wolf.y);
 		var nsheep = 0;
 		
 		for(let i=1; i<this.listSheep.length; i++){
-			var dist = calcDist(this.listSheep[i].x,this.listSheep[i].y,wolf.x,wolf.y);
+			var dist = this.calcDist(this.listSheep[i].x,this.listSheep[i].y,wolf.x,wolf.y);
 			if(dist<first){
 				first=dist;
 				nsheep = i;
 			}
 		}
-		if(first>wolfSheepDistance){
-			wolf.update(this.listSheep[next].x,this.listSheep[next].y);
+		if(first>this.wolfSheepDistance){
+			wolf.update(this.listSheep[nsheep].x,this.listSheep[nsheep].y);
 		}
 	}
 
@@ -306,26 +312,26 @@ class GameEngine{
 			case(1):
 				this.listWolf.push(new Wolf(this.images[13],this.images[14],this.images[15],this.images[16],this.images[17],this.images[18],400,750));
 			case(2):
-				spwanField(2);
-				spwanField(4);
+				this.spwanField(2);
+				this.spwanField(4);
 				break;
 			case(3):
-				spwanField(3);
-				spwanField(5);
+				this.spwanField(3);
+				this.spwanField(5);
 				break;
 			case(4):
-				spwanField(2);
-				spwanField(3);
-				spwanField(4);
+				this.spwanField(2);
+				this.spwanField(3);
+				this.spwanField(4);
 				break;
 			case(5):
-				spwanField(1);
-				spwanField(3);
-				spwanField(5);
+				this.spwanField(1);
+				this.spwanField(3);
+				this.spwanField(5);
 				break;
 			case(6):
-				spwanField(1);
-				spwanField(5);
+				this.spwanField(1);
+				this.spwanField(5);
 				this.listWolf.push(new Wolf(this.images[13],this.images[14],this.images[15],this.images[16],this.images[17],this.images[18],400,750));
 				break;
 		}
