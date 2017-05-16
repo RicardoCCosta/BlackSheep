@@ -24,8 +24,8 @@ class GameEngine{
 		this.my = 400;
 		this.width = 800;
 		this.heigth = 800;
-		this.musicVol = 390;
-		this.soundVol = 390;
+		this.musicVol = 441;
+		this.soundVol = 441;
 		this.listMusics=[];
 	}
 
@@ -320,8 +320,8 @@ class GameEngine{
 			case("menuOptions"):
 				this.ctx.clearRect(0,0,this.width,this.heigth);
 				this.ctx.drawImage(this.menuImages[2],0,0,this.menuImages[2].width,this.menuImages[2].height,0,0,800,800);
-				this.ctx.drawImage(this.menu[7],0,0,this.menu[7].width,this.menu[7].height,musicVol,496,40,40);
-				this.ctx.drawImage(this.menu[7],0,0,this.menu[7].width,this.menu[7].height,soundVol,670,40,40);
+				this.ctx.drawImage(this.images[7],0,0,this.images[7].width,this.images[7].height,this.musicVol-20,369-20,40,40);
+				this.ctx.drawImage(this.images[7],0,0,this.images[7].width,this.images[7].height,this.soundVol-20,543-20,40,40);
 				break;
 			case("menuCredits"):
 				this.ctx.clearRect(0,0,this.width,this.heigth);
@@ -363,12 +363,12 @@ class GameEngine{
 				}
 				break;
 			case("menuOptions"):
-				if(x>=244 && x<=634 && y>=481 && y<=496){
-					changeMusic(x);
+				if(x>=246 && x<=636 && y>=362 && y<=376){
+					this.changeMusic(x);
 					this.musicVol = x;
 				}
-				if(x>=244 && x<=634 && y>=655 && y<=670){
-					changeSound(x);
+				if(x>=246 && x<=636 && y>=536 && y<=550){
+					this.changeSound(x);
 					this.soundVol = x;
 				}
 		
@@ -380,13 +380,13 @@ class GameEngine{
 		}
 	}
 	changeSound(x){
-		var sound = Math.abs(this.soundVol - x)/100;
+		var sound = (x-246)/(636-246);
 		for(let i=0; i<this.listMusics.length; i++){
 			this.listMusics[i].volume = sound;
 		}
 	}
 	changeMusic(x){
-		var music = Math.abs(this.musicVol - x)/100;
+		var music = (x-246)/(636-246);
 		for(let i=0; i<this.listMusics.length; i++){
 			this.listMusics[i].volume = music;
 		}
