@@ -96,7 +96,7 @@ function main(){
 	audioDog.src="musics/dogSound.wav"; //       7    sound
 	audioSheepIn.src="musics/sheepIn.wav";   //  8    sound
 	audioSheepOut.src="musics/sheepOut2.wav"; //9    sound
-	audioSheepD.src="musics/sheepD.wav";   //10   sound
+	audioSheepD.src="musics/sheepD.wav";   //10   		sound
 	
 
 
