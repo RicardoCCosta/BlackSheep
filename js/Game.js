@@ -33,6 +33,8 @@ function main(){
 	var credits = new Image();
 	var scores = new Image();
 	var levels = new Image();
+	var cercaImage=new Image();
+
 	var tut1=new Image();
 	var tut2=new Image();
 	var tut3=new Image();
@@ -40,7 +42,11 @@ function main(){
 	var overImage=new Image();
 	var againImage=new Image();
 	var pauseImage=new Image();
-	var cercaImage=new Image();
+	
+	var musicMute=new Image();
+	var musicOn=new Image();
+	var soundMute=new Image();
+	var soundOn=new Image();
 
 	//MUSICAS
 
@@ -142,6 +148,11 @@ function main(){
 	gameEngine.menuImages.push(againImage);
 	gameEngine.menuImages.push(pauseImage);
 
+	gameEngine.menuImages.push(musicMute);
+	gameEngine.menuImages.push(musicOn);
+	gameEngine.menuImages.push(soundMute);
+	gameEngine.menuImages.push(soundOn);
+
 
 	var nImages = gameEngine.images.length;
 	var loadedImages = 0;
@@ -194,6 +205,11 @@ function main(){
 	againImage.src="Images/again.png";
 	pauseImage.src="Images/pause.png";
 	cercaImage.src="Images/cerca.png";
+
+	musicMute.src="Images/musicMute.png";
+	musicOn.src="Images/musicOn.png";
+	soundMute.src="Images/soundMute.png";
+	soundOn.src="Images/soundOn.png";
 
 }
 
