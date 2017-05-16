@@ -163,7 +163,7 @@ function main(){
 	wolf4Image.src =  "Images/wolf4.png";
 	wolf5Image.src =  "Images/wolf5.png";
 	wolf6Image.src =  "Images/wolf6.png";
-	powerImage.src = "Image/power.png";
+	//powerImage.src = "Image/power.png";
 	mainImage.src = "Images/main.png";
 	menu.src = "Images/menu-01.png";
 	options.src = "Images/options.png";
