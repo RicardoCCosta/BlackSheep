@@ -231,15 +231,6 @@ document.onmousedown = function(mouse){
 		case("intro"):
 			gameEngine.stage = "menuMain";
 			break;
-		case("menuMain"):
-			gameEngine.clickMenu(x,y);
-			break;
-		case("menuOptions"):
-			gameEngine.clickMenu(x,y);
-			break;
-		case("menuLevel"):
-			gameEngine.clickMenu(x,y);
-			break;
 		case("game"):
 			if(mouse.which === 1){
 				if(!gameEngine.pause){
@@ -248,6 +239,11 @@ document.onmousedown = function(mouse){
 			}else{
 				gameEngine.callPause();
 			}	
+			break;
+		default:
+			gameEngine.clickMenu(x,y);
+			break;
+
 	}
 }
 document.oncontextmenu = function(mouse){

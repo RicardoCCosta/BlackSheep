@@ -91,6 +91,7 @@ class GameEngine{
 			//this.stage="gameOver2";
 		}
 		//SOM
+		this.stage='menuMain';
 		//guardar level score e time num ficheiro
 	}
 
@@ -166,6 +167,7 @@ class GameEngine{
     	}
 		//wolf
 		for(let i = 0 ;i < this.listWolf.length; i++){
+			this.wall(this.listWolf[i]);
 			if(this.calcDist(this.dog.x,this.dog.y,this.listWolf[i].x,this.listWolf[i].y)<200){
 				this.listWolf[i].goto();
 				this.listWolf[i].flee(this.dog.x,this.dog.y);
@@ -222,7 +224,6 @@ class GameEngine{
 	}
 
 	isSafe(x,y){
-		   //a ovelha entrou na cerca 
 		if(x<0-25 && y<=500 && y>=300){
 			this.listMusics[8].play();
 
@@ -415,6 +416,7 @@ class GameEngine{
 	}
 
 	clickMenu(x,y){
+		console.log(this.stage);
 		switch(this.stage){
 			case("menuMain"):
 				if(x>=344 && x<=456 && y>=288 && y<=348){
@@ -449,11 +451,25 @@ class GameEngine{
 					this.changeSound(x);
 					this.soundVol = x;
 				}
-		
+				
+				if(x>293 && x<504 && y>592 && y<630){
+					this.stage="menuMain";
+				}
 				break;
 			case("menuLevel"):
 				//ve nivel a clicar e faz o start
 				this.listMusics[3].play();
+				break;
+			case("menuCredits"):
+				console.log("here");
+				if(x>294&&x<500&&y>630&&y<670){
+					this.stage="menuMain";
+				}
+				break;
+			case("menuScores"):
+				if(x>292&&x<508&&y>593&&y<627){
+					this.stage="menuMain";
+				}
 				break;
 		}
 	}
