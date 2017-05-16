@@ -424,10 +424,9 @@ class GameEngine{
 		switch(this.stage){
 			case("menuMain"):
 				if(x>=344 && x<=456 && y>=288 && y<=348){
-					this.stage = "game";
+					this.stage = "menuLevel";
 					this.listMusics[0].pause();		
 					this.listMusics[3].play();
-					this.start(1);
 				}
 				if(x>=302 && x<=493 && y>=380 && y<=437){
 					this.stage = "menuOptions";
@@ -467,8 +466,41 @@ class GameEngine{
 				}
 				break;
 			case("menuLevel"):
-				//ve nivel a clicar e faz o start
 				this.listMusics[3].play();
+				if(x>=266 && x<=295 && y>=331 && y<=394){
+					this.stage = "game";
+					this.start(1);
+				}
+				else if(x>=382 && x<=416 && y>=331 && y<=394){
+					if(this.unlockedLevels>1){
+						this.stage = "game";
+						this.start(2);
+					}
+				}
+				else if(x>=499 && x<=531 && y>=331 && y<=394){
+					if(this.unlockedLevels>2){
+						this.stage = "game";
+						this.start(3);
+					}
+				}
+				else if(x>=266 && x<=295 && y>=447 && y<=516){
+					if(this.unlockedLevels>3){
+						this.stage = "game";
+						this.start(4);
+					}
+				}
+				else if(x>=382 && x<=416 && y>=447 && y<=516){
+					if(this.unlockedLevels>4){
+						this.stage = "game";
+						this.start(5);
+					}
+				}
+				else if(x>=499 && x<=531 && y>=447 && y<=516){
+					if(this.unlockedLevels>5){
+						this.stage = "game";
+						this.start(6);
+					}
+				}
 				break;
 			case("menuCredits"):
 				console.log("here");
