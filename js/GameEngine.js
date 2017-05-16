@@ -4,7 +4,7 @@ class GameEngine{
 		this.unlockedLevels=1;
 		this.stage = "load";
 		this.score = 0;
-		this.wolfSheepDistance = 0;
+		this.wolfSheepDistance = 20;
 		this.totalSheeps = 0;
 		this.safeSheeps = 0;
 		this.level = 0;
@@ -82,8 +82,16 @@ class GameEngine{
 			if(this.unlockedLevels<this.level+1){
 				this.unlockedLevels = this.level+1;
 			}
+			//SOM WIN
+			this.listMusics[1].pause();
+			this.listMusics[5].pause();
+			this.listMusics[0].play();
 			this.stage="gameOver1";
 		}else{
+			//SOM LOOSE
+			this.listMusics[1].pause();
+			this.listMusics[5].pause();
+			this.listMusics[0].play();
 			this.stage="gameOver2";
 		}
 		//SOM
@@ -164,11 +172,14 @@ class GameEngine{
 		//wolf
 		for(let i = 0 ;i < this.listWolf.length; i++){
 			this.wall(this.listWolf[i]);
+        	
 			if(this.calcDist(this.dog.x,this.dog.y,this.listWolf[i].x,this.listWolf[i].y)<200){
-				this.listWolf[i].goto();
 				this.listWolf[i].flee(this.dog.x,this.dog.y);
+				this.listWolf[i].goto();
 			}
-        	this.nextSheep(this.listWolf[i]);
+			else{
+				this.nextSheep(this.listWolf[i]);
+			}
         	//ignora distancia ao cao para ja, criar um metodo que continue a ir para a ovelha mas desviado???
     	}
 	}
@@ -264,7 +275,7 @@ class GameEngine{
 	generateSheep(level){
 		switch(level){
 			case(1):
-				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],400,400));
+				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],400,300));
 				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],200,200));
 				this.listSheep.push(new Sheep(this.images[7],this.images[8],this.images[9],this.images[10],this.images[11],this.images[12],300,300));
 				this.totalSheeps = 3;
@@ -505,6 +516,9 @@ class GameEngine{
 						this.start(6);
 					}
 				}
+				else if(x>293 && x<504 && y>592 && y<630){
+					this.stage="menuMain";
+				}
 				break;
 			case("menuCredits"):
 				console.log("here");
@@ -544,14 +558,14 @@ class GameEngine{
 		}
 	}
 	changeSound(x){
-		var sound = (x-294)/(508-294);
-		for(let i=0; i<this.listMusics.length; i++){
+		var sound = (x-273)/(640-273);
+		for(let i=3; i<this.listMusics.length; i++){
 			this.listMusics[i].volume = sound;
 		}
 	}
 	changeMusic(x){
-		var music = (x-294)/(508-294);
-		for(let i=0; i<this.listMusics.length; i++){
+		var music = (x-273)/(640-273);
+		for(let i=0; i<3; i++){
 			this.listMusics[i].volume = music;
 		}
 	}	
