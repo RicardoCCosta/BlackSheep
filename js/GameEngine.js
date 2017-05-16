@@ -84,6 +84,9 @@ class GameEngine{
 			this.unlockedLevels = this.level+1;
 		}
 		if(this.safeSheeps<(this.totalSheeps/2)){
+			this.listMusics[1].pause();
+			this.listMusics[5].pause();
+			this.listMusics[0].play();
 			//game over menu
 			//this.stage="gameOver1";
 		}else{
@@ -516,14 +519,14 @@ class GameEngine{
 		}
 	}
 	changeSound(x){
-		var sound = (x-294)/(508-294);
-		for(let i=0; i<this.listMusics.length; i++){
+		var sound = (x-273)/(640-273);
+		for(let i=3; i<this.listMusics.length; i++){
 			this.listMusics[i].volume = sound;
 		}
 	}
 	changeMusic(x){
-		var music = (x-294)/(508-294);
-		for(let i=0; i<this.listMusics.length; i++){
+		var music = (x-273)/(640-273);
+		for(let i=0; i<3; i++){
 			this.listMusics[i].volume = music;
 		}
 	}	
