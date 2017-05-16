@@ -301,9 +301,62 @@ class GameEngine{
 	generateWolf(level){
 		switch(level){
 			case(2):
-				this.listWolf.push(new Wolf(this.images[13],this.images[14],this.images[15],this.images[16],this.images[17],this.images[18],700,700));
+				spwanField(2);
+				spwanField(4);
+				break;
+			case(3):
+				spwanField(3);
+				spwanField(5);
+				break;
+			case(4):
+				spwanField(2);
+				spwanField(3);
+				spwanField(4);
+				break;
+			case(5):
+				spwanField(1);
+				spwanField(3);
+				spwanField(5);
+				break;
+			case(6):
+				spwanField(1);
+				spwanField(5);
+				this.listWolf.push(new Wolf(this.images[13],this.images[14],this.images[15],this.images[16],this.images[17],this.images[18],400,750));
 				break;
 		}
+	}
+
+	spwanField(n){
+		var x;
+		var y;
+		switch(n){
+			case(1):
+				//y 0 a -800   x 0  a 800
+				x = Math.random()*800;
+				y = Math.random()*800 * (-1);
+				break;
+			case(2):
+				//y 0 a -800   x 800  a 1600
+				x = Math.random()*800 + 800;
+				y = Math.random()*800 * (-1);
+				break; 
+			case(3):
+				//y 0 a 800   x 800  a 1600
+				x = Math.random()*800 + 800;
+				y = Math.random()*800
+				break; 
+			case(4):
+				//y 800 a 1600   x 800  a 1600
+				x = Math.random()*800 + 800;
+				y = Math.random()*800 + 800;
+				break; 
+			case(5):
+				//y 800 a 1600   x 0  a 800
+				x = Math.random()*800;
+				y = Math.random()*800 + 800;
+				break; 
+		}
+		this.listWolf.push(new Wolf(this.images[13],this.images[14],this.images[15],this.images[16],this.images[17],this.images[18],x,y));
 	}
 
 	drawMenu(){
