@@ -199,9 +199,11 @@ class GameEngine{
 			//Sheep Lost
 
 			//Bark metter
-		this.ctx.fillText('Score: ' + this.score,0,30);
+		this.ctx.rect(0,0,5,300);
+		this.ctx.rect(0,500,5,300);
+		this.ctx.fillText('Score: ' + this.score,5,30);
 		this.ctx.fillText('caugth ' +this.safeSheeps + ' / missing ' +this.listSheep.length+' / total '+ this.totalSheeps,400,30);
-		this.ctx.fillText('Time Bonus: ' +this.timeBonus,0,60);
+		this.ctx.fillText('Time Bonus: ' +this.timeBonus,5,60);
 	}
 
 	isOut(x,y){
@@ -391,8 +393,14 @@ class GameEngine{
 				break;
 			case("menuOptions"):
 				this.ctx.drawImage(this.menuImages[2],0,0,this.menuImages[2].width,this.menuImages[2].height,0,0,800,800);
-				this.ctx.drawImage(this.images[7],0,0,this.images[7].width,this.images[7].height,this.musicVol-20,369-20,40,40);
-				this.ctx.drawImage(this.images[7],0,0,this.images[7].width,this.images[7].height,this.soundVol-20,543-20,40,40);
+				this.ctx.drawImage(this.images[7],0,0,this.images[7].width,this.images[7].height,this.musicVol-20,349-20,40,40);
+				this.ctx.drawImage(this.images[7],0,0,this.images[7].width,this.images[7].height,this.soundVol-20,463-20,40,40);
+				//
+				this.ctx.rect(246,536,636-246,550-550);
+				this.ctx.stroke();
+				this.ctx.rect(246,362,636-246,376-362);
+				this.ctx.stroke();
+				//
 				break;
 			case("menuCredits"):
 				this.ctx.drawImage(this.menuImages[3],0,0,this.menuImages[3].width,this.menuImages[3].height,0,0,800,800);
@@ -431,10 +439,12 @@ class GameEngine{
 				}
 				break;
 			case("menuOptions"):
+				
 				if(x>=246 && x<=636 && y>=362 && y<=376){
 					this.changeMusic(x);
 					this.musicVol = x;
 				}
+				
 				if(x>=246 && x<=636 && y>=536 && y<=550){
 					this.changeSound(x);
 					this.soundVol = x;

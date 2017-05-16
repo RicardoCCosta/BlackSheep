@@ -6,12 +6,8 @@ class Wolf extends Animal{
 		this.y=y;
 	}
 
-	run(Dog){ 	//activado quando o ção ladra 
-			//o lobo é suposto correr X tempo numa direção
-			//ter cuidado com os limites do mapa e vedação
-	}
-
 	update(x,y){
+		this.frameCounter++;
 		var difx = x - this.x;
 		var dify = y - this.y;
 		var mod = Math.sqrt(Math.pow(difx,2)+Math.pow(dify,2));
