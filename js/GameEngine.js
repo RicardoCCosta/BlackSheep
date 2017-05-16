@@ -504,6 +504,9 @@ class GameEngine{
 						this.start(6);
 					}
 				}
+				else if(x>293 && x<504 && y>592 && y<630){
+					this.stage="menuMain";
+				}
 				break;
 			case("menuCredits"):
 				console.log("here");
