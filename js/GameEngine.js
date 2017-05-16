@@ -35,10 +35,12 @@ class GameEngine{
 	}
 	start(level){
 		//MUSIC
+
 		this.listSheep = [];
 		this.listWolf = [];
 		this.soundOn = true;
 		this.musicOn = true;
+		this.listMusics[0].pause();
 		this.listMusics[1].loop=true;
 		this.listMusics[5].loop=true;
 		this.listMusics[1].play();
@@ -265,14 +267,12 @@ class GameEngine{
 		if(x>800+25){
 			if(this.soundOn){
 				this.listMusics[9].play();
-				this.listMusics[9].pause();
 			}
 			return true;
 		}
 		else if(y<0-25 || y>800+25){
 			if(this.soundOn){
 				this.listMusics[9].play();
-				this.listMusics[9].pause();
 			}
 			return true;
 		}else {
@@ -491,9 +491,9 @@ class GameEngine{
 		console.log(this.stage);
 		switch(this.stage){
 			case("menuMain"):
+				this.listMusics[0].play();
 				if(x>=344 && x<=456 && y>=288 && y<=348){
 					this.stage = "menuLevel";
-					this.listMusics[0].pause();		
 					this.listMusics[3].play();
 				}
 				if(x>=302 && x<=493 && y>=380 && y<=437){
@@ -510,10 +510,10 @@ class GameEngine{
 					this.stage = "menuScores";
 					this.listMusics[3].play();
 				}
-				if(x>=579 && x<=702 && y>=566 && y<=624){ //ANDREIAAAAAAA
+				if(x>=579 && x<=702 && y>=566 && y<=624){
 					this.stage = "help1";
 				}
-				if(x>=0 && x<=0 && y>=0 && y<=0){ //ANDREIAAAAAAA
+				if(x>=0 && x<=0 && y>=0 && y<=0){ 
 					this.stage = "quit";
 				}
 				
@@ -530,69 +530,85 @@ class GameEngine{
 				}
 				
 				if(x>293 && x<504 && y>592 && y<630){
+					this.listMusics[3].play();
 					this.stage="menuMain";
 				}
 				break;
 			case("menuLevel"):
-				this.listMusics[3].play();
 				console.log(this.stage);
 				if(x>=266 && x<=295 && y>=331 && y<=394){
+					this.listMusics[3].play();
 					this.start(1);
 				}
 				else if(x>=382 && x<=416 && y>=331 && y<=394){
 					console.log(this.unlockedLevels+" "+2);
 					if(this.unlockedLevels>1){
+						this.listMusics[3].play();
 						this.start(2);
 					}
 				}
 				else if(x>=499 && x<=531 && y>=331 && y<=394){
 					if(this.unlockedLevels>2){
+						this.listMusics[3].play();
 						this.start(3);
 					}
 				}
 				else if(x>=266 && x<=295 && y>=447 && y<=516){
 					if(this.unlockedLevels>3){
+						this.listMusics[3].play();
 						this.start(4);
 					}
 				}
 				else if(x>=382 && x<=416 && y>=447 && y<=516){
 					if(this.unlockedLevels>4){
+						this.listMusics[3].play();
 						this.start(5);
 					}
 				}
 				else if(x>=499 && x<=531 && y>=447 && y<=516){
 					if(this.unlockedLevels>5){
+						this.listMusics[3].play();
 						this.start(6);
 					}
 				}
 				else if(x>293 && x<504 && y>592 && y<630){
+					this.listMusics[3].play();
 					this.stage="menuMain";
 				}
 				break;
 			case("menuCredits"):
 				console.log("here");
 				if(x>294&&x<500&&y>630&&y<670){
+					this.listMusics[3].play();
 					this.stage="menuMain";
+					this.listMusics[2].pause();
+					this.listMusics[0].play();
 				}
+				
 				break;
 			case("menuScores"):
 				if(x>292&&x<508&&y>593&&y<627){
+					this.listMusics[3].play();
 					this.stage="menuMain";
 				}
 				break;
 			case("gameOver1"):
 				if(x>209&&x<589&&y>340&&y<404){
 					this.start(this.level+1);
+					this.listMusics[0].pause();
 				}
 				if(x>208&&x<593&&y>512&&y<578){
+					this.listMusics[3].play();
 					this.stage="menuMain";
 				}
 				break;
 			case("gameOver2"):
 				if(x>209&&x<589&&y>340&&y<404){
 					this.start(this.level);
+					this.listMusics[0].pause();
 				}
 				if(x>208&&x<593&&y>512&&y<578){
+					this.listMusics[3].play();
 					this.stage="menuMain";
 				}
 				break;
@@ -601,6 +617,7 @@ class GameEngine{
 					this.stage="game";
 				}
 				if(x>208&&x<593&&y>512&&y<578){
+					this.listMusics[3].play();
 					this.stage="menuMain";
 				}
 				break;
