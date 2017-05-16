@@ -311,6 +311,7 @@ class GameEngine{
 		switch(level){
 			case(1):
 				this.listWolf.push(new Wolf(this.images[13],this.images[14],this.images[15],this.images[16],this.images[17],this.images[18],400,750));
+				break;
 			case(2):
 				this.spwanField(2);
 				this.spwanField(4);
