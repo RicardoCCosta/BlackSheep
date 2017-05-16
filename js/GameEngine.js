@@ -14,7 +14,6 @@ class GameEngine{
 		this.listWolf = [];
 		this.pause = false;
 		this.menu = false;
-		this.timeWhenGameStarted;
 		this.framecounter=0;
 		//
 		this.images = [];
@@ -27,6 +26,7 @@ class GameEngine{
 		this.musicVol = 441;
 		this.soundVol = 441;
 		this.listMusics=[];
+		this.timeBonus=1000;
 	}
 
 	setCtx(){
@@ -39,12 +39,11 @@ class GameEngine{
 		this.listMusics[5].play();
 
 		this.level=level;
-		this.timeWhenGameStarted = Date.now();
 		this.dog = new Dog(this.images[1],this.images[2],this.images[3],this.images[4],this.images[5],this.images[6]);
 		this.generateSheep(level);
 		this.generateWolf(level);
 				
-		this.startTime = Date.now();
+		this.timeBonus=1000;
 	}
 
 	click(x,y){
@@ -82,7 +81,7 @@ class GameEngine{
 		if(this.unlockedLevels<this.level+1){
 			this.unlockedLevels = this.level+1;
 		}
-		if(this.safeSheeps<(totalSheeps/2)){
+		if(this.safeSheeps<(this.totalSheeps/2)){
 			//game over menu
 			//this.stage="gameOver1";
 		}else{
@@ -108,6 +107,7 @@ class GameEngine{
 	}
 
 	update(){
+		this.timeBonus--;
 		this.framecounter++;
 		if(this.listSheep.length==0)
 			this.endGame();
@@ -115,22 +115,17 @@ class GameEngine{
 		this.dog.update(this.mx,this.my);
 		//sheep
 		for(let i = 0 ;i < this.listSheep.length; i++){
-	        
 	        let dist = this.calcDist(this.dog.x,this.dog.y,this.listSheep[i].x,this.listSheep[i].y);
 	        let flagIdle = true;
         	if(this.isSafe(this.listSheep[i].x,this.listSheep[i].y)){
-        		//delete ovelha
         		gameEngine.listSheep.splice(i,1);
 	        	this.score+=100;
 	        	this.safeSheeps++;
 	        	continue;
         	}else if(this.isOut(this.listSheep[i].x,this.listSheep[i].y)){
-	        	//delete ovelha
-
 	        	gameEngine.listSheep.splice(i,1);
 	        	continue;
         	}
-        	
 	        this.wall(this.listSheep[i]);
 	        for(let j = 0 ;j < this.listWolf.length; j++){
 	        	let wolfDist = calcDist(this.listWolf[j].x,this.listWolf[j].y,this.listSheep[i].x,this.listSheep[i].y);
@@ -145,6 +140,14 @@ class GameEngine{
 	        }
 
 	        //COLISÃO ENTRE OVELHAS
+        	for(let j=0;j<this.listSheep.length;j++){
+        		if(j==i)
+        			continue;
+        		if(this.calcDist(this.listSheep[j].x,this.listSheep[j].y,this.listSheep[i].x,this.listSheep[i].y)<50){
+        			this.listSheep[i].flee(this.listSheep[j].x,this.listSheep[j].y);
+        		}
+
+        	}
 
         	if(flagIdle && dist<200){
         		flagIdle=false;
@@ -189,11 +192,9 @@ class GameEngine{
 			//Sheep Lost
 
 			//Bark metter
-
-		//ctx.fillText('Score: ' + score,200,30);
 		this.ctx.fillText('Score: ' + this.score,0,30);
 		this.ctx.fillText('caugth ' +this.safeSheeps + ' / missing ' +this.listSheep.length+' / total '+ this.totalSheeps,400,30);
-		this.ctx.fillText('Score: ' + (Date.now() - this.timeWhenGameStarted)/60,0,60);
+		this.ctx.fillText('Time Bonus: ' +this.timeBonus,0,60);
 	}
 
 	isOut(x,y){

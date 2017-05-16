@@ -165,11 +165,11 @@ function main(){
 	//wolf6Image.src =  "Images/wolf6.png";
 	//powerImage.src = "Image/power.png";
 	mainImage.src = "Images/main.png";
-	menu.src = "Images/menu-01.png";
+	menu.src = "Images/menu.png";
 	options.src = "Images/options.png";
 	credits.src = "Images/credits.png";
 	scores.src = "Images/scores.png";
-	levels.src = "Images/levels-01.png";
+	levels.src = "Images/levels.png";
 
 
 }
@@ -200,7 +200,11 @@ function update(gameEngine){
 			if(!gameEngine.pause){
 				gameEngine.update();
 				gameEngine.draw();
+				break;
 			}	
+
+		case("gameOver1"):
+
 	}
 	window.requestAnimationFrame(function () {
 
@@ -211,6 +215,7 @@ function update(gameEngine){
 document.onmousedown = function(mouse){
 	var x = mouse.clientX - document.getElementById('ctx').getBoundingClientRect().left;
 	var y = mouse.clientY - document.getElementById('ctx').getBoundingClientRect().top;
+	console.log(x+" "+y);
 	switch(gameEngine.stage){
 		case("load"):
 			break;
