@@ -1,7 +1,7 @@
 "use strict";
 class Wolf extends Animal{
 	constructor(image1,image2,image3,image4,image5,image6){
-		super('wolf',0,10,200,200,100,100,10,image1,image2,image3,image4,image5,image6);
+		super('wolf',0,10,200,200,100,100,2.5,image1,image2,image3,image4,image5,image6);
 	}
 
 	run(Dog){ 	//activado quando o ção ladra 

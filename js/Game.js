@@ -35,30 +35,43 @@ function main(){
 	var levels = new Image();
 
 	//MUSICAS
-	var audioIntro=new Audio();
+
 	//-ovelha morre
 	//-ovelha entra na cerca
 	//-ovelha sai do campo
-	//-fim do jogo
-	//-cºao ladrar
+
 
 	//var audioSheepD=new Audio('');
-	//var audioSheepIn=new Audio('');
+	
 	//var audioSheepOut=new Audio('');
-	//var gameOver=new Audio('');
-	//var audioDog=new Audio('');
+	
+	var audioIntro=new Audio();
 	var audioChoose=new Audio();
 	var audioGame=new Audio();
+	var audioWalk=new Audio();
+	var creditsMusic=new Audio();
+	var soundSheep=new Audio();
+	var gameOver=new Audio();
+	var audioDog=new Audio();
+	var audioSheepIn=new Audio();
+
+
 
 	gameEngine.listMusics.push(audioIntro);
-
 	gameEngine.listMusics.push(audioChoose);
 	gameEngine.listMusics.push(audioGame);
+	gameEngine.listMusics.push(audioWalk);
+	gameEngine.listMusics.push(creditsMusic);
+	gameEngine.listMusics.push(soundSheep);
+	gameEngine.listMusics.push(gameOver);
+	gameEngine.listMusics.push(audioDog);
+	gameEngine.listMusics.push(audioSheepIn);
 
 
 	var nMusics=gameEngine.listMusics.length;
 	var loadMusic=0;
 	for(let j = 0 ;j< nMusics ; j++){
+		gameEngine.listMusics[j].volume=0.5;
 		gameEngine.listMusics[j].addEventListener("load", function () {
 			loadMusic++;
 			if(loadMusic == nMusics){
@@ -72,6 +85,17 @@ function main(){
 			}
 		});
 	}
+
+	audioIntro.src="musics/intro_song.mp3";//    0
+	audioChoose.src="musics/choose.wav"; //      1
+	audioGame.src="musics/gameMusic.mp3";   //   2
+	audioWalk.src="musics/walk.wav";//  3
+	creditsMusic.src="musics/credits.mp3";    // 4
+	soundSheep.src="musics/meee.mp3";       //   5
+	gameOver.src="musics/gameOver1.wav";//       6
+	audioDog.src="musics/dogSound.wav"; //       7
+	//audioSheepIn.src="musics/sheepIn.wav";   //  8
+	
 
 
 
@@ -147,11 +171,7 @@ function main(){
 	scores.src = "Images/scores.png";
 	levels.src = "Images/levels-01.png";
 
-	audioIntro.src="musics/intro_song.mp3";
 
-	audioChoose.src="musics/choose.wav";
-	audioGame.src="musics/gameMusic.mp3";
-	
 }
 
 function update(gameEngine){
@@ -187,6 +207,7 @@ function update(gameEngine){
 			}	
 	}
 	window.requestAnimationFrame(function () {
+
         update(gameEngine);
     });
 }
@@ -216,7 +237,6 @@ document.onmousedown = function(mouse){
 			}	
 	}
 }
-
 document.oncontextmenu = function(mouse){
 	mouse.preventDefault();
 }

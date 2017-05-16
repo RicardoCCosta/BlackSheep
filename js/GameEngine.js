@@ -36,7 +36,7 @@ class GameEngine{
 	start(level){
 		//MUSIC
 		this.listMusics[2].play();
-
+		this.listMusics[5].play();
 
 		this.level=level;
 		this.timeWhenGameStarted = Date.now();
@@ -58,6 +58,7 @@ class GameEngine{
 
 	click(x,y){
 		//SOM
+		this.listMusics[3].play();	
 		if(this.framecounter<10){
 			this.bark();
 		}
@@ -148,11 +149,12 @@ class GameEngine{
 		        	}
 		       	}
 	        }
+
+	        //COLISÃO ENTRE OVELHAS
 	        
-        	if(flagIdle && dist<300){
+        	if(flagIdle && dist<200){
         		flagIdle=false;
         		this.listSheep[i].reset();
-        		this.listSheep[i].goto();
         		this.listSheep[i].flee(this.dog.x,this.dog.y);
         	}
 
@@ -201,10 +203,10 @@ class GameEngine{
 
 	isOut(x,y){
 		//SOM
-		if(x>800+50){
+		if(x>800+25){
 			return true;
 		}
-		else if(y<0-50 || y>800+50){
+		else if(y<0-25 || y>800+25){
 			return true;
 		}else {
 			return false;
@@ -212,8 +214,8 @@ class GameEngine{
 	}
 
 	isSafe(x,y){
-		//SOM
-		if(x<0-50 && y<=500 && y>=300){
+		this.listMusics[8].play();   //a ovelha entrou na cerca 
+		if(x<0-25 && y<=500 && y>=300){
 			return true;
 		}
 		else{
@@ -223,7 +225,7 @@ class GameEngine{
 
 	wall(sheep){
 		if(sheep.x<0+sheep.width/2 && (sheep.y>=500 || sheep.y<=300)){
-			sheep.x+=10;
+			sheep.x+=sheep.maxSpeed;
 			sheep.reset();
 		}
 	}
@@ -285,20 +287,25 @@ class GameEngine{
 	clickMenu(x,y){
 		switch(this.stage){
 			case("menuMain"):
-				this.listMusics[0].pause();
-				this.listMusics[1].play();
 				if(x>=344 && x<=456 && y>=288 && y<=348){
 					this.stage = "game";
+					this.listMusics[0].pause();		
+					this.listMusics[1].play();
 					this.start(1);
 				}
 				if(x>=302 && x<=493 && y>=380 && y<=437){
 					this.stage = "menuOptions";
+					this.listMusics[1].play();
 				}
 				if(x>=304 && x<=456 && y>=470 && y<=527){
+					this.listMusics[0].pause();		
+					this.listMusics[1].play();
 					this.stage = "menuCredits";
+					this.listMusics[4].play();	
 				}
 				if(x>=315 && x<=485 && y>=560 && y<=618){
 					this.stage = "menuScores";
+					this.listMusics[1].play();
 				}
 				break;
 			case("menuOptions"):
@@ -314,6 +321,7 @@ class GameEngine{
 				break;
 			case("menuLevel"):
 				//ve nivel a clicar e faz o start
+				this.listMusics[1].play();
 				break;
 		}
 	}
