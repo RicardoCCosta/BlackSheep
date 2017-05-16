@@ -35,6 +35,8 @@ class GameEngine{
 	}
 	start(level){
 		//MUSIC
+		this.listMusics[1].loop=true;
+		this.listMusics[5].loop=true;
 		this.listMusics[1].play();
 		this.listMusics[5].play();
 
@@ -365,6 +367,7 @@ class GameEngine{
 	drawMenu(){
 		switch(this.stage){
 			case("intro"):
+				this.listMusics[0].loop=true;
 				this.listMusics[0].play();
 				this.ctx.clearRect(0,0,this.width,this.heigth);
 				this.ctx.drawImage(this.menuImages[0],0,0,this.menuImages[0].width,this.menuImages[0].height,0,0,800,800);
