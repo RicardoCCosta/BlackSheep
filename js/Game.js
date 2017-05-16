@@ -37,6 +37,10 @@ function main(){
 	var tut2=new Image();
 	var tut3=new Image();
 
+	var overImage=new Image();
+	var againImage=new Image();
+	var pauseImage=new Image();
+
 	//MUSICAS
 
 	var audioIntro=new Audio();
@@ -125,9 +129,14 @@ function main(){
 	gameEngine.menuImages.push(scores);
 	gameEngine.menuImages.push(levels);
 
-	gameEngine.images.push(tut1);
-	gameEngine.images.push(tut2);
-	gameEngine.images.push(tut3);
+	gameEngine.menuImages.push(tut1);
+	gameEngine.menuImages.push(tut2);
+	gameEngine.menuImages.push(tut3);
+
+	gameEngine.menuImages.push(overImage);
+	gameEngine.menuImages.push(againImage);
+	gameEngine.menuImages.push(pauseImage);
+
 
 	var nImages = gameEngine.images.length;
 	var loadedImages = 0;
@@ -175,6 +184,10 @@ function main(){
 	tut1.src = "Images/tutorial1.png";
 	tut2.src = "Images/tutorial2.png";
 	tut3.src = "Images/tutorial3.png";
+
+	overImage.src="Images/over.png";
+	againImage.src="Images/again.png";
+	pauseImage.src="Images/pause.png";
 
 }
 
