@@ -39,7 +39,7 @@ function main(){
 	var level5 = new Image();
 	var level6 = new Image();
 	var cercaImage = new Image();
-
+	var powerImage=new Image();
 	var tut1=new Image();
 	var tut2=new Image();
 	var tut3=new Image();
@@ -135,6 +135,7 @@ function main(){
 	gameEngine.images.push(wolf5Image);
 	gameEngine.images.push(wolf6Image);
 	gameEngine.images.push(cercaImage);
+	gameEngine.images.push(powerImage);
 	//gameEngine.images.push(powerImage);
 	gameEngine.menuImages.push(mainImage);
 	gameEngine.menuImages.push(menu);
@@ -218,11 +219,13 @@ function main(){
 	againImage.src="Images/again.png";
 	pauseImage.src="Images/pause.png";
 	cercaImage.src="Images/cerca.png";
+	powerImage.src="Images/power.png";
 
 	musicMute.src="Images/musicMute.png";
 	musicOn.src="Images/musicOn.png";
 	soundMute.src="Images/soundMute.png";
 	soundOn.src="Images/soundOn.png";
+
 
 }
 
