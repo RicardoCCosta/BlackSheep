@@ -608,7 +608,7 @@ class GameEngine{
 				}
 				break;
 			case("menuCredits"):
-				if(x>294&&x<500&&y>630&&y<670){
+				if(x>293 && x<504 && y>592 && y<630){
 					this.listMusics[3].play();
 					this.stage="menuMain";
 					this.listMusics[2].pause();
