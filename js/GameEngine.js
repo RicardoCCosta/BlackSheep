@@ -4,10 +4,11 @@ class GameEngine{
 		this.unlockedLevels=1;
 		this.stage = "load";
 		this.score = 0;
+		this.totalScore = 0;
 		this.wolfSheepDistance = 20;
 		this.totalSheeps = 0;
 		this.safeSheeps = 0;
-		this.level = 0;
+		this.level = 1;
 		this.dog = null;
 		this.listSheep = [];
 		this.listWolf = [];
@@ -111,6 +112,8 @@ class GameEngine{
 			if(this.unlockedLevels<this.level+1){
 				this.unlockedLevels = this.level+1;
 			}
+			this.score+=this.timeBonus;
+			this.totalScore+=this.score;
 			//SOM WIN
 			this.listMusics[1].pause();
 			this.listMusics[5].pause();
@@ -272,6 +275,7 @@ class GameEngine{
 		this.ctx.fillText('Score: ' + this.score,5,30);
 		this.ctx.fillText('caugth ' +this.safeSheeps + ' / missing ' +this.listSheep.length+' / total '+ this.totalSheeps,400,30);
 		this.ctx.fillText('Time Bonus: ' +this.timeBonus,5,60);
+		this.ctx.fillText('Total Score: ' +this.totalScore,5,90);
 	}
 
 	isOut(x,y){
@@ -471,7 +475,18 @@ class GameEngine{
 				this.ctx.drawImage(this.menuImages[4],0,0,this.menuImages[4].width,this.menuImages[4].height,0,0,800,800);
 				break;
 			case("menuLevel"):
-				this.ctx.drawImage(this.menuImages[5],0,0,this.menuImages[5].width,this.menuImages[5].height,0,0,800,800);
+				if(this.level==1)
+					this.ctx.drawImage(this.menuImages[5],0,0,this.menuImages[5].width,this.menuImages[5].height,0,0,800,800);
+				else if(this.level==2)
+					this.ctx.drawImage(this.menuImages[16],0,0,this.menuImages[16].width,this.menuImages[16].height,0,0,800,800);
+				else if(this.level==3)
+					this.ctx.drawImage(this.menuImages[17],0,0,this.menuImages[17].width,this.menuImages[17].height,0,0,800,800);
+				else if(this.level==4)
+					this.ctx.drawImage(this.menuImages[18],0,0,this.menuImages[18].width,this.menuImages[18].height,0,0,800,800);
+				else if(this.level==5)
+					this.ctx.drawImage(this.menuImages[19],0,0,this.menuImages[19].width,this.menuImages[19].height,0,0,800,800);
+				else if(this.level==6)
+					this.ctx.drawImage(this.menuImages[20],0,0,this.menuImages[20].width,this.menuImages[20].height,0,0,800,800);
 				break;
 			case("help1"):
 				this.ctx.drawImage(this.menuImages[6],0,0,this.menuImages[6].width,this.menuImages[6].height,0,0,800,800);
@@ -608,6 +623,7 @@ class GameEngine{
 				if(x>208&&x<593&&y>512&&y<578){
 					this.listMusics[3].play();
 					this.stage="menuMain";
+					this.highscores();
 				}
 				break;
 			case("gameOver2"):
@@ -618,6 +634,7 @@ class GameEngine{
 				if(x>208&&x<593&&y>512&&y<578){
 					this.listMusics[3].play();
 					this.stage="menuMain";
+					this.highscores();
 				}
 				break;
 			case("pause"):
@@ -627,6 +644,7 @@ class GameEngine{
 				if(x>208&&x<593&&y>512&&y<578){
 					this.listMusics[3].play();
 					this.stage="menuMain";
+					this.highscores();
 				}
 				break;
 		}
@@ -637,10 +655,65 @@ class GameEngine{
 			this.listMusics[i].volume = sound;
 		}
 	}
+
 	changeMusic(x){
 		var music = (x-273)/(640-273);
 		for(let i=0; i<3; i++){
 			this.listMusics[i].volume = music;
 		}
-	}	
+	}
+
+	highscores(){
+		//le de ficheiro os 5 highscores e poe no array
+		//compara com o this.totalScore se < escreve totalScore no ficheiro
+		this.arrayScores = [];
+		var scoresFile = new File([""],"highscores.txt");
+		var linha = "";
+		var pontuacao;
+		var flag;
+		scoresFile.open("r");
+		while(!scoresFile.eof){
+			flag = false
+			linha += scoresFile.readln();
+			pontuacao = parseInt(linha);
+			if(this.arrayScores.length==0)
+				this.arrayScores.push(pontuacao);
+			else{
+				for(let i=0;i<this.arrayScores.length;i++){
+					if(this.arrayScores[i]<pontuacao){
+						flag=true;
+						var temp = this.arrayScores[i];
+						this.arrayScores[i]=pontuacao;
+						this.recursiva(temp,this.arrayScores,i+1);
+					}
+				}
+				if(flag==false && arrayScores.length<5){
+					this.arrayScores.push(pontuacao);
+				}
+			}
+		}
+		scoresFile.close();
+		console.log('1º: '+this.arrayScores[0]);
+		console.log('2º: '+this.arrayScores[1]);
+		console.log('3º: '+this.arrayScores[2]);
+		console.log('4º: '+this.arrayScores[3]);
+		console.log('5º: '+this.arrayScores[4]);
+	}
+	recursiva(temp,array,j){
+		var flag = false;
+		for(let i=j;i<array.length;i++){
+			if(array[i]<temp){
+				flag=true;
+				var aux = array[i];
+				array[i]=temp;
+				this.recursiva(aux,array,i+1);
+			}
+		}
+		if(flag==false && arrayScores.length<5){
+			array.push(pontuacao);
+		}
+	}
+	//primeira mete
+	//segunda ate ao fim vai comparando e pondo
+	//a partir da quinta nao insere, so troca com o pior
 }

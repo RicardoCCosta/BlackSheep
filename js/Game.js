@@ -33,7 +33,12 @@ function main(){
 	var credits = new Image();
 	var scores = new Image();
 	var levels = new Image();
-	var cercaImage=new Image();
+	var level2 = new Image();
+	var level3 = new Image();
+	var level4 = new Image();
+	var level5 = new Image();
+	var level6 = new Image();
+	var cercaImage = new Image();
 
 	var tut1=new Image();
 	var tut2=new Image();
@@ -109,8 +114,6 @@ function main(){
 	audioPause.src="musics/pause.mp3";			//11
 	
 
-
-
 	gameEngine.images.push(backgroundImage);
 	gameEngine.images.push(dog1Image);
 	gameEngine.images.push(dog2Image);
@@ -153,6 +156,11 @@ function main(){
 	gameEngine.menuImages.push(soundMute);
 	gameEngine.menuImages.push(soundOn);
 
+	gameEngine.menuImages.push(level2);
+	gameEngine.menuImages.push(level3);
+	gameEngine.menuImages.push(level4);
+	gameEngine.menuImages.push(level5);
+	gameEngine.menuImages.push(level6);
 
 	var nImages = gameEngine.images.length;
 	var loadedImages = 0;
@@ -196,7 +204,12 @@ function main(){
 	options.src = "Images/options.png";
 	credits.src = "Images/credits.png";
 	scores.src = "Images/scores.png";
-	levels.src = "Images/levels.png";
+	levels.src = "Images/levels-01.png";
+	level2.src = "Images/levels-02.png";
+	level3.src = "Images/levels-03.png";
+	level4.src = "Images/levels-04.png";
+	level5.src = "Images/levels-05.png";
+	level6.src = "Images/levels-06.png";
 	tut1.src = "Images/tutorial1.png";
 	tut2.src = "Images/tutorial2.png";
 	tut3.src = "Images/tutorial3.png";
