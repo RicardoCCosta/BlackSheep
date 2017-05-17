@@ -14,15 +14,23 @@ class Sheep extends Animal{
 	}
 
 	update(){
-		this.goto();
-		if((this.frameRandom>100)&&(this.vx==0 && this.vy==0)){
-			let temp = Math.random()*200+100;
-			if(temp<this.frameRandom){
-				this.goX = this.x+Math.random()*200-100;
-				this.goY = this.y+Math.random()*200-100;
-				this.frameRandom=0;
+		this.frameCounter++;
+		if(this.runCounter>0){
+			this.reset();
+			this.runCounter--;
+			this.x += this.vx;
+			this.y += this.vy;
+		}else{
+			this.goto();
+			if((this.frameRandom>100)&&(this.vx==0 && this.vy==0)){
+				let temp = Math.random()*200+100;
+				if(temp<this.frameRandom){
+					this.goX = this.x+Math.random()*200-100;
+					this.goY = this.y+Math.random()*200-100;
+					this.frameRandom=0;
+				}
 			}
+			this.frameRandom++;
 		}
-		this.frameRandom++;
 	}
 }

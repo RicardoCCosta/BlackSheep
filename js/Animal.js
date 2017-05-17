@@ -22,8 +22,7 @@ class Animal{
 	}
 
 	draw(ctx){
-		console.log("animal counter" + this.frameCounter);
-		this.frameCounter++;
+		
 		ctx.save();
 			let posX = this.x - this.width/2;
 			let posY = this.y - this.height/2;
@@ -86,12 +85,12 @@ class Animal{
 		}
 	}
 	run(x,y){
-		this.runCounter=30;
+		this.runCounter=120;
 		var difx = x - this.x;
 		var dify = y - this.y;
 		var mod = Math.sqrt(Math.pow(difx,2)+Math.pow(dify,2));
-		this.vx = difx / mod * this.maxSpeed;
-		this.vy = dify / mod * this.maxSpeed;
+		this.vx = -difx / mod * this.maxSpeed;
+		this.vy = -dify / mod * this.maxSpeed;
 		if(isNaN(this.vx)){
 			this.vx=0;
 		}
@@ -101,29 +100,31 @@ class Animal{
 	}
 
 	update(x,y){
+		this.frameCounter++;
 		if(this.runCounter>0){
+			this.reset();
 			this.runCounter--;
 			this.x += this.vx;
 			this.y += this.vy;
-		}
-
-		var difx = x - this.x;
-		var dify = y - this.y;
-		var mod = Math.sqrt(Math.pow(difx,2)+Math.pow(dify,2));
-		this.vx = difx / mod * this.maxSpeed;
-		this.vy = dify / mod * this.maxSpeed;
-		if(isNaN(this.vx)){
-			this.vx=0;
-		}
-		if(isNaN(this.vy)){
-			this.vy=0;
-		}
-		if(mod>this.maxSpeed){
-			this.x += this.vx;
-			this.y += this.vy;
 		}else{
-			this.x += difx;
-			this.y += dify;
+			var difx = x - this.x;
+			var dify = y - this.y;
+			var mod = Math.sqrt(Math.pow(difx,2)+Math.pow(dify,2));
+			this.vx = difx / mod * this.maxSpeed;
+			this.vy = dify / mod * this.maxSpeed;
+			if(isNaN(this.vx)){
+				this.vx=0;
+			}
+			if(isNaN(this.vy)){
+				this.vy=0;
+			}
+			if(mod>this.maxSpeed){
+				this.x += this.vx;
+				this.y += this.vy;
+			}else{
+				this.x += difx;
+				this.y += dify;
+			}
 		}
 	}
 }

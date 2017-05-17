@@ -35,6 +35,7 @@ class GameEngine{
 	}
 	start(level){
 		//MUSIC
+		this.framecounter=60;
 		this.score=0;
 		this.safeSheeps=0;
 		this.listSheep = [];
@@ -60,16 +61,14 @@ class GameEngine{
 	}
 
 	click(x,y){
-
 		//SOM
 		if(this.soundOn)
 			this.listMusics[4].play();
 		//mute sounds
 		this.muteSounds(x,y);
 
-		if(this.framecounter>=30){
+		if(this.doublecounter<=10&&this.framecounter>=160){
 			this.bark();
-			this.framecounter=0;
 		}
 		if(x>800-this.dog.width/2){
 			this.mx = 800-this.dog.width/2;
@@ -86,6 +85,7 @@ class GameEngine{
 		}else{
 			this.my=y;
 		}
+		this.doublecounter=0;
 	}
 
 	muteSounds(x,y){
@@ -132,34 +132,33 @@ class GameEngine{
 	}
 
 	bark(){
-		console.log("bark");
 		//animação
 		//SOM
-
+		this.framecounter=0;
 		//ver ovelhas perto
 		for(let i = 0 ;i < this.listSheep.length; i++){
-			if(this.calcDist(this.dog.x,this.dog.y,this.listSheep[i].x),this.listSheep[i].y<200){
+			if(this.calcDist(this.dog.x,this.dog.y,this.listSheep[i].x,this.listSheep[i].y)<200){
+				this.listSheep[i].reset();
 				this.listSheep[i].run(this.dog.x,this.dog.y);
 			}
 		}
 		//ver lobos perto
 		for(let i = 0 ;i < this.listWolf.length; i++){
-			if(this.calcDist(this.dog.x,this.dog.y,this.listWolf[i].x),this.listWolf[i].y<200){
+			if(this.calcDist(this.dog.x,this.dog.y,this.listWolf[i].x,this.listWolf[i].y)<200){
 				this.listWolf[i].run(this.dog.x,this.dog.y);
 			}
 		}
-		this.ctx.save();
-		this.ctx.arc(this.dog.x, this.dog.y, 200, 0, 2 * Math.PI, false);
+
 	}
 
 	update(){
-		console.log("bark counter " + this.framecounter);
+		this.doublecounter++;
 		if(this.listSheep.length==0)
 			this.endGame();
 		if(this.timeBonus>0){
 			this.timeBonus--;
 		}
-		if(this.framecounter<30){
+		if(this.framecounter<160){
 			this.framecounter++;
 		}
 		//dog
@@ -232,13 +231,21 @@ class GameEngine{
 	}
 
 	draw(){
+
 		//draw background
 		this.ctx.clearRect(0,0,this.width,this.heigth);
 		this.ctx.drawImage(this.images[0],0,0,this.images[0].width,this.images[0].height,0,0,800,800);
-		this.ctx.drawImage(this.images[19],0,0,5,300);
-		this.ctx.drawImage(this.images[19],0,500,5,300);
-
-
+		this.ctx.drawImage(this.images[19],0,0,10,300);
+		this.ctx.drawImage(this.images[19],0,500,10,300);
+		this.ctx.save();
+		this.ctx.beginPath();
+		if(this.framecounter<5){
+			this.ctx.fillStyle = 'red';
+			this.ctx.arc(this.dog.x, this.dog.y, 200, 0, 2 * Math.PI, false);
+			this.ctx.lineWidth = 2;
+			this.ctx.stroke();
+			this.ctx.restore();
+		}
 		//draw buttons
 		if(this.musicOn)
 			this.ctx.drawImage(this.menuImages[13],650,50,40,40);
@@ -262,25 +269,17 @@ class GameEngine{
 		//draw dog
 		this.dog.draw(this.ctx);
 		//draw User Interface
-			//Timer 
-			this.ctx.fi
-			//Sheep Captured
-			//Sheep Missing
-			//Sheep Lost
-
-			//Bark metter
-		this.ctx.rect(0,0,5,300);
-		this.ctx.rect(0,500,5,300);
+		this.ctx.rect(10,0,5,300);
+		this.ctx.rect(10,500,5,300);
 		this.ctx.fillText('Score: ' + this.score,5,30);
 		this.ctx.fillText('caugth ' +this.safeSheeps + ' / missing ' +this.listSheep.length+' / total '+ this.totalSheeps,400,30);
 		this.ctx.fillText('Time Bonus: ' +this.timeBonus,5,60);
 
-		this.ctx.drawImage(this.images[20],0,780,(800-this.framecounter*(30/800)),50);
+		this.ctx.drawImage(this.images[20],0,780,this.framecounter*800/160,50);
 		
 	}
 
 	isOut(x,y){
-		//SOM
 		if(x>800+25){
 			if(this.soundOn){
 				this.listMusics[9].play();
@@ -311,9 +310,10 @@ class GameEngine{
 	}
 
 	wall(sheep){
-		if(sheep.x<0+sheep.width/2 && (sheep.y>=500 || sheep.y<=300)){
+		if(sheep.x<10+sheep.width/2 && (sheep.y>=500 || sheep.y<=300)){
 			sheep.x+=sheep.maxSpeed;
 			sheep.reset();
+			sheep.runCounter=0;
 		}
 	}
 
