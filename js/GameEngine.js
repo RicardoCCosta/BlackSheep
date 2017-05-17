@@ -1,7 +1,7 @@
 "use strict";
 class GameEngine{
 	constructor(){
-		this.unlockedLevels=1;
+		this.unlockedLevels=3;
 		this.stage = "load";
 		this.score = 0;
 		this.wolfSheepDistance = 20;
@@ -27,6 +27,7 @@ class GameEngine{
 		this.timeBonus=1000;
 		this.musicOn = true;
 		this.soundOn = true;
+		this.barkReload=160;
 	}
 
 	setCtx(){
@@ -67,19 +68,19 @@ class GameEngine{
 		//mute sounds
 		this.muteSounds(x,y);
 
-		if(this.doublecounter<=10&&this.framecounter>=160){
+		if(this.doublecounter<=10&&this.framecounter>=this.barkReload){
 			this.bark();
 		}
-		if(x>800-this.dog.width/2){
-			this.mx = 800-this.dog.width/2;
+		if(x>this.width-this.dog.width/2){
+			this.mx = this.width-this.dog.width/2;
 		}else if(x<0+this.dog.width/2){
 			this.mx = 0+this.dog.width/2;
 		}else{
 			this.mx=x;
 		}
 
-		if(y>800-this.dog.height/2){
-			this.my = 800-this.dog.height/2;
+		if(y>this.height-this.dog.height/2){
+			this.my = this.height-this.dog.height/2;
 		}else if(y<0+this.dog.height/2){
 			this.my = 0+this.dog.width/2;
 		}else{
@@ -158,7 +159,7 @@ class GameEngine{
 		if(this.timeBonus>0){
 			this.timeBonus--;
 		}
-		if(this.framecounter<160){
+		if(this.framecounter<this.barkReload){
 			this.framecounter++;
 		}
 		//dog
@@ -179,6 +180,7 @@ class GameEngine{
         	}
 	        this.wall(this.listSheep[i]);
 	        let eatFlag=false;
+	        //interacao com lobos
 	        for(let j = 0 ;j < this.listWolf.length; j++){
 	        	let wolfDist = this.calcDist(this.listWolf[j].x,this.listWolf[j].y,this.listSheep[i].x,this.listSheep[i].y);
 		        if(wolfDist<=this.wolfSheepDistance){
@@ -218,10 +220,12 @@ class GameEngine{
 		//wolf
 		for(let i = 0 ;i < this.listWolf.length; i++){
 			this.wall(this.listWolf[i]);
-        	
-			if(this.calcDist(this.dog.x,this.dog.y,this.listWolf[i].x,this.listWolf[i].y)<100){
-				this.listWolf[i].flee(this.dog.x,this.dog.y);
-				this.listWolf[i].goto();
+			if(this.calcDist(this.dog.x,this.dog.y,this.listWolf[i].x,this.listWolf[i].y)<50){
+				this.listWolf[i].hp--;
+				if(this.listWolf[i].hp<0){
+					this.listWolf.splice(i,1);
+		        	this.score+=50;
+	        	}
 			}
 			else{
 				this.nextSheep(this.listWolf[i]);
@@ -275,7 +279,7 @@ class GameEngine{
 		this.ctx.fillText('caugth ' +this.safeSheeps + ' / missing ' +this.listSheep.length+' / total '+ this.totalSheeps,400,30);
 		this.ctx.fillText('Time Bonus: ' +this.timeBonus,5,60);
 
-		this.ctx.drawImage(this.images[20],0,780,this.framecounter*800/160,50);
+		this.ctx.drawImage(this.images[20],0,780,this.framecounter*800/this.barkReload,50);
 		
 	}
 
@@ -310,7 +314,7 @@ class GameEngine{
 	}
 
 	wall(sheep){
-		if(sheep.x<10+sheep.width/2 && (sheep.y>=500 || sheep.y<=300)){
+		if(sheep.x<10+sheep.width/2 && (sheep.y>=500+sheep.height/2 || sheep.y<=300+sheep.height/2)){
 			sheep.x+=sheep.maxSpeed;
 			sheep.reset();
 			sheep.runCounter=0;
@@ -426,28 +430,28 @@ class GameEngine{
 		switch(n){
 			case(1):
 				//y 0 a -800   x 0  a 800
-				x = Math.random()*800;
-				y = Math.random()*800 * (-1);
+				x = Math.random()*this.width;
+				y = Math.random()*this.height * (-1);
 				break;
 			case(2):
 				//y 0 a -800   x 800  a 1600
-				x = Math.random()*800 + 800;
-				y = Math.random()*800 * (-1);
+				x = Math.random()*this.width + this.width;
+				y = Math.random()*this.height * (-1);
 				break; 
 			case(3):
 				//y 0 a 800   x 800  a 1600
-				x = Math.random()*800 + 800;
-				y = Math.random()*800
+				x = Math.random()*this.width + this.width;
+				y = Math.random()*this.height
 				break; 
 			case(4):
 				//y 800 a 1600   x 800  a 1600
-				x = Math.random()*800 + 800;
-				y = Math.random()*800 + 800;
+				x = Math.random()*this.width + this.width;
+				y = Math.random()*this.height + this.height;
 				break; 
 			case(5):
 				//y 800 a 1600   x 0  a 800
-				x = Math.random()*800;
-				y = Math.random()*800 + 800;
+				x = Math.random()*this.width;
+				y = Math.random()*this.height + this.height;
 				break; 
 		}
 		this.listWolf.push(new Wolf(this.images[13],this.images[14],this.images[15],this.images[16],this.images[17],this.images[18],x,y));

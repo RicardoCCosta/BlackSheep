@@ -1,7 +1,7 @@
 "use strict";
 class Sheep extends Animal{
 	constructor(image1,image2,image3,image4,image5,image6,x,y){
-		super('sheep',0,10,400,400,50,50,1.5,image1,image2,image3,image4,image5,image6);
+		super('sheep',0,75,400,400,50,50,1.5,image1,image2,image3,image4,image5,image6);
 		this.x=x;
 		this.y=y;
 		this.frameRandom=0;
