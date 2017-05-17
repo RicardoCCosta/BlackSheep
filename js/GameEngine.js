@@ -28,6 +28,7 @@ class GameEngine{
 		this.timeBonus=1000;
 		this.musicOn = true;
 		this.soundOn = true;
+		this.mouseDown=false;
 	}
 
 	setCtx(){
@@ -278,7 +279,7 @@ class GameEngine{
 		this.ctx.rect(10,0,5,300);
 		this.ctx.rect(10,500,5,300);
 		this.ctx.fillText('Score: ' + this.score,5,30);
-		this.ctx.fillText('caugth ' +this.safeSheeps + ' / missing ' +this.listSheep.length+' / total '+ this.totalSheeps,400,30);
+		this.ctx.fillText('Caught ' +this.safeSheeps + ' / Missing ' +this.listSheep.length+' / Total '+ this.totalSheeps,400,30);
 
 		this.ctx.fillText('Time Bonus: ' +this.timeBonus,10,60);
 		this.ctx.fillText('Total Score: ' +this.totalScore,10,90);
@@ -396,6 +397,9 @@ class GameEngine{
 				}
 				this.totalSheeps = 5;
 				break;
+		}
+		for(let i =0 ; i<this.listSheep.length;i++){
+			this.listSheep[i].reset();
 		}
 	}
 
@@ -541,10 +545,6 @@ class GameEngine{
 					this.listMusics[2].play();	
 				}
 				if(x>=315 && x<=485 && y>=560 && y<=618){
-					this.stage = "menuScores";
-					this.listMusics[3].play();
-				}
-				if(x>=579 && x<=702 && y>=566 && y<=624){
 					this.stage = "help1";
 				}
 				if(x>=0 && x<=0 && y>=0 && y<=0){ 
