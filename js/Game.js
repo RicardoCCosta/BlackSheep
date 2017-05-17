@@ -106,7 +106,7 @@ function main(){
 	audioChoose.src="musics/choose.wav"; //      3    sound
 	audioWalk.src="musics/walk.wav";//  4             sound
 	soundSheep.src="musics/meee.mp3";       //   5    sound
-	gameOver.src="musics/gameOver1.wav";//       6    sound
+	gameOver.src="musics/gameOver2.wav";//       6    sound
 	audioDog.src="musics/dogSound1.mp3"; //       7    sound
 	audioSheepIn.src="musics/sheepIn.wav";   //  8    sound
 	audioSheepOut.src="musics/sheepOut2.wav"; //9    sound
