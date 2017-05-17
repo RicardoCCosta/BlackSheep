@@ -277,7 +277,7 @@ class GameEngine{
 		//draw User Interface
 		this.ctx.rect(10,0,5,300);
 		this.ctx.rect(10,500,5,300);
-		this.ctx.fillText('Score: ' + this.score,5,30);
+		this.ctx.fillText('Score: ' + this.score,10,30);
 		this.ctx.fillText('caugth ' +this.safeSheeps + ' / missing ' +this.listSheep.length+' / total '+ this.totalSheeps,400,30);
 
 		this.ctx.fillText('Time Bonus: ' +this.timeBonus,10,60);
