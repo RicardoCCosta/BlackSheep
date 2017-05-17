@@ -607,9 +607,10 @@ class GameEngine{
 			case("menuCredits"):
 				if(x>293 && x<504 && y>592 && y<630){
 					this.listMusics[3].play();
-					this.stage="menuMain";
 					this.listMusics[2].pause();
 					this.listMusics[0].play();
+					this.stage="menuMain";
+					
 				}
 				
 				break;
@@ -622,6 +623,7 @@ class GameEngine{
 			case("gameOver1"):
 				if(x>209&&x<589&&y>340&&y<404){
 					this.listMusics[0].pause();
+					this.listMusics[3].play();
 					this.start(this.level+1);
 					
 				}
@@ -632,8 +634,10 @@ class GameEngine{
 				break;
 			case("gameOver2"):
 				if(x>209&&x<589&&y>340&&y<404){
-					this.start(this.level);
 					this.listMusics[0].pause();
+					this.listMusics[3].play();
+					this.start(this.level);
+					
 				}
 				if(x>208&&x<593&&y>512&&y<578){
 					this.listMusics[3].play();
@@ -642,6 +646,7 @@ class GameEngine{
 				break;
 			case("pause"):
 				if(x>209&&x<589&&y>340&&y<404){
+					this.listMusics[3].play();
 					this.stage="game";
 				}
 				if(x>208&&x<593&&y>512&&y<578){
