@@ -491,6 +491,7 @@ class GameEngine{
 		console.log(this.stage);
 		switch(this.stage){
 			case("menuMain"):
+				this.listMusics[0].loop=true;
 				this.listMusics[0].play();
 				if(x>=344 && x<=456 && y>=288 && y<=348){
 					this.stage = "menuLevel";
