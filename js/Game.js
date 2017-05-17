@@ -255,7 +255,6 @@ function update(gameEngine){
 document.onmousedown = function(mouse){
 	var x = mouse.clientX - document.getElementById('ctx').getBoundingClientRect().left;
 	var y = mouse.clientY - document.getElementById('ctx').getBoundingClientRect().top;
-	console.log(x+" "+y);
 	switch(gameEngine.stage){
 		case("load"):
 			break;
