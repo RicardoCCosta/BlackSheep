@@ -58,7 +58,7 @@ class GameEngine{
 		this.generateSheep(level);
 		this.generateWolf(level);
 				
-		this.timeBonus=1000;
+		this.timeBonus=2000;
 		this.stage="game";
 	}
 
@@ -614,9 +614,10 @@ class GameEngine{
 				break;
 			case("gameOver1"):
 				if(x>209&&x<589&&y>340&&y<404){
-					if(this.level==6)
+					if(this.level==6){
 						this.level=0;
-					this.start(this.level+1);
+						this.totalScore=0;
+					}
 					this.listMusics[0].pause();
 					this.listMusics[3].play();
 					this.start(this.level+1);
