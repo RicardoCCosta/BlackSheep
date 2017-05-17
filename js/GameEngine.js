@@ -1,7 +1,7 @@
 "use strict";
 class GameEngine{
 	constructor(){
-		this.unlockedLevels=3;
+		this.unlockedLevels=1;
 		this.stage = "load";
 		this.score = 0;
 		this.totalScore = 0;
@@ -60,6 +60,7 @@ class GameEngine{
 				
 		this.timeBonus=2000;
 		this.stage="game";
+		this.level=this.unlockedLevels;
 	}
 
 	click(x,y){
