@@ -523,8 +523,9 @@ class GameEngine{
 	clickMenu(x,y){
 		switch(this.stage){
 			case("menuMain"):
-				this.listMusics[0].loop=true;
 				this.listMusics[0].play();
+				this.listMusics[0].loop=true;
+				
 				if(x>=344 && x<=456 && y>=288 && y<=348){
 					this.stage = "menuLevel";
 					this.listMusics[3].play();
@@ -620,8 +621,9 @@ class GameEngine{
 				break;
 			case("gameOver1"):
 				if(x>209&&x<589&&y>340&&y<404){
-					this.start(this.level+1);
 					this.listMusics[0].pause();
+					this.start(this.level+1);
+					
 				}
 				if(x>208&&x<593&&y>512&&y<578){
 					this.listMusics[3].play();
@@ -643,7 +645,10 @@ class GameEngine{
 					this.stage="game";
 				}
 				if(x>208&&x<593&&y>512&&y<578){
+					this.listMusics[1].pause();
+					this.listMusics[5].pause();
 					this.listMusics[3].play();
+					this.listMusics[0].play();
 					this.stage="menuMain";
 				}
 				break;
