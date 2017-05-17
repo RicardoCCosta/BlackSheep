@@ -99,7 +99,6 @@ class Animal{
 	}
 
 	update(x,y){
-		console.log("2");
 		if(this.runCounter>0){
 			this.runCounter--;
 			this.x += this.vx;

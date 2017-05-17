@@ -36,7 +36,7 @@ class GameEngine{
 	start(level){
 		//MUSIC
 		this.score=0;
-		this.caugth=0;
+		this.safeSheeps=0;
 		this.listSheep = [];
 		this.listWolf = [];
 		this.soundOn = true;
@@ -144,7 +144,7 @@ class GameEngine{
 		}
 		//ver lobos perto
 		for(let i = 0 ;i < this.listWolf.length; i++){
-			if(this.calcDist(this.dog.x,this.dog.y,this.listWord[i].x),this.listWolf[i].y<200){
+			if(this.calcDist(this.dog.x,this.dog.y,this.listWolf[i].x),this.listWolf[i].y<200){
 				this.listWolf[i].run(this.dog.x,this.dog.y);
 			}
 		}
@@ -153,10 +153,14 @@ class GameEngine{
 	}
 
 	update(){
-		this.timeBonus--;
-		this.framecounter++;
 		if(this.listSheep.length==0)
 			this.endGame();
+		if(this.timeBonus>0){
+			this.timeBonus--;
+		}
+		if(this.framecounter<30){
+			this.framecounter
+		}
 		//dog
 		this.dog.update(this.mx,this.my);
 		//sheep
@@ -470,7 +474,6 @@ class GameEngine{
 				this.ctx.drawImage(this.menuImages[5],0,0,this.menuImages[5].width,this.menuImages[5].height,0,0,800,800);
 				break;
 			case("help1"):
-				console.log("coise");
 				this.ctx.drawImage(this.menuImages[6],0,0,this.menuImages[6].width,this.menuImages[6].height,0,0,800,800);
 				break;
 			case("help2"):
@@ -496,7 +499,6 @@ class GameEngine{
 	}
 
 	clickMenu(x,y){
-		console.log(this.stage);
 		switch(this.stage){
 			case("menuMain"):
 				this.listMusics[0].loop=true;
@@ -544,13 +546,11 @@ class GameEngine{
 				}
 				break;
 			case("menuLevel"):
-				console.log(this.stage);
 				if(x>=266 && x<=295 && y>=331 && y<=394){
 					this.listMusics[3].play();
 					this.start(1);
 				}
 				else if(x>=382 && x<=416 && y>=331 && y<=394){
-					console.log(this.unlockedLevels+" "+2);
 					if(this.unlockedLevels>1){
 						this.listMusics[3].play();
 						this.start(2);
@@ -586,7 +586,6 @@ class GameEngine{
 				}
 				break;
 			case("menuCredits"):
-				console.log("here");
 				if(x>294&&x<500&&y>630&&y<670){
 					this.listMusics[3].play();
 					this.stage="menuMain";

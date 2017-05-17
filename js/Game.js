@@ -237,7 +237,6 @@ function update(gameEngine){
 }
 
 document.onmousedown = function(mouse){
-	console.log(gameEngine.stage+" "+mouse.which);
 	var x = mouse.clientX - document.getElementById('ctx').getBoundingClientRect().left;
 	var y = mouse.clientY - document.getElementById('ctx').getBoundingClientRect().top;
 	console.log(x+" "+y);
@@ -265,7 +264,6 @@ document.onmousedown = function(mouse){
 			break;
 		case("pause"):
 			if(mouse.which == 3){
-				console.log("un pause");
 				gameEngine.stage="game";
 			}else{
 				gameEngine.clickMenu(x,y);
