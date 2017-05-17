@@ -138,6 +138,7 @@ class GameEngine{
 	bark(){
 		//animação
 		//SOM
+		this.listMusics[7].play();
 		this.framecounter=0;
 		//ver ovelhas perto
 		for(let i = 0 ;i < this.listSheep.length; i++){
@@ -520,8 +521,9 @@ class GameEngine{
 		console.log(x+' '+y);
 		switch(this.stage){
 			case("menuMain"):
-				this.listMusics[0].loop=true;
 				this.listMusics[0].play();
+				this.listMusics[0].loop=true;
+				
 				if(x>=344 && x<=456 && y>=288 && y<=348){
 					this.stage = "menuLevel";
 					this.listMusics[3].play();
@@ -603,9 +605,10 @@ class GameEngine{
 			case("menuCredits"):
 				if(x>293 && x<504 && y>592 && y<630){
 					this.listMusics[3].play();
-					this.stage="menuMain";
 					this.listMusics[2].pause();
 					this.listMusics[0].play();
+					this.stage="menuMain";
+					
 				}
 				
 				break;
@@ -615,6 +618,9 @@ class GameEngine{
 						this.level=0;
 					this.start(this.level+1);
 					this.listMusics[0].pause();
+					this.listMusics[3].play();
+					this.start(this.level+1);
+					
 				}
 				if(x>208&&x<593&&y>512&&y<578){
 					this.listMusics[3].play();
@@ -623,8 +629,10 @@ class GameEngine{
 				break;
 			case("gameOver2"):
 				if(x>209&&x<589&&y>340&&y<404){
-					this.start(this.level);
 					this.listMusics[0].pause();
+					this.listMusics[3].play();
+					this.start(this.level);
+					
 				}
 				if(x>208&&x<593&&y>512&&y<578){
 					this.listMusics[3].play();
@@ -633,10 +641,14 @@ class GameEngine{
 				break;
 			case("pause"):
 				if(x>209&&x<589&&y>340&&y<404){
+					this.listMusics[3].play();
 					this.stage="game";
 				}
 				if(x>208&&x<593&&y>512&&y<578){
+					this.listMusics[1].pause();
+					this.listMusics[5].pause();
 					this.listMusics[3].play();
+					this.listMusics[0].play();
 					this.stage="menuMain";
 				}
 				break;
