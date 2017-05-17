@@ -67,7 +67,7 @@ class GameEngine{
 		//mute sounds
 		this.muteSounds(x,y);
 
-		if(this.framecounter>20){
+		if(this.framecounter>=30){
 			this.bark();
 			this.framecounter=0;
 		}
@@ -153,13 +153,14 @@ class GameEngine{
 	}
 
 	update(){
+		console.log("bark counter " + this.framecounter);
 		if(this.listSheep.length==0)
 			this.endGame();
 		if(this.timeBonus>0){
 			this.timeBonus--;
 		}
 		if(this.framecounter<30){
-			this.framecounter
+			this.framecounter++;
 		}
 		//dog
 		this.dog.update(this.mx,this.my);

@@ -22,6 +22,8 @@ class Animal{
 	}
 
 	draw(ctx){
+		console.log("animal counter" + this.frameCounter);
+		this.frameCounter++;
 		ctx.save();
 			let posX = this.x - this.width/2;
 			let posY = this.y - this.height/2;
