@@ -28,7 +28,6 @@ class GameEngine{
 		this.timeBonus=1000;
 		this.musicOn = true;
 		this.soundOn = true;
-		this.barkReload=160;
 	}
 
 	setCtx(){
@@ -69,19 +68,19 @@ class GameEngine{
 		//mute sounds
 		this.muteSounds(x,y);
 
-		if(this.doublecounter<=10&&this.framecounter>=this.barkReload){
+		if(this.doublecounter<=10&&this.framecounter>=160){
 			this.bark();
 		}
-		if(x>this.width-this.dog.width/2){
-			this.mx = this.width-this.dog.width/2;
+		if(x>800-this.dog.width/2){
+			this.mx = 800-this.dog.width/2;
 		}else if(x<0+this.dog.width/2){
 			this.mx = 0+this.dog.width/2;
 		}else{
 			this.mx=x;
 		}
 
-		if(y>this.height-this.dog.height/2){
-			this.my = this.height-this.dog.height/2;
+		if(y>800-this.dog.height/2){
+			this.my = 800-this.dog.height/2;
 		}else if(y<0+this.dog.height/2){
 			this.my = 0+this.dog.width/2;
 		}else{
@@ -162,7 +161,7 @@ class GameEngine{
 		if(this.timeBonus>0){
 			this.timeBonus--;
 		}
-		if(this.framecounter<this.barkReload){
+		if(this.framecounter<160){
 			this.framecounter++;
 		}
 		//dog
@@ -280,11 +279,11 @@ class GameEngine{
 		this.ctx.rect(10,500,5,300);
 		this.ctx.fillText('Score: ' + this.score,5,30);
 		this.ctx.fillText('caugth ' +this.safeSheeps + ' / missing ' +this.listSheep.length+' / total '+ this.totalSheeps,400,30);
+
 		this.ctx.fillText('Time Bonus: ' +this.timeBonus,10,60);
 		this.ctx.fillText('Total Score: ' +this.totalScore,10,90);
 		this.ctx.fillText('Level ' +this.level,10,120);
-		this.ctx.drawImage(this.images[20],0,780,this.framecounter*800/this.barkReload,50);
-
+		this.ctx.drawImage(this.images[20],0,780,this.framecounter*800/160,50);
 	}
 
 	isOut(x,y){
@@ -318,7 +317,7 @@ class GameEngine{
 	}
 
 	wall(sheep){
-		if(sheep.x<10+sheep.width/2 && (sheep.y>=500+sheep.height/2 || sheep.y<=300+sheep.height/2)){
+		if(sheep.x<10+sheep.width/2 && (sheep.y>=500 || sheep.y<=300)){
 			sheep.x+=sheep.maxSpeed;
 			sheep.reset();
 			sheep.runCounter=0;
@@ -434,28 +433,28 @@ class GameEngine{
 		switch(n){
 			case(1):
 				//y 0 a -800   x 0  a 800
-				x = Math.random()*this.width;
-				y = Math.random()*this.height * (-1);
+				x = Math.random()*800;
+				y = Math.random()*800 * (-1);
 				break;
 			case(2):
 				//y 0 a -800   x 800  a 1600
-				x = Math.random()*this.width + this.width;
-				y = Math.random()*this.height * (-1);
+				x = Math.random()*800 + 800;
+				y = Math.random()*800 * (-1);
 				break; 
 			case(3):
 				//y 0 a 800   x 800  a 1600
-				x = Math.random()*this.width + this.width;
-				y = Math.random()*this.height
+				x = Math.random()*800 + 800;
+				y = Math.random()*800
 				break; 
 			case(4):
 				//y 800 a 1600   x 800  a 1600
-				x = Math.random()*this.width + this.width;
-				y = Math.random()*this.height + this.height;
+				x = Math.random()*800 + 800;
+				y = Math.random()*800 + 800;
 				break; 
 			case(5):
 				//y 800 a 1600   x 0  a 800
-				x = Math.random()*this.width;
-				y = Math.random()*this.height + this.height;
+				x = Math.random()*800;
+				y = Math.random()*800 + 800;
 				break; 
 		}
 		this.listWolf.push(new Wolf(this.images[13],this.images[14],this.images[15],this.images[16],this.images[17],this.images[18],x,y));
