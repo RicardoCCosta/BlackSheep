@@ -138,6 +138,7 @@ class GameEngine{
 	bark(){
 		//animação
 		//SOM
+		this.listMusics[7].play();
 		this.framecounter=0;
 		//ver ovelhas perto
 		for(let i = 0 ;i < this.listSheep.length; i++){
