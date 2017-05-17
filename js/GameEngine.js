@@ -477,9 +477,6 @@ class GameEngine{
 			case("menuCredits"):
 				this.ctx.drawImage(this.menuImages[3],0,0,this.menuImages[3].width,this.menuImages[3].height,0,0,800,800);
 				break;
-			case("menuScores"):
-				this.ctx.drawImage(this.menuImages[4],0,0,this.menuImages[4].width,this.menuImages[4].height,0,0,800,800);
-				break;
 			case("menuLevel"):
 				if(this.level==1)
 					this.ctx.drawImage(this.menuImages[5],0,0,this.menuImages[5].width,this.menuImages[5].height,0,0,800,800);
@@ -520,6 +517,7 @@ class GameEngine{
 	}
 
 	clickMenu(x,y){
+		console.log(x+' '+y);
 		switch(this.stage){
 			case("menuMain"):
 				this.listMusics[0].loop=true;
@@ -538,7 +536,7 @@ class GameEngine{
 					this.stage = "menuCredits";
 					this.listMusics[2].play();	
 				}
-				if(x>=315 && x<=485 && y>=560 && y<=618){
+				if(x>=343 && x<=457 && y>=530 && y<=578){
 					this.stage = "help1";
 				}
 				if(x>=0 && x<=0 && y>=0 && y<=0){ 
@@ -611,14 +609,10 @@ class GameEngine{
 				}
 				
 				break;
-			case("menuScores"):
-				if(x>292&&x<508&&y>593&&y<627){
-					this.listMusics[3].play();
-					this.stage="menuMain";
-				}
-				break;
 			case("gameOver1"):
 				if(x>209&&x<589&&y>340&&y<404){
+					if(this.level==6)
+						this.level=0;
 					this.start(this.level+1);
 					this.listMusics[0].pause();
 				}
