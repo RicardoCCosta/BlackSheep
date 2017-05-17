@@ -18,10 +18,10 @@ class Animal{
 		this.image6 = image6;
 		this.running = false;
 		this.frameCounter=0;
+		this.runCounter=0;
 	}
 
 	draw(ctx){
-		
 		ctx.save();
 			let posX = this.x - this.width/2;
 			let posY = this.y - this.height/2;
@@ -83,13 +83,29 @@ class Animal{
 			this.y += dify;
 		}
 	}
-	run(Dog){ 	//activado quando o ção ladra 
-			//o lobo é suposto correr X tempo numa direção
-			//ter cuidado com os limites do mapa e vedação
+	run(x,y){
+		runCounter=30;
+		var difx = x - this.x;
+		var dify = y - this.y;
+		var mod = Math.sqrt(Math.pow(difx,2)+Math.pow(dify,2));
+		this.vx = difx / mod * this.maxSpeed;
+		this.vy = dify / mod * this.maxSpeed;
+		if(isNaN(this.vx)){
+			this.vx=0;
+		}
+		if(isNaN(this.vy)){
+			this.vy=0;
+		}
 	}
 
 	update(x,y){
-		this.frameCounter++;
+		console.log("2");
+		if(this.runCounter>0){
+			this.runCounter--;
+			this.x += this.vx;
+			this.y += this.vy;
+		}
+
 		var difx = x - this.x;
 		var dify = y - this.y;
 		var mod = Math.sqrt(Math.pow(difx,2)+Math.pow(dify,2));

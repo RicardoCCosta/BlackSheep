@@ -33,6 +33,8 @@ class GameEngine{
 	}
 	start(level){
 		//MUSIC
+		this.score=0;
+		this.caugth=0;
 		this.listSheep = [];
 		this.listWolf = [];
 		this.listMusics[1].loop=true;
@@ -104,12 +106,18 @@ class GameEngine{
 
 		//ver ovelhas perto
 		for(let i = 0 ;i < this.listSheep.length; i++){
-
+			if(this.calcDist(this.dog.x,this.dog.y,this.listSheep[i].x),this.listSheep[i].y){
+				this.listSheep[i].run(this.dog.x,this.dog.y);
+			}
 		}
 		//ver lobos perto
 		for(let i = 0 ;i < this.listWolf.length; i++){
-
+			if(this.calcDist(this.dog.x,this.dog.y,this.listWord[i].x),this.listWolf[i].y){
+				this.listWolf[i].run(this.dog.x,this.dog.y);
+			}
 		}
+		this.ctx.save();
+		this.ctx.arc(this.dog.x, this.dog.y, 200, 0, 2 * Math.PI, false);
 	}
 
 	update(){
@@ -161,7 +169,7 @@ class GameEngine{
 
         	}
 
-        	if(flagIdle && dist<200){
+        	if(flagIdle && dist<100){
         		flagIdle=false;
         		this.listSheep[i].reset();
         		this.listSheep[i].flee(this.dog.x,this.dog.y);
@@ -173,7 +181,7 @@ class GameEngine{
 		for(let i = 0 ;i < this.listWolf.length; i++){
 			this.wall(this.listWolf[i]);
         	
-			if(this.calcDist(this.dog.x,this.dog.y,this.listWolf[i].x,this.listWolf[i].y)<200){
+			if(this.calcDist(this.dog.x,this.dog.y,this.listWolf[i].x,this.listWolf[i].y)<100){
 				this.listWolf[i].flee(this.dog.x,this.dog.y);
 				this.listWolf[i].goto();
 			}
@@ -412,14 +420,14 @@ class GameEngine{
 			case("menuLevel"):
 				this.ctx.drawImage(this.menuImages[5],0,0,this.menuImages[5].width,this.menuImages[5].height,0,0,800,800);
 				break;
-			case("help1"): //CATARINAAAAAAAAAAAA
+			case("help1"):
 				console.log("coise");
 				this.ctx.drawImage(this.menuImages[6],0,0,this.menuImages[6].width,this.menuImages[6].height,0,0,800,800);
 				break;
-			case("help2"): //CATARINAAAAAAAAAAAA
+			case("help2"):
 				this.ctx.drawImage(this.menuImages[7],0,0,this.menuImages[7].width,this.menuImages[7].height,0,0,800,800);
 				break;
-			case("help3"): //CATARINAAAAAAAAAAAA
+			case("help3"):
 				this.ctx.drawImage(this.menuImages[8],0,0,this.menuImages[8].width,this.menuImages[8].height,0,0,800,800);
 				break;
 			case("gameOver1"):
