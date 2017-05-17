@@ -109,7 +109,7 @@ class GameEngine{
 	}
 
 	endGame(){
-		if(this.safeSheeps>(this.totalSheeps/2)){
+		if(this.safeSheeps>=(this.totalSheeps/2)){
 			if(this.unlockedLevels<this.level+1){
 				this.unlockedLevels = this.level+1;
 			}
@@ -223,14 +223,9 @@ class GameEngine{
 		//wolf
 		for(let i = 0 ;i < this.listWolf.length; i++){
 			this.wall(this.listWolf[i]);
-			if(this.calcDist(this.dog.x,this.dog.y,this.listWolf[i].x,this.listWolf[i].y)<50){
-				this.listWolf[i].hp--;
-				if(this.listWolf[i].hp<0){
-					this.listWolf.splice(i,1);
-		        	this.score+=50;
-	        	}
-			}
-			else{
+			if(this.calcDist(this.dog.x,this.dog.y,this.listWolf[i].x,this.listWolf[i].y)<75){
+				this.listWolf[i].flee(this.dog.x,this.dog.y);
+			}else{
 				this.nextSheep(this.listWolf[i]);
 			}
         	//ignora distancia ao cao para ja, criar um metodo que continue a ir para a ovelha mas desviado???
