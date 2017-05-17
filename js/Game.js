@@ -238,6 +238,7 @@ function update(gameEngine){
 			gameEngine.update();
 			gameEngine.draw();
 			break;
+			
 		case("pause"):
 			gameEngine.draw();
 			gameEngine.drawMenu();
@@ -287,9 +288,36 @@ document.onmousedown = function(mouse){
 		default:
 			gameEngine.clickMenu(x,y);
 			break;
+	}
+	gameEngine.mouseDown=true;
+}
+document.onmouseup = function(mouse){
+	gameEngine.mouseDown=false;
+}
 
+document.onmousemove = function(mouse){
+	if(gameEngine.mouseDown){
+		gameEngine.mx = mouse.clientX - document.getElementById('ctx').getBoundingClientRect().left;
+		gameEngine.my = mouse.clientY - document.getElementById('ctx').getBoundingClientRect().top;
 	}
 }
+
+document.onkeydown = function(mouse){
+	if (gameEngine.stage=="game"){
+		gameEngine.mx = gameEngine.dog.x;
+		gameEngine.my = gameEngine.dog.y;
+		
+		switch(mouse.keyCode){
+			case(27):
+				if(gameEngine.stage=="pause"){
+					gameEngine.stage = "game";
+				}else if(gameEngine.stage=="game"){
+					gameEngine.stage = "pause";
+				}
+	    }
+	}
+}
+
 document.oncontextmenu = function(mouse){
 	mouse.preventDefault();
 }

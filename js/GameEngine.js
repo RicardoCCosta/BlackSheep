@@ -253,15 +253,6 @@ class GameEngine{
 			this.ctx.stroke();
 			this.ctx.restore();
 		}
-		//draw buttons
-		if(this.musicOn)
-			this.ctx.drawImage(this.menuImages[13],650,50,40,40);
-		else
-			this.ctx.drawImage(this.menuImages[12],650,50,40,40);
-		if(this.soundOn)
-			this.ctx.drawImage(this.menuImages[15],700,50,40,40);
-		else
-			this.ctx.drawImage(this.menuImages[14],700,50,40,40);
 
 		//draw sheep
 		for(let i = 0 ;i < this.listSheep.length; i++){
@@ -275,6 +266,15 @@ class GameEngine{
 
 		//draw dog
 		this.dog.draw(this.ctx);
+		//draw buttons
+		if(this.musicOn)
+			this.ctx.drawImage(this.menuImages[13],650,50,40,40);
+		else
+			this.ctx.drawImage(this.menuImages[12],650,50,40,40);
+		if(this.soundOn)
+			this.ctx.drawImage(this.menuImages[15],700,50,40,40);
+		else
+			this.ctx.drawImage(this.menuImages[14],700,50,40,40);
 		//draw User Interface
 		this.ctx.rect(10,0,5,300);
 		this.ctx.rect(10,500,5,300);
@@ -630,7 +630,6 @@ class GameEngine{
 				if(x>208&&x<593&&y>512&&y<578){
 					this.listMusics[3].play();
 					this.stage="menuMain";
-					this.highscores();
 				}
 				break;
 			case("gameOver2"):
@@ -641,7 +640,6 @@ class GameEngine{
 				if(x>208&&x<593&&y>512&&y<578){
 					this.listMusics[3].play();
 					this.stage="menuMain";
-					this.highscores();
 				}
 				break;
 			case("pause"):
@@ -651,7 +649,6 @@ class GameEngine{
 				if(x>208&&x<593&&y>512&&y<578){
 					this.listMusics[3].play();
 					this.stage="menuMain";
-					this.highscores();
 				}
 				break;
 		}
@@ -669,58 +666,4 @@ class GameEngine{
 			this.listMusics[i].volume = music;
 		}
 	}
-
-	highscores(){
-		//le de ficheiro os 5 highscores e poe no array
-		//compara com o this.totalScore se < escreve totalScore no ficheiro
-		this.arrayScores = [];
-		var scoresFile = new File([""],"highscores.txt");
-		var linha = "";
-		var pontuacao;
-		var flag;
-		scoresFile.open("r");
-		while(!scoresFile.eof){
-			flag = false
-			linha += scoresFile.readln();
-			pontuacao = parseInt(linha);
-			if(this.arrayScores.length==0)
-				this.arrayScores.push(pontuacao);
-			else{
-				for(let i=0;i<this.arrayScores.length;i++){
-					if(this.arrayScores[i]<pontuacao){
-						flag=true;
-						var temp = this.arrayScores[i];
-						this.arrayScores[i]=pontuacao;
-						this.recursiva(temp,this.arrayScores,i+1);
-					}
-				}
-				if(flag==false && arrayScores.length<5){
-					this.arrayScores.push(pontuacao);
-				}
-			}
-		}
-		scoresFile.close();
-		console.log('1º: '+this.arrayScores[0]);
-		console.log('2º: '+this.arrayScores[1]);
-		console.log('3º: '+this.arrayScores[2]);
-		console.log('4º: '+this.arrayScores[3]);
-		console.log('5º: '+this.arrayScores[4]);
-	}
-	recursiva(temp,array,j){
-		var flag = false;
-		for(let i=j;i<array.length;i++){
-			if(array[i]<temp){
-				flag=true;
-				var aux = array[i];
-				array[i]=temp;
-				this.recursiva(aux,array,i+1);
-			}
-		}
-		if(flag==false && arrayScores.length<5){
-			array.push(pontuacao);
-		}
-	}
-	//primeira mete
-	//segunda ate ao fim vai comparando e pondo
-	//a partir da quinta nao insere, so troca com o pior
 }
